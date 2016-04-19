@@ -10,7 +10,6 @@
  */
 Vehicle::Vehicle()
 {
-    cout << "vehicle constructor" << endl;
     make = NULL;
     model = NULL;
     license = NULL;
@@ -21,7 +20,6 @@ Vehicle::Vehicle()
  */
 Vehicle::Vehicle(const Vehicle &vehicle)
 {
-    cout << "Vehicle copy constructor" << endl;
     int model_l = strlen(vehicle.model);
     int make_l = strlen(vehicle.make);
     int license_l = strlen(vehicle.license);
@@ -39,7 +37,8 @@ Vehicle::Vehicle(const Vehicle &vehicle)
    @desc:
  */
 Vehicle::~Vehicle()
-{
+{   
+    cout << "vehicle destructor" << endl;
     if(make)
     {
         delete make;
@@ -113,17 +112,14 @@ void Vehicle::display()
  */
 V_node::V_node()
 {
-    cout << "V_node constructor" << endl;
     next = NULL;
 }
 
 /*
-//TODO COPY CONSTRUCTOR?
-@desc: Copy constructor
- */
+    @desc: Copy constructor
+*/
 V_node::V_node(const V_node &v_node) : Vehicle(v_node)
 {
-    cout << " Vnode copy constructor" << endl;
     next = v_node.next;
 }
 
@@ -133,14 +129,8 @@ V_node::V_node(const V_node &v_node) : Vehicle(v_node)
  */
 V_node::~V_node()
 {
-    /*
-    if(next)
-    {
-        delete next;
-        next = NULL;
-    }
-    */
     next = NULL;
+    cout << "V node destructor" << endl;
 }
 
 /*
@@ -221,10 +211,6 @@ V_manager::V_manager()
         table[i] = NULL;
     }
     
-    s_tail = table[0];
-    p_tail = table[1];
-    g_tail = table[2];
-
     file_read();
 }
 
@@ -270,7 +256,6 @@ void V_manager::file_read()
             delete [] ptr2;
             delete [] ptr3;
             delete [] ptr4;
-
             file_in.peek();
         }    
     }
@@ -288,16 +273,15 @@ void V_manager::insert_vehicle(char * index, V_node * &source)
     {
         if(!table[0])
         {
-            s_tail = source;
-            table[0] = s_tail;
-            s_tail->set_next(s_tail);
+            table[0] = source;
+            table[0]->set_next(table[0]);
             return;
         }
 
         V_node * temp = source;
-        temp->set_next(s_tail->go_next());
-        s_tail->set_next(temp);
-        s_tail = temp;
+        temp->set_next(table[0]->go_next());
+        table[0]->set_next(temp);
+        table[0] = temp;
         return;
     }
 
@@ -305,16 +289,15 @@ void V_manager::insert_vehicle(char * index, V_node * &source)
     {
         if(!table[1])
         {
-            p_tail = source;
-            table[1] = p_tail;
-            p_tail->set_next(p_tail);
+            table[1] = source;
+            table[1]->set_next(table[1]);
             return;
         }
 
         V_node * temp = source;
-        temp->set_next(p_tail->go_next());
-        p_tail->set_next(temp);
-        p_tail = temp;
+        temp->set_next(table[1]->go_next());
+        table[1]->set_next(temp);
+        table[1] = temp;
         return;
     }
 
@@ -322,16 +305,15 @@ void V_manager::insert_vehicle(char * index, V_node * &source)
     {
         if(!table[2])
         {
-            g_tail = source;
-            table[2] = g_tail;
-            g_tail->set_next(g_tail);
+            table[2] = source;
+            table[2]->set_next(table[2]);
             return;
         }
 
         V_node * temp = source;
-        temp->set_next(g_tail->go_next());
-        g_tail->set_next(temp);
-        g_tail = temp;
+        temp->set_next(table[2]->go_next());
+        table[2]->set_next(temp);
+        table[2] = temp;
         return;
     }
 }
@@ -340,7 +322,7 @@ void V_manager::insert_vehicle(char * index, V_node * &source)
    @desc:
  */
 void V_manager::display_all()
-{
+{   
     display_standard();
     display_premium();
     display_group();
@@ -354,12 +336,11 @@ void V_manager::display_standard()
 {
     if(!table[0]) return;
 
-    V_node * current = table[0];
+    cout << "displaying 1" << endl;
+    V_node * head = table[0]->go_next();
+    V_node * current = head;
 
-    if(s_tail)
-    {
-        s_tail->set_next(NULL);
-    }
+    table[0]->set_next(NULL);
 
     while(current)
     {
@@ -367,7 +348,7 @@ void V_manager::display_standard()
         current = current->go_next();
     }
 
-    s_tail->set_next(table[0]);
+    table[0]->set_next(head);
 
     return;
 }
@@ -379,12 +360,11 @@ void V_manager::display_premium()
 {
     if(!table[1]) return;
 
-    V_node * current = table[1];
+    cout << "displaying 2" << endl;
+    V_node * head = table[1];
+    V_node * current = head;
 
-    if(p_tail)
-    {
-        p_tail->set_next(NULL);
-    }
+    table[1]->set_next(NULL);
 
     while(current)
     {
@@ -392,7 +372,7 @@ void V_manager::display_premium()
         current = current->go_next();
     }
 
-    p_tail->set_next(table[1]);
+    table[1]->set_next(head);
 
     return;
 }
@@ -403,13 +383,11 @@ void V_manager::display_premium()
 void V_manager::display_group()
 {
     if(!table[2]) return;
-
+    cout << "displaying 3" << endl;
+    V_node * head = table[2];
     V_node * current = table[2];
 
-    if(g_tail)
-    {
-        g_tail->set_next(NULL);
-    }
+    table[2]->set_next(NULL);
 
     while(current)
     {
@@ -417,7 +395,7 @@ void V_manager::display_group()
         current = current->go_next();
     }
 
-    g_tail->set_next(table[2]);
+    table[2]->set_next(head);
 
     return;
 }
@@ -429,28 +407,40 @@ void V_manager::remove_vehicle(char * v_make, char * v_model)
 {
     int count = 0;
 
-    if(s_tail && count == 0)
+    if(table[0] && count == 0)
     {
-        V_node * head = s_tail->go_next();
-        s_tail->set_next(NULL);
-        count += remove_helper(head, v_make, v_model);
-        s_tail->set_next(table[0]);
-    } 
+        V_node * head = table[0]->go_next();
+        V_node * current = head;
+        table[0]->set_next(NULL);
+        count += remove_helper(head, current, v_make, v_model);
+        if(head)
+        {
+            table[0]->set_next(head);
+        }
+    }
 
-    if(p_tail && count == 0)
+    if(table[1] && count == 0)
     {
-        V_node * head = p_tail->go_next();
-        p_tail->set_next(NULL);
-        count += remove_helper(head, v_make, v_model);
-        p_tail->set_next(table[1]);
+        V_node * head = table[1]->go_next();
+        V_node * current = head;
+        table[1]->set_next(NULL);
+        count += remove_helper(head, current, v_make, v_model);
+        if(head)
+        {
+            table[1]->set_next(head);
+        }
     }    
 
-    if(g_tail && count == 0)
+    if(table[2] && count == 0)
     {
-        V_node * head = g_tail->go_next();
-        g_tail->set_next(NULL);
-        count += remove_helper(head, v_make, v_model);
-        g_tail->set_next(table[2]);
+        V_node * head = table[2]->go_next();
+        V_node * current = head;
+        table[2]->set_next(NULL);
+        count += remove_helper(head, current, v_make, v_model);
+        if(head)
+        {
+            table[2]->set_next(head);
+        }
     }    
 
     return;
@@ -459,77 +449,28 @@ void V_manager::remove_vehicle(char * v_make, char * v_model)
 /*
    @desc:
 */
-int V_manager::remove_helper(V_node * &head, char * v_make, char * v_model)
+int V_manager::remove_helper(V_node * &head, V_node * &current, char * v_make, 
+                             char * v_model)
 {
-    if(!head) return 0;
+    if(!current) return 0;
     
-    if(head->compare_make(v_make) && head->compare_model(v_model))
+    if(current->compare_make(v_make) && current->compare_model(v_model))
     {
-        V_node * temp = head;
-        head = head->go_next();
+        if(current == head)
+        {
+            head = head->go_next();    
+        }
+
+        V_node * temp = current;
+        current = current->go_next();
         delete temp;
         temp = NULL;
-        return 1 + remove_helper(head, v_make, v_model);
+        return 1 + remove_helper(head, current, v_make, v_model);
     }
-
-    return remove_helper(head, v_make, v_model);
+    
+    return remove_helper(head, current->go_next(), v_make, v_model);
 } 
 
-/*
-void V_manager::remove_vehicle(char * v_make, char * v_model)
-{
-    for(int i = 0; i < MAX; ++i)
-    {
-        V_node * current = table[i];
-
-        if(current)
-        {
-            if(i == 0)
-            {
-                s_tail->set_next(NULL);
-            }
-
-            if(i == 1)
-            {
-                p_tail->set_next(NULL);
-            }
-
-            if(i == 2)
-            {
-                g_tail->set_next(NULL);
-            }
-
-            while(current)
-            {
-                t_make = current->get_make();
-                t_model = current->get_model();
-                
-                if(strcmp(t_make, v_make) == 0 && strcmp(t_model, v_model == 0)
-                {
-                    V_node * temp = current->go_next();
-                    //TODO stopping point, redo this function with recursion
-                }
-
-            }
-
-            if(i == 0)
-            {
-                s_tail->set_next(table[i]);
-            }
-
-            if(i == 1)
-            {
-                p_tail->set_next(table[i]);
-            }
-
-            if(i == 2)
-            {
-                g_tail->set_next(table[i]);
-            }
-        }
-    }
-}
-*/
 
 /*
    @desc:
@@ -537,8 +478,31 @@ void V_manager::remove_vehicle(char * v_make, char * v_model)
 //TODO
 void V_manager::remove_all()
 {
-
+    for(int i = 0; i < MAX; ++i)
+    {
+        if(table[i])
+        {
+            //V_node * head = table[i]->go_next();
+            //table[i]->set_next(NULL);
+            remove_all_helper(table[i]);
+            //table[i] = NULL;
+        }
+    }   
 }
+
+void V_manager::remove_all_helper(V_node * &head)
+{
+    if(!head) return;
+    
+    V_node * temp = head->go_next();
+    head->set_next(NULL);
+    delete head;
+    head = NULL;
+
+    remove_all_helper(temp);
+    return;
+}
+
 
 
 

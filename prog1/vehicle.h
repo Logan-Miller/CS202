@@ -82,13 +82,12 @@ public:
     void display_premium();
     void display_group();
     void remove_vehicle(char * v_make, char * v_model);
-    int remove_helper(V_node * &head, char * v_make, char * v_model);
+    int remove_helper(V_node * &head, V_node * &current, char * v_make, 
+                      char * v_model);
+    void remove_all_helper(V_node * &head);
     void remove_all();
 protected:
     void file_read();
     V_node ** table;
-    V_node * s_tail;
-    V_node * p_tail;
-    V_node * g_tail;
     int MAX;
 };

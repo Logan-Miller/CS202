@@ -73,9 +73,17 @@ int main()
     char * temp2 = new char[20];
     strcpy(temp, "volkswagon");
     strcpy(temp2, "passat");
-    myTable.remove_vehicle(temp, temp2);
+    
+    cout << endl << endl << endl;
+    //myTable.remove_vehicle(temp, temp2);
+    
+    
     myTable.display_all();
 
+    cout << endl << endl;
+
+    myTable.remove_all();
+    myTable.display_all();
 
 //**********************************
     return 0;
