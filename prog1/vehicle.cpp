@@ -491,8 +491,7 @@ void V_manager::remove_all()
             V_node * head = table[i]->go_next();
             table[i]->set_next(NULL);
             remove_all_helper(head);
-            //TODO most likely causes a memory leak
-    //        table[i] = NULL;
+            table[i] = NULL;
         }
     }   
 }
