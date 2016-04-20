@@ -6,8 +6,8 @@
 //*****************************************************************************
 
 /*
-   @desc:
- */
+   @desc: initially sets a vehicle's make, model and license to NULL
+*/
 Vehicle::Vehicle()
 {
     make = NULL;
@@ -16,7 +16,10 @@ Vehicle::Vehicle()
 }
 
 /*
-   @desc:
+   @desc: Takes another vehicle object, finds the length of the source vehicle
+          make, model and license; allocates memory for the a new make, model,
+          and license. Strcpys the make model and license to the destination
+          vehicle.
  */
 Vehicle::Vehicle(const Vehicle &vehicle)
 {
@@ -34,24 +37,25 @@ Vehicle::Vehicle(const Vehicle &vehicle)
 }
 
 /*
-   @desc:
- */
+   @desc: Checks if the make, model and license are not NULL, if they have data
+          the data is deallocated. The pointers are then set to NULL.
+*/
 Vehicle::~Vehicle()
 {   
     cout << "vehicle destructor" << endl;
     if(make)
     {
-        delete make;
+        delete [] make;
     }
 
     if(model)
     {
-        delete model;
+        delete [] model;
     }
 
     if(license)
     {
-        delete license;
+        delete [] license;
     }
 
     make = NULL;
@@ -60,8 +64,9 @@ Vehicle::~Vehicle()
 }
 
 /*
-   @desc:
- */
+   @desc: recieves a char *, proceeds to make a deep copy of the supplied
+          array of characters.
+*/
 void Vehicle::set_make(char * source)
 {
     int length = strlen(source);
@@ -71,7 +76,8 @@ void Vehicle::set_make(char * source)
 }
 
 /*
-   @desc:
+   @desc: recieves a char *, proceeds to make a deep copy of the supplied
+          array of characters.
  */
 void Vehicle::set_model(char * source)
 {
@@ -82,7 +88,8 @@ void Vehicle::set_model(char * source)
 }
 
 /*
-   @desc:
+   @desc: recieves a char *, proceeds to make a deep copy of the supplied
+          array of characters.
  */
 void Vehicle::set_license(char * source)
 {
@@ -93,8 +100,8 @@ void Vehicle::set_license(char * source)
 }
 
 /*
-   @desc:
- */
+   @desc: displays the vehicle's make, model and license.
+*/
 void Vehicle::display()
 {
     cout << "\nMake: " << make;
@@ -108,7 +115,7 @@ void Vehicle::display()
 //*****************************************************************************
 
 /*
-   @desc: base constructor for the V_node class.
+   @desc: base constructor for the V_node class. Sets the node's pointer to NULL
  */
 V_node::V_node()
 {
@@ -116,7 +123,7 @@ V_node::V_node()
 }
 
 /*
-    @desc: Copy constructor
+    @desc: Copy constructor, copies a supplied V_node
 */
 V_node::V_node(const V_node &v_node) : Vehicle(v_node)
 {
@@ -226,7 +233,7 @@ V_manager::~V_manager()
 /*
    @desc:
 
- */
+*/
 void V_manager::file_read()
 {
     ifstream file_in;
@@ -266,7 +273,7 @@ void V_manager::file_read()
 
 /*
    @desc:
- */
+*/
 void V_manager::insert_vehicle(char * index, V_node * &source)
 {
     if(strcmp(index, "1") == 0)
@@ -320,7 +327,7 @@ void V_manager::insert_vehicle(char * index, V_node * &source)
 
 /*
    @desc:
- */
+*/
 void V_manager::display_all()
 {   
     display_standard();
@@ -331,7 +338,7 @@ void V_manager::display_all()
 
 /*
    @desc:
- */
+*/
 void V_manager::display_standard()
 {
     if(!table[0]) return;
@@ -355,7 +362,7 @@ void V_manager::display_standard()
 
 /*
    @desc:
- */
+*/
 void V_manager::display_premium()
 {
     if(!table[1]) return;
@@ -474,22 +481,25 @@ int V_manager::remove_helper(V_node * &head, V_node * &current, char * v_make,
 
 /*
    @desc:
- */
-//TODO
+*/
 void V_manager::remove_all()
 {
     for(int i = 0; i < MAX; ++i)
     {
         if(table[i])
         {
-            //V_node * head = table[i]->go_next();
-            //table[i]->set_next(NULL);
-            remove_all_helper(table[i]);
-            //table[i] = NULL;
+            V_node * head = table[i]->go_next();
+            table[i]->set_next(NULL);
+            remove_all_helper(head);
+            //TODO most likely causes a memory leak
+    //        table[i] = NULL;
         }
     }   
 }
 
+/*
+   @desc:
+*/
 void V_manager::remove_all_helper(V_node * &head)
 {
     if(!head) return;

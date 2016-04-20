@@ -55,7 +55,7 @@ public:
     V_node(const V_node &v_node);
     ~V_node();
     void set_next(V_node * source);
-    V_node * & go_next();
+    V_node *& go_next();
     bool if_next() const;
     bool compare_make(char * source);
     bool compare_model(char * source);
