@@ -23,7 +23,7 @@ Apt::Apt(Vehicle &source)
     location = NULL;
     miles = 0;
     drop_off = NULL;
-    
+
     vehicle = new Vehicle(source);
     set_cust_name();
     set_cust_phone();
@@ -45,7 +45,7 @@ Apt::~Apt()
         delete vehicle;
         vehicle = NULL;
     }
-    
+
     if(cust_name)
     {
         delete [] cust_name;
@@ -74,10 +74,10 @@ Apt::~Apt()
 }
 
 /*void Apt::set_vehicle(Vehicle &source)
-{
-    vehicle = source;
-}
-*/
+  {
+  vehicle = source;
+  }
+ */
 
 void Apt::set_cust_name()
 {
@@ -88,7 +88,7 @@ void Apt::set_cust_name()
         cin.get(cust_name, 100, '\n');
         cin.ignore(100, '\n');
     }
-    
+
     else
     {
         delete [] cust_name;
@@ -112,7 +112,7 @@ void Apt::set_cust_phone()
         cin.get(cust_phone, 100, '\n');
         cin.ignore(100, '\n');
     }
-    
+
     else
     {
         delete [] cust_phone;
@@ -135,7 +135,7 @@ void Apt::set_location()
         cin.get(location, 100, '\n');
         cin.ignore(100, '\n');
     }
-    
+
     else
     {
         delete [] location;
@@ -166,7 +166,7 @@ void Apt::set_drop_off()
         cin.get(drop_off, 100, '\n');
         cin.ignore(100, '\n');
     }
-    
+
     else
     {
         delete [] drop_off;
@@ -190,7 +190,7 @@ int Apt::calc_fare()
 void Apt::display_apt()
 {
     cout << '\n' << cust_name << '\n' << cust_phone << '\n' 
-         << location << '\n' << drop_off  << '\n' << miles << endl;
+        << location << '\n' << drop_off  << '\n' << miles << endl;
     vehicle->display();
     return;
 }
@@ -258,12 +258,23 @@ Standard_exp::Standard_exp(Vehicle &source) : Exp(source)
 //virtual
 Standard_exp::~Standard_exp()
 {
+    standard_fare = 0;
+}
 
+void Standard_exp::display_apt()
+{
+
+    cout << '\n' << cust_name << '\n' << cust_phone << '\n' 
+        << location << '\n' << drop_off  << '\n' << miles << endl;
+    vehicle->display();
+    cout << "\nTotal cost for trip is: $" << calc_fare();
 }
 
 int Standard_exp::calc_fare()
 {
-    return standard_fare * miles;
+    int fare = standard_fare * miles;
+
+    return fare + booking_fee;
 }
 
 //******************************************************************************
@@ -284,18 +295,35 @@ Premium_exp::Premium_exp()
 
 Premium_exp::Premium_exp(Vehicle &source) : Standard_exp(source)
 {
-
+    premium_fare = 2;
+    min_fare = 20;
 }
 
 //virtual
 Premium_exp::~Premium_exp()
 {
+    premium_fare = 2;
+    min_fare = 20;
+}
 
+void Premium_exp::display_apt()
+{
+
+    cout << '\n' << cust_name << '\n' << cust_phone << '\n' 
+        << location << '\n' << drop_off  << '\n' << miles << endl;
+    vehicle->display();
+    cout << "\nThe cost for the trip is: $" << calc_fare();
 }
 
 int Premium_exp::calc_fare()
 {
+    int fare = premium_fare * miles;
+    if(fare + booking_fee < min_fare)
+    {
+        return min_fare;
+    }
 
+    return fare + booking_fee;
 }
 
 //******************************************************************************
@@ -304,6 +332,7 @@ int Premium_exp::calc_fare()
 /*
    int max_riders;
    int num_riders;
+   int g_fare;
  */
 
 /*
@@ -316,16 +345,149 @@ Group_exp::Group_exp()
 
 Group_exp::Group_exp(Vehicle &source) : Exp(source)
 {
+    max_riders = 8;
+    g_fare = 5;
+    cout << "How many passengers will there be?: ";
+    cin >> num_riders;
+    cin.ignore(100, '\n');
 
+    while(num_riders > max_riders)
+    {
+        cout << "The maximum allowable number of passengers is 8." << endl
+            << "Please select a new number of riders now: ";
+        cin >> num_riders;
+        cin.ignore(100, '\n');
+    }
 }
 
 //virtual
 Group_exp::~Group_exp()
 {
+    max_riders = 0;
+    num_riders = 0;
+    g_fare = 0;
+}
 
+void Group_exp::display_apt()
+{
+    cout << '\n' << cust_name << '\n' << cust_phone << '\n' 
+        << location << '\n' << drop_off  << '\n' << miles << endl;
+    cout << '\n' << num_riders;
+    vehicle->display();
+    cout << "\nTotal cost for trip is: $" << calc_fare();
 }
 
 int Group_exp::calc_fare()
+{
+    return num_riders * g_fare + booking_fee;
+}
+
+//******************************************************************************
+//***********************Class A_node Functions*********************************
+//******************************************************************************
+//A_node * left;
+//A_node * right;
+//Apt * apt
+
+A_node::A_node()
+{
+
+}
+
+A_node::A_node(const A_node &a_node)
+{
+
+}
+
+A_node::A_node(Apt &source)
+{
+    apt = &source;
+    left = NULL;
+    right = NULL;
+}
+
+A_node::~A_node()
+{
+    delete apt;
+    left = NULL;
+    right = NULL;
+}
+
+void A_node::set_left(A_node * source)
+{
+
+    if(source) left = source;
+
+    else left = NULL;
+
+    return;
+}
+
+void A_node::set_right(A_node * source)
+{
+
+    if(source) right = source;
+
+    else right = NULL;
+
+    return;
+}
+
+A_node *& A_node::go_left()
+{
+    return left;
+}
+
+A_node *& A_node::go_right()
+{
+    return right;
+}
+
+bool A_node::if_left() const
+{
+    if(left) return true;
+    return false;
+}
+
+bool A_node::if_right() const
+{
+    if(right) return true;
+    return false;
+}
+
+void A_node::display_node()
+{
+    apt->display_apt();
+    return;
+}
+
+//******************************************************************************
+//***********************Class App_manager Functions****************************
+//******************************************************************************
+
+//
+
+Apt_manager::Apt_manager()
+{
+
+}
+
+Apt_manager::~Apt_manager()
+{
+
+}
+
+void Apt_manager::new_apt()
+{
+
+}
+
+void Apt_manager::insert_apt()
+{
+
+}
+
+void Apt_manager::pop_apt()
 {
 
 }

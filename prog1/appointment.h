@@ -54,6 +54,7 @@ public:
     Standard_exp();
     Standard_exp(Vehicle &source);
     virtual ~Standard_exp();
+    void display_apt();
     int calc_fare();
 
 protected:
@@ -70,6 +71,7 @@ public:
     Premium_exp();
     Premium_exp(Vehicle &source);
     virtual ~Premium_exp();
+    void display_apt();
     int calc_fare();
     
 protected:
@@ -86,9 +88,44 @@ public:
     Group_exp();
     Group_exp(Vehicle &source);
     virtual ~Group_exp();
+    void display_apt();
     int calc_fare();
 
 protected:
     int max_riders;
     int num_riders;
+    int g_fare;
+};
+
+class A_node
+{
+
+public:
+    A_node();
+    A_node(const A_node &a_node);
+    A_node(Apt &source);
+    ~A_node();
+    void set_left(A_node * source);
+    void set_right(A_node * source);
+    A_node *& go_left();
+    A_node *& go_right();
+    bool if_left() const;
+    bool if_right() const;
+    void display_node();
+protected:
+    Apt * apt;
+    A_node * left;
+    A_node * right;
+};
+
+class Apt_manager
+{
+public:
+    Apt_manager();
+    ~Apt_manager();
+    void new_apt();
+    void insert_apt();
+    void pop_apt();
+protected:
+    
 };

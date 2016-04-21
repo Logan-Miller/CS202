@@ -133,7 +133,7 @@ int main()
 //***********************************
 
 //TESTING FOR standard class
-
+/*
     char * make = new char[50];
     char * model = new char[50];
     char * license = new char[50];
@@ -148,11 +148,69 @@ int main()
     node->display();
     Standard_exp myExp(*node);
     myExp.display_apt();
+*/
+//***********************************
+
+//TESTING FOR premium class
+/*
+    char * make = new char[50];
+    char * model = new char[50];
+    char * license = new char[50];
+    strcpy(make, "passat");
+    strcpy(model, "volks");
+    strcpy(license, "777");
+    V_node * node = new V_node;
+    node->set_make(make);
+    node->set_model(model);
+    node->set_license(license);
+
+    node->display();
+    Premium_exp myExp(*node);
+    myExp.display_apt();
+*/
+//
+
+//TESTING FOR group class
+/*
+    char * make = new char[50];
+    char * model = new char[50];
+    char * license = new char[50];
+    strcpy(make, "passat");
+    strcpy(model, "volks");
+    strcpy(license, "777");
+    V_node * node = new V_node;
+    node->set_make(make);
+    node->set_model(model);
+    node->set_license(license);
+
+    node->display();
+    Group_exp * myExp = new Group_exp(*node);
+    myExp->display_apt();
+    delete myExp;
+*/
 
 //***********************************
 
+//Testing for A_node class
 
+    char * make = new char[50];
+    char * model = new char[50];
+    char * license = new char[50];
+    strcpy(make, "passat");
+    strcpy(model, "volks");
+    strcpy(license, "777");
+    V_node * node = new V_node;
+    node->set_make(make);
+    node->set_model(model);
+    node->set_license(license);
 
+    node->display();
+    Group_exp * myExp = new Group_exp(*node);
+
+    A_node * myNode = new A_node(*myExp);
+    myNode->display_node();
+
+//************************************
 
     return 0;
 }
