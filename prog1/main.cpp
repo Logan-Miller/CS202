@@ -65,6 +65,7 @@ int main()
 //**********************************
 
 //TESTING FOR V_manager functions
+    /*
     cout << "Here" << endl;
     V_manager myTable;
     cout << "Here" << endl;
@@ -84,7 +85,74 @@ int main()
 
     myTable.remove_all();
     myTable.display_all();
-
+    */
 //**********************************
+
+//TESTING FOR Apt class
+/*
+    char * make = new char[50];
+    char * model = new char[50];
+    char * license = new char[50];
+    strcpy(make, "passat");
+    strcpy(model, "volks");
+    strcpy(license, "777");
+    V_node * node = new V_node;
+    node->set_make(make);
+    node->set_model(model);
+    node->set_license(license);
+    
+    node->display();
+
+    Apt myApt(*node);
+    myApt.display_apt();
+    delete node;
+
+    myApt.display_apt();
+*/
+
+//***********************************
+
+//TESTING FOR exp class
+/*
+    char * make = new char[50];
+    char * model = new char[50];
+    char * license = new char[50];
+    strcpy(make, "passat");
+    strcpy(model, "volks");
+    strcpy(license, "777");
+    V_node * node = new V_node;
+    node->set_make(make);
+    node->set_model(model);
+    node->set_license(license);
+    
+    node->display();
+
+    Exp myExp(*node);
+    myExp.display_apt();
+*/
+//***********************************
+
+//TESTING FOR standard class
+
+    char * make = new char[50];
+    char * model = new char[50];
+    char * license = new char[50];
+    strcpy(make, "passat");
+    strcpy(model, "volks");
+    strcpy(license, "777");
+    V_node * node = new V_node;
+    node->set_make(make);
+    node->set_model(model);
+    node->set_license(license);
+    
+    node->display();
+    Standard_exp myExp(*node);
+    myExp.display_apt();
+
+//***********************************
+
+
+
+
     return 0;
 }

@@ -8,16 +8,19 @@ class Apt
 public:
     Apt();
     Apt(const Apt &apt);
-    Apt(Vehicle &vehicle);
+    Apt(Vehicle &source);
     virtual ~Apt();
-    int set_vehicle();
-    int set_location();
-    int set_miles();
-    int set_drop_off();
+    void set_cust_name();
+    void set_cust_phone();
+    void set_vehicle(Vehicle &source);
+    void set_location();
+    void set_miles();
+    void set_drop_off();
     virtual int calc_fare();
+    virtual void display_apt();
 
 protected:
-    Vehicle vehicle;
+    Vehicle * vehicle;
     char * cust_name;
     char * cust_phone;
     char * location;
@@ -32,6 +35,7 @@ class Exp : public Apt
 {
 public:
     Exp();
+    Exp(Vehicle &source);
     Exp(const Exp &exp);
     virtual ~Exp();
     int calc_fare();
@@ -48,6 +52,7 @@ class Standard_exp : public Exp
 {
 public:
     Standard_exp();
+    Standard_exp(Vehicle &source);
     virtual ~Standard_exp();
     int calc_fare();
 
@@ -63,6 +68,7 @@ class Premium_exp : public Standard_exp
 {
 public:
     Premium_exp();
+    Premium_exp(Vehicle &source);
     virtual ~Premium_exp();
     int calc_fare();
     
@@ -78,6 +84,7 @@ class Group_exp : public Exp
 {
 public:
     Group_exp();
+    Group_exp(Vehicle &source);
     virtual ~Group_exp();
     int calc_fare();
 

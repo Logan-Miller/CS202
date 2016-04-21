@@ -23,6 +23,10 @@ Vehicle::Vehicle()
  */
 Vehicle::Vehicle(const Vehicle &vehicle)
 {
+ //cout << "vehicle being copied" << endl;
+ //TODO
+ //cout << vehicle.model;
+ //cout << vehicle.make;
     int model_l = strlen(vehicle.model);
     int make_l = strlen(vehicle.make);
     int license_l = strlen(vehicle.license);
@@ -34,6 +38,7 @@ Vehicle::Vehicle(const Vehicle &vehicle)
     strcpy(model, vehicle.model);
     strcpy(make, vehicle.make);
     strcpy(license, vehicle.license);
+//cout << "vehicle copied" << endl;
 }
 
 /*
@@ -42,7 +47,7 @@ Vehicle::Vehicle(const Vehicle &vehicle)
 */
 Vehicle::~Vehicle()
 {   
-    cout << "vehicle destructor" << endl;
+//cout << "vehicle destructor" << endl;
     if(make)
     {
         delete [] make;
@@ -127,6 +132,8 @@ V_node::V_node()
 */
 V_node::V_node(const V_node &v_node) : Vehicle(v_node)
 {
+    //TODO
+//    cout << "v node being copied" << endl;
     next = v_node.next;
 }
 
@@ -137,7 +144,7 @@ V_node::V_node(const V_node &v_node) : Vehicle(v_node)
 V_node::~V_node()
 {
     next = NULL;
-    cout << "V node destructor" << endl;
+//    cout << "V node destructor" << endl;
 }
 
 /*
