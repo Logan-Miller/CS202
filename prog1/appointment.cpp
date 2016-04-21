@@ -404,6 +404,8 @@ A_node::A_node(Apt &source)
     apt = &source;
     left = NULL;
     right = NULL;
+    left_is_full = true;
+    right_is_full = true;
 }
 
 A_node::~A_node()
@@ -415,7 +417,6 @@ A_node::~A_node()
 
 void A_node::set_left(A_node * source)
 {
-
     if(source) left = source;
 
     else left = NULL;
@@ -425,7 +426,6 @@ void A_node::set_left(A_node * source)
 
 void A_node::set_right(A_node * source)
 {
-
     if(source) right = source;
 
     else right = NULL;
@@ -482,9 +482,12 @@ void Apt_manager::new_apt()
 
 }
 
-void Apt_manager::insert_apt()
+bool Apt_manager::insert_apt(A_node * &root, Apt * &myApt)
 {
-
+    if(!root)
+    {
+        return true;
+    }
 }
 
 void Apt_manager::pop_apt()

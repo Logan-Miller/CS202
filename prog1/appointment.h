@@ -99,7 +99,6 @@ protected:
 
 class A_node
 {
-
 public:
     A_node();
     A_node(const A_node &a_node);
@@ -116,6 +115,8 @@ protected:
     Apt * apt;
     A_node * left;
     A_node * right;
+    bool left_is_full;
+    bool right_is_full;
 };
 
 class Apt_manager
@@ -124,8 +125,9 @@ public:
     Apt_manager();
     ~Apt_manager();
     void new_apt();
-    void insert_apt();
+    bool insert_apt(A_node * &root, Apt * &myApt);
     void pop_apt();
 protected:
-    
+    A_node * root;
+    int num_nodes;
 };
