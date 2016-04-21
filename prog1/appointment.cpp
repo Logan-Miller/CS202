@@ -21,12 +21,14 @@ Apt::Apt(Vehicle &source)
     cust_name = NULL;
     cust_phone = NULL;
     location = NULL;
+    date = NULL;
     miles = 0;
     drop_off = NULL;
 
     vehicle = new Vehicle(source);
     set_cust_name();
     set_cust_phone();
+    set_date();
     set_location();
     set_drop_off();
     set_miles();
@@ -158,7 +160,6 @@ void Apt::set_miles()
 
 void Apt::set_drop_off()
 {
-
     if(!drop_off)
     {
         drop_off = new char[100];
@@ -180,6 +181,30 @@ void Apt::set_drop_off()
     return;
 }
 
+void Apt::set_date()
+{
+    if(!date)
+    {
+        date = new char[100];
+        cout << "\nWhen is the date of the appointment?: ";
+        cin.get(date, 100, '\n');
+        cin.ignore(100, '\n');
+    }
+
+    else
+    {
+        delete [] date;
+
+        date = new char[100];
+        cout << "\nWhat is the date of the appointment?: ";
+        cin.get(date, 100, '\n');
+        cin.ignore(100, '\n');
+    }
+
+    return;
+}
+
+
 //virtual
 int Apt::calc_fare()
 {
@@ -193,6 +218,11 @@ void Apt::display_apt()
         << location << '\n' << drop_off  << '\n' << miles << endl;
     vehicle->display();
     return;
+}
+
+char * Apt::get_date()
+{
+    return date;
 }
 
 //******************************************************************************
@@ -388,6 +418,8 @@ int Group_exp::calc_fare()
 //A_node * left;
 //A_node * right;
 //Apt * apt
+//bool left_is_full
+//bool right_is full
 
 A_node::A_node()
 {
@@ -455,10 +487,53 @@ bool A_node::if_right() const
     return false;
 }
 
+bool A_node::is_left_full()
+{
+    if(left_is_full == true) return true;
+    return false;
+}
+
+bool A_node::is_right_full()
+{
+    if(right_is_full == true) return true;
+    return false;
+}
+
+void A_node::set_left_full(bool is_full)
+{
+    left_is_full = is_full;
+    return;
+}
+
+void A_node::set_right_full(bool is_full)
+{
+    right_is_full = is_full;
+    return;
+}
+
 void A_node::display_node()
 {
     apt->display_apt();
     return;
+}
+
+
+bool A_node::compare_dates(const A_node * source)
+{
+    if(strcmp(apt->get_date(), source->apt->get_date()) >= 0)
+    {
+        //the root has an older date than the source node, no swap is required
+        return false;
+    }
+
+    return true;
+}
+
+void A_node::swap_apts(A_node * &source)
+{
+    Apt * temp = apt;
+    apt = source->apt;
+    source->apt = temp;
 }
 
 //******************************************************************************
@@ -469,7 +544,8 @@ void A_node::display_node()
 
 Apt_manager::Apt_manager()
 {
-
+    root = NULL;
+    new_apt();
 }
 
 Apt_manager::~Apt_manager()
@@ -479,14 +555,59 @@ Apt_manager::~Apt_manager()
 
 void Apt_manager::new_apt()
 {
+    //TODO testing only
+    char * make = new char[50];
+    char * model = new char[50];
+    char * license = new char[50];
+    strcpy(make, "passat");
+    strcpy(model, "volks");
+    strcpy(license, "777");
+    V_node * node = new V_node;
+    node->set_make(make);
+    node->set_model(model);
+    node->set_license(license);
 
+    node->display();
+    Group_exp * myExp = new Group_exp(*node);
+    insert_apt(root, myExp);
+    //TODO
 }
 
-bool Apt_manager::insert_apt(A_node * &root, Apt * &myApt)
+//TODO
+bool Apt_manager::insert_apt(A_node * &root, Apt * myApt)
 {
     if(!root)
     {
+        root = new A_node(*myApt);
         return true;
+    }
+    
+    if(root->is_left_full() && root->is_right_full())
+    {
+        root->set_left_full(false);
+        root->set_right_full(false);
+    }
+    
+    if(!root->is_left_full())
+    {
+        insert_apt(root->go_left(), myApt);
+        if(root->compare_dates(root->go_left()))
+        {
+            root->swap_apts(root->go_left());
+        }
+
+        return root->is_left_full() && root->is_right_full();
+    }
+
+    if(!root->is_right_full())
+    {
+        insert_apt(root->go_right(), myApt);
+        if(root->compare_dates(root->go_right()))
+        {
+            root->swap_apts(root->go_right());
+        }
+
+        return root->is_left_full() && root->is_right_full();
     }
 }
 
@@ -494,3 +615,13 @@ void Apt_manager::pop_apt()
 {
 
 }
+
+
+
+
+
+
+
+
+
+

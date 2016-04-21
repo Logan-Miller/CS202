@@ -14,16 +14,19 @@ public:
     void set_cust_phone();
     void set_vehicle(Vehicle &source);
     void set_location();
+    void set_date();
     void set_miles();
     void set_drop_off();
     virtual int calc_fare();
     virtual void display_apt();
+    char * get_date();
 
 protected:
     Vehicle * vehicle;
     char * cust_name;
     char * cust_phone;
     char * location;
+    char * date;
     int miles;
     char * drop_off;
 };
@@ -110,7 +113,13 @@ public:
     A_node *& go_right();
     bool if_left() const;
     bool if_right() const;
+    bool is_left_full();
+    bool is_right_full();
+    void set_left_full(bool is_full);
+    void set_right_full(bool is_full);
     void display_node();
+    bool compare_dates(const A_node * source);
+    void swap_apts(A_node * &source);
 protected:
     Apt * apt;
     A_node * left;
@@ -125,9 +134,10 @@ public:
     Apt_manager();
     ~Apt_manager();
     void new_apt();
-    bool insert_apt(A_node * &root, Apt * &myApt);
+    bool insert_apt(A_node * &root, Apt * myApt);
     void pop_apt();
 protected:
     A_node * root;
+    //V_manager vehicles;
     int num_nodes;
 };

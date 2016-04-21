@@ -192,7 +192,7 @@ int main()
 //***********************************
 
 //Testing for A_node class
-
+/*
     char * make = new char[50];
     char * model = new char[50];
     char * license = new char[50];
@@ -209,8 +209,16 @@ int main()
 
     A_node * myNode = new A_node(*myExp);
     myNode->display_node();
+*/
+//************************************
+
+//TESTING FOR APT MANAGER CLASS
+
+    Apt_manager me;
 
 //************************************
+
+
 
     return 0;
 }
