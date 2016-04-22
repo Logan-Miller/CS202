@@ -708,7 +708,22 @@ void Apt_manager::pop_apt()
 //CASE 3
         if(!root->is_left_full() && !root->is_right_full())
         {
+            
+            if(!root->go_left()->compare_dates(root->go_right()))
+            {
+                root->swap_apts(root->go_left());
+                find_left_node(root->go_left(), root->go_left());
+                rebalance(root->go_left());
+            }
 
+            else
+            {
+                root->swap_apts(root->go_right());
+                find_left_node(root->go_left(), root->go_right());
+                rebalance(root->go_right());
+            }
+            --num_nodes;
+            return;
         }
 
 //CASE 4
@@ -740,36 +755,43 @@ void Apt_manager::pop_apt()
             
             if(left_height > right_height)
             {
-                if(root->go_left()->is_left_full() 
-                && root->go_left()->is_right_full())
+                if(!root->go_left()->compare_dates(root->go_right()))
                 {
-                    //case 5.2       
-                    if(!root->go_left()->compare_dates(root->go_right()))
-                    {
-                        root->swap_apts(root->go_left());
-                        pop_full_helper(root->go_left());
-                    }
-                    //case 5.3
-                    else
-                    {
-                        root->swap_apts(root->go_right());
-                    }
+                    root->swap_apts(root->go_left());
+                    find_left_node(root->go_left(), root->go_left());
+                    rebalance(root->go_left());
+                }
+
+                else
+                {
+                    root->swap_apts(root->go_right());
+                    find_left_node(root->go_left(), root->go_right());
+                    rebalance(root->go_right());
                 }
             }
-
+           
             //right subtree is where will be swapped
-            //case 5.4
+            //case 
             else    
             {
+                if(!root->go_left()->compare_dates(root->go_right()))
+                {
+                    root->swap_apts(root->go_left());
+                    find_left_node(root->go_right(), root->go_left());
+                    rebalance(root->go_left());
+                }
 
+                else
+                {
+                    root->swap_apts(root->go_right());
+                    find_left_node(root->go_right(), root->go_right());
+                    rebalance(root->go_right());
+                }
             }
 
             --num_nodes;
             return;
         }
-
-        --num_nodes;
-        return;
     }
 }
 
@@ -801,6 +823,38 @@ void Apt_manager::pop_full_helper(A_node * &root)
 
     --num_nodes;
     return;
+}
+
+//TODO
+bool Apt_manager::find_left_node(A_node * &root, A_node * &swapper)
+{
+    if(!root) return true;
+    
+    if(root->if_right())
+    {
+        if(!find_left_node(root->go_right(), swapper))
+        {
+            root->set_right_full(false);
+            return false;
+        }
+    }
+
+    else
+    {
+        if(find_left_node(root->go_left(), swapper))
+        {
+            root->swap_apts(swapper);
+            delete root;
+            root = NULL;
+            return false;
+        }
+
+        else
+        {
+            root->set_left_full(false);
+        }
+    }
+
 }
 
 

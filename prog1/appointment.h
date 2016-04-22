@@ -140,6 +140,7 @@ public:
     void pop_apt();
     void pop_full_helper(A_node * &root);
     bool far_right_swap(A_node * &root, A_node * &swapper);
+    bool find_left_node(A_node * &root, A_node * &swapper);
     void rebalance(A_node * &root);
     int find_height(A_node * root);
 protected:
