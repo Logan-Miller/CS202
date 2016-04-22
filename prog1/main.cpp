@@ -215,9 +215,10 @@ int main()
 //TESTING FOR APT MANAGER CLASS
 
     Apt_manager me;
+    me.new_apt();
     me.display_all();
-    me.pop_apt();
-    me.display_all();
+    //me.pop_apt();
+    //me.display_all();
 //************************************
 
 

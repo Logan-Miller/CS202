@@ -577,11 +577,56 @@ Apt_manager::~Apt_manager()
 void Apt_manager::new_apt()
 {
     char choice = '\n';
+    bool running = true;
+    Vehicle * temp = NULL;
     cout << "\nWould you like to view standard, premium or group vehicles?" 
          << "For standard type (s), premium (p), group (g): ";
     
     cin >> choice;
     cin.ignore(100, '\n');
+
+    do
+    {
+        if(choice == 's')
+        {
+            vehicles.display_standard();
+            temp = fetch_vehicle(0);
+            if(!temp) return;
+            Standard_exp * exp = new Standard_exp(*temp);
+            insert_apt(root, exp);
+            running = false;
+        }
+
+        else if(choice == 'p')
+        {
+            vehicles.display_premium();
+            temp = fetch_vehicle(1);
+            if(!temp) return;
+            Premium_exp * exp = new Premium_exp(*temp);
+            insert_apt(root, exp);
+            running = false;
+        }
+
+        else if(choice == 'g')
+        {
+            vehicles.display_group();
+            temp = fetch_vehicle(2);
+            if(!temp) return;
+            Group_exp * exp = new Group_exp(*temp);
+            insert_apt(root, exp);
+            running = false;
+        }
+
+        else
+        {
+            cout << "Enter (s) for standard vehicles, (p) for premium or (g)"
+                 << " for group vehicles: ";
+            cin >> choice;
+            cin.ignore(100, '\n');
+            running = true;
+        }
+
+    }while(running);
 
   //TODO testing only
  /*   cout << "making a new apt" << endl;
@@ -634,6 +679,31 @@ void Apt_manager::new_apt()
     insert_apt(root, y);
 */
     //TODO
+}
+
+Vehicle * Apt_manager::fetch_vehicle(int i)
+{
+    char * v_make = new char[100];
+    char * v_model = new char[100];
+    
+    cout << "What make do you want?: ";
+    cin.getline(v_make, 100, '\n');
+    
+    cout << "What model do you want?: ";
+    cin.getline(v_model, 100, '\n');
+    
+    Vehicle * temp = vehicles.get_vehicle(i, v_make, v_model);
+    
+    if(!temp)
+    {
+        cout << "No vehicle matching that description found." << endl;
+    }
+
+    delete [] v_make;
+    delete [] v_model;
+
+    return temp;
+
 }
 
 //TODO

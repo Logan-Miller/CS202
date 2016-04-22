@@ -86,6 +86,9 @@ public:
                       char * v_model);
     void remove_all_helper(V_node * &head);
     void remove_all();
+    Vehicle * get_vehicle(int i, char * v_make, char * v_model);
+    Vehicle * get_vehicle_helper(V_node * head, char * v_make, char * v_model);
+            
 protected:
     void file_read();
     V_node ** table;

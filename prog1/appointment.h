@@ -135,6 +135,7 @@ public:
     ~Apt_manager();
     void new_apt();
     bool insert_apt(A_node * &root, Apt * myApt);
+    Vehicle * fetch_vehicle(int i);
     void display_all();
     void display_all_helper(A_node * root);
     void pop_apt();

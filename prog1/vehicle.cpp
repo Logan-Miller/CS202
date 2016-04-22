@@ -520,6 +520,33 @@ void V_manager::remove_all_helper(V_node * &head)
     return;
 }
 
+Vehicle * V_manager::get_vehicle(int i, char * v_make, char * v_model)
+{
+    if(table[i])
+    {
+        V_node * temp = table[i]->go_next();
+        table[i]->set_next(NULL);
+
+        Vehicle * car = get_vehicle_helper(temp, v_make, v_model);
+        
+        table[i]->set_next(temp);
+
+        return car;
+    }
+}
+
+Vehicle * V_manager::get_vehicle_helper(V_node * head, char * v_make,
+                                        char * v_model)
+{
+    if(!head) return NULL;
+    if(head->compare_make(v_make) && head->compare_model(v_model))
+    {
+        return head;
+    }
+
+    return get_vehicle_helper(head->go_next(), v_make, v_model);
+}
+
 
 
 
