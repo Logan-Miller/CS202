@@ -135,7 +135,13 @@ public:
     ~Apt_manager();
     void new_apt();
     bool insert_apt(A_node * &root, Apt * myApt);
+    void display_all();
+    void display_all_helper(A_node * root);
     void pop_apt();
+    void pop_full_helper(A_node * &root);
+    bool far_right_swap(A_node * &root, A_node * &swapper);
+    void rebalance(A_node * &root);
+    int find_height(A_node * root);
 protected:
     A_node * root;
     //V_manager vehicles;

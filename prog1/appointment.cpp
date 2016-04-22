@@ -294,10 +294,15 @@ Standard_exp::~Standard_exp()
 void Standard_exp::display_apt()
 {
 
-    cout << '\n' << cust_name << '\n' << cust_phone << '\n' 
-        << location << '\n' << drop_off  << '\n' << miles << endl;
+    cout << '\n' << "Customer name: " <<  cust_name 
+        << '\n' << "Phone Number: " << cust_phone 
+        << '\n' << "Pick-Up: " << location 
+        << '\n' << "Drop-off: " << drop_off  
+        << '\n' << "Distance: " << miles 
+        << '\n' << "Selected Vehicle:";
     vehicle->display();
-    cout << "\nTotal cost for trip is: $" << calc_fare();
+    cout << "\nTotal cost for trip is: $" << calc_fare() << endl;
+    return;
 }
 
 int Standard_exp::calc_fare()
@@ -339,10 +344,15 @@ Premium_exp::~Premium_exp()
 void Premium_exp::display_apt()
 {
 
-    cout << '\n' << cust_name << '\n' << cust_phone << '\n' 
-        << location << '\n' << drop_off  << '\n' << miles << endl;
+    cout << '\n' << "Customer name: " <<  cust_name 
+        << '\n' << "Phone Number: " << cust_phone 
+        << '\n' << "Pick-Up: " << location 
+        << '\n' << "Drop-off: " << drop_off  
+        << '\n' << "Distance: " << miles 
+        << '\n' << "Selected Vehicle:";
     vehicle->display();
-    cout << "\nThe cost for the trip is: $" << calc_fare();
+    cout << "\nTotal cost for trip is: $" << calc_fare() << endl;
+    return;   
 }
 
 int Premium_exp::calc_fare()
@@ -400,11 +410,17 @@ Group_exp::~Group_exp()
 
 void Group_exp::display_apt()
 {
-    cout << '\n' << cust_name << '\n' << cust_phone << '\n' 
-        << location << '\n' << drop_off  << '\n' << miles << endl;
-    cout << '\n' << num_riders;
+
+    cout << '\n' << "Customer name: " <<  cust_name 
+        << '\n' << "Phone Number: " << cust_phone 
+        << '\n' << "Pick-Up: " << location 
+        << '\n' << "Drop-off: " << drop_off  
+        << '\n' << "Distance: " << miles 
+        << '\n' << "Passengers: " << num_riders
+        << '\n' << "Selected Vehicle:";
     vehicle->display();
-    cout << "\nTotal cost for trip is: $" << calc_fare();
+    cout << "\nTotal cost for trip is: $" << calc_fare() << endl;
+    return;   
 }
 
 int Group_exp::calc_fare()
@@ -445,6 +461,8 @@ A_node::~A_node()
     delete apt;
     left = NULL;
     right = NULL;
+    left_is_full = true;
+    right_is_full = true;
 }
 
 void A_node::set_left(A_node * source)
@@ -520,9 +538,9 @@ void A_node::display_node()
 
 bool A_node::compare_dates(const A_node * source)
 {
-    if(strcmp(apt->get_date(), source->apt->get_date()) >= 0)
+    if(strcmp(apt->get_date(), source->apt->get_date()) < 0)
     {
-        //the root has an older date than the source node, no swap is required
+        //the root has a less than date than the source node, no swap needed
         return false;
     }
 
@@ -534,6 +552,7 @@ void A_node::swap_apts(A_node * &source)
     Apt * temp = apt;
     apt = source->apt;
     source->apt = temp;
+    return;
 }
 
 //******************************************************************************
@@ -545,6 +564,7 @@ void A_node::swap_apts(A_node * &source)
 Apt_manager::Apt_manager()
 {
     root = NULL;
+    num_nodes = 0;
     new_apt();
 }
 
@@ -556,6 +576,7 @@ Apt_manager::~Apt_manager()
 void Apt_manager::new_apt()
 {
     //TODO testing only
+    cout << "making a new apt" << endl;
     char * make = new char[50];
     char * model = new char[50];
     char * license = new char[50];
@@ -569,28 +590,65 @@ void Apt_manager::new_apt()
 
     node->display();
     Group_exp * myExp = new Group_exp(*node);
+    ++num_nodes;
     insert_apt(root, myExp);
+
+    char * m = new char[50];
+    char * mo = new char[50];
+    char * li = new char[50];
+    strcpy(m, "honda");
+    strcpy(mo, "accord");
+    strcpy(li, "888");
+    V_node * nod = new V_node;
+    nod->set_make(m);
+    nod->set_model(mo);
+    nod->set_license(li);
+
+    nod->display();
+    Premium_exp * my = new Premium_exp(*nod);
+    ++num_nodes;
+    insert_apt(root, my);
+
+    char * a = new char[50];
+    char * b = new char[50];
+    char * c = new char[50];
+    strcpy(a, "vw");
+    strcpy(b, "rave");
+    strcpy(c, "999");
+    V_node * no = new V_node;
+    no->set_make(a);
+    no->set_model(b);
+    no->set_license(c);
+
+    no->display();
+    Premium_exp * y = new Premium_exp(*no);
+    ++num_nodes;
+    insert_apt(root, y);
+
     //TODO
 }
 
 //TODO
 bool Apt_manager::insert_apt(A_node * &root, Apt * myApt)
 {
+    //TODO
     if(!root)
     {
         root = new A_node(*myApt);
         return true;
     }
-    
+
     if(root->is_left_full() && root->is_right_full())
     {
         root->set_left_full(false);
         root->set_right_full(false);
     }
-    
+
     if(!root->is_left_full())
-    {
-        insert_apt(root->go_left(), myApt);
+    {   
+        //TODO
+        cout << "going left!" << endl;
+        root->set_left_full(insert_apt(root->go_left(), myApt));
         if(root->compare_dates(root->go_left()))
         {
             root->swap_apts(root->go_left());
@@ -601,7 +659,9 @@ bool Apt_manager::insert_apt(A_node * &root, Apt * myApt)
 
     if(!root->is_right_full())
     {
-        insert_apt(root->go_right(), myApt);
+        //TODO
+        cout << "going right!" << endl;
+        root->set_right_full(insert_apt(root->go_right(), myApt));
         if(root->compare_dates(root->go_right()))
         {
             root->swap_apts(root->go_right());
@@ -611,12 +671,205 @@ bool Apt_manager::insert_apt(A_node * &root, Apt * myApt)
     }
 }
 
-void Apt_manager::pop_apt()
+void Apt_manager::display_all()
 {
+    //TODO
+    cout << "display all" << endl;
+    display_all_helper(root);
+    return;
+}
+
+void Apt_manager::display_all_helper(A_node * root)
+{
+    if(!root) return;
+    cout << "displaying the apt" << endl;
+    root->display_node();
+    display_all_helper(root->go_left());
+    display_all_helper(root->go_right());
+    return;
 
 }
 
+void Apt_manager::pop_apt()
+{
+//CASE 1
+    if(num_nodes == 0) return;
+//CASE 2
+    if(num_nodes == 1)
+    {
+        delete root;
+        root = NULL;
+        --num_nodes;
+        return;
+    }
 
+    else if(num_nodes > 1)
+    {
+//CASE 3
+        if(!root->is_left_full() && !root->is_right_full())
+        {
+
+        }
+
+//CASE 4
+        if(root->is_left_full() && root->is_right_full())
+        {
+            //TODO
+            cout << "case 4" << endl;
+            pop_full_helper(root);
+            return;
+        }
+
+//CASE 5
+        if(root->is_left_full() && !root->is_right_full())
+        {
+            //case 5.1
+            if(num_nodes == 2)
+            {
+                root->swap_apts(root->go_left());
+                delete root->go_left();
+                root->set_left(NULL);
+                root->set_left_full(true);
+                --num_nodes;
+                return;
+            }
+
+            int left_height = find_height(root->go_left());
+            int right_height = find_height(root->go_right());
+
+            
+            if(left_height > right_height)
+            {
+                if(root->go_left()->is_left_full() 
+                && root->go_left()->is_right_full())
+                {
+                    //case 5.2       
+                    if(!root->go_left()->compare_dates(root->go_right()))
+                    {
+                        root->swap_apts(root->go_left());
+                        pop_full_helper(root->go_left());
+                    }
+                    //case 5.3
+                    else
+                    {
+                        root->swap_apts(root->go_right());
+                    }
+                }
+            }
+
+            //right subtree is where will be swapped
+            //case 5.4
+            else    
+            {
+
+            }
+
+            --num_nodes;
+            return;
+        }
+
+        --num_nodes;
+        return;
+    }
+}
+
+//If both sides are full, and there is more than one node, then the
+//node to pop is all the way to the right. Compare root's children for
+//the inorder successor, swap, and then swap the swapped node with the 
+//node to be deleted. Then rebalance.
+void Apt_manager::pop_full_helper(A_node * &root)
+{
+    if(!root) return;
+
+    if(!root->go_left()->compare_dates(root->go_right()))
+    {
+        //TODO
+        cout << "swaping with left" << endl;
+        root->swap_apts(root->go_left());
+        far_right_swap(root, root->go_left());
+        rebalance(root->go_left());
+    }
+
+    else
+    {
+        //TODO
+        cout << "swapping with right" << endl;
+        root->swap_apts(root->go_right());
+        far_right_swap(root, root->go_right());
+        rebalance(root->go_right());
+    }
+
+    --num_nodes;
+    return;
+}
+
+
+bool Apt_manager::far_right_swap(A_node * &root, A_node * &swapper)
+{
+    if(!root) return true;
+    if(far_right_swap(root->go_right(), swapper))
+    {
+        root->swap_apts(swapper);
+        delete root;
+        root = NULL;
+
+        return false;
+    }
+
+    root->set_right_full(false);
+    return false;
+}
+
+void Apt_manager::rebalance(A_node * &root)
+{
+    if(!root) return;
+
+    if(root->if_left() && root->if_right())
+    {
+        if(root->go_left()->compare_dates(root->go_right()))
+        {
+            root->swap_apts(root->go_left());
+            rebalance(root->go_left());
+        }
+
+        else
+        {
+            root->swap_apts(root->go_right());
+            rebalance(root->go_right());
+        }
+    }
+
+    if(root->if_left() && !root->if_right())
+    {
+        root->swap_apts(root->go_left());
+        rebalance(root->go_right());
+        return;
+    }
+
+    if(!root->if_left() && !root->if_right())
+    {
+        return;
+    }
+
+    return;
+}
+
+int Apt_manager::find_height(A_node * root)
+{
+    if(!root) return 0;
+    return 1 + find_height(root->go_left());
+}
+
+/*
+   void Apt_manager::true_pop_helper(A_node * &root)
+   {
+   if(!root) return;
+   true_pop_helper(root->go_right());
+//swap
+//delete node
+
+
+}*/
 
 
 
