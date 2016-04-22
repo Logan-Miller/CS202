@@ -565,7 +565,8 @@ Apt_manager::Apt_manager()
 {
     root = NULL;
     num_nodes = 0;
-    new_apt();
+    //new_apt();
+    
 }
 
 Apt_manager::~Apt_manager()
@@ -575,8 +576,15 @@ Apt_manager::~Apt_manager()
 
 void Apt_manager::new_apt()
 {
-    //TODO testing only
-    cout << "making a new apt" << endl;
+    char choice = '\n';
+    cout << "\nWould you like to view standard, premium or group vehicles?" 
+         << "For standard type (s), premium (p), group (g): ";
+    
+    cin >> choice;
+    cin.ignore(100, '\n');
+
+  //TODO testing only
+ /*   cout << "making a new apt" << endl;
     char * make = new char[50];
     char * model = new char[50];
     char * license = new char[50];
@@ -624,7 +632,7 @@ void Apt_manager::new_apt()
     Premium_exp * y = new Premium_exp(*no);
     ++num_nodes;
     insert_apt(root, y);
-
+*/
     //TODO
 }
 
@@ -692,9 +700,9 @@ void Apt_manager::display_all_helper(A_node * root)
 
 void Apt_manager::pop_apt()
 {
-//CASE 1
+//CASE 1: there are no nodes within the heap, immediatly return.
     if(num_nodes == 0) return;
-//CASE 2
+//CASE 2: there is only one node, delete it and set the root to NULL.
     if(num_nodes == 1)
     {
         delete root;
@@ -702,13 +710,17 @@ void Apt_manager::pop_apt()
         --num_nodes;
         return;
     }
-
+    
+    //all cases where there is more than 1 node
     else if(num_nodes > 1)
     {
-//CASE 3
+//TODO
+//CASE 3: If both children are not full, then the node to remove will be in
+//the left subtree. Do the required swap with the root's successor, send the
+//popped root's data to the node to be deleted, delete node, and then rebalance
         if(!root->is_left_full() && !root->is_right_full())
         {
-            
+            //A check is need to find with child to swap root's data with.
             if(!root->go_left()->compare_dates(root->go_right()))
             {
                 root->swap_apts(root->go_left());
@@ -726,7 +738,10 @@ void Apt_manager::pop_apt()
             return;
         }
 
-//CASE 4
+//CASE 4: If both children are full, the node that must be removed to keep the
+//heap balanced is the node to the farthest right. Call the pop_full_helper 
+//function to swap the root node to the successor, send the node to be popped
+//to the farthest right node, delete that node and then rebalance. 
         if(root->is_left_full() && root->is_right_full())
         {
             //TODO
@@ -735,10 +750,13 @@ void Apt_manager::pop_apt()
             return;
         }
 
-//CASE 5
+//CASE 5: case 5 has multiple sub cases. If the left is full and the right is
+//not full the node to delete from the heap could be found on either the left
+//or the right sub trees.
         if(root->is_left_full() && !root->is_right_full())
         {
-            //case 5.1
+            //case 5.1: if there are only two nodes, simply delete the left
+            //node, set root's data.
             if(num_nodes == 2)
             {
                 root->swap_apts(root->go_left());
@@ -748,13 +766,19 @@ void Apt_manager::pop_apt()
                 --num_nodes;
                 return;
             }
-
+            
+            //the height of each sub tree will be used to find where the node
+            //to delete is located
             int left_height = find_height(root->go_left());
             int right_height = find_height(root->go_right());
 
-            
+            //Case 5.2: The left subtree's height is greater than the right
+            //subtree, so the node to delete is within the left subtree.
             if(left_height > right_height)
             {
+                //check which child is the successor to the root, make the 
+                //swap. Send the swapped node to the bottom of the left subtree 
+                //and then delete the node. 
                 if(!root->go_left()->compare_dates(root->go_right()))
                 {
                     root->swap_apts(root->go_left());
@@ -770,10 +794,14 @@ void Apt_manager::pop_apt()
                 }
             }
            
-            //right subtree is where will be swapped
-            //case 
+            //5.3: else the height of the right subtree is equal to the height
+            //of the left sub tree. The node to be deleted is within the right
+            //subtree.
             else    
-            {
+            {   
+                //Check which child is the successor to the root, make the 
+                //swap. Send the swapped node to the bottom of the right
+                //subtree and then delete the node and do rebalancing
                 if(!root->go_left()->compare_dates(root->go_right()))
                 {
                     root->swap_apts(root->go_left());
@@ -913,18 +941,6 @@ int Apt_manager::find_height(A_node * root)
     if(!root) return 0;
     return 1 + find_height(root->go_left());
 }
-
-/*
-   void Apt_manager::true_pop_helper(A_node * &root)
-   {
-   if(!root) return;
-   true_pop_helper(root->go_right());
-//swap
-//delete node
-
-
-}*/
-
 
 
 

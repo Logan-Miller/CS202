@@ -218,6 +218,7 @@ bool V_node::compare_model(char * source)
  */
 V_manager::V_manager()
 {
+    //TODO
     MAX = 3;
     table = new V_node * [MAX];
     for(int i = 0; i < MAX; ++i)
