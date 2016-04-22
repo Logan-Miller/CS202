@@ -3,14 +3,6 @@
 //******************************************************************************
 //********************Class Apt Functions***************************************
 //******************************************************************************
-/*
-   Vehicle vehicle;
-   char * cust_name;
-   char * cust_phone;
-   char * location;
-   int miles;
-   char * drop_off;
- */
 Apt::Apt()
 {
 
@@ -75,18 +67,13 @@ Apt::~Apt()
     miles = 0;
 }
 
-/*void Apt::set_vehicle(Vehicle &source)
-  {
-  vehicle = source;
-  }
- */
 
 void Apt::set_cust_name()
 {
     if(!cust_name)
     {
         cust_name = new char[100];
-        cout << "\nWhat is the customer's name?: ";
+        cout << "What is the customer's name?: ";
         cin.get(cust_name, 100, '\n');
         cin.ignore(100, '\n');
     }
@@ -96,7 +83,7 @@ void Apt::set_cust_name()
         delete [] cust_name;
 
         cust_name = new char[100];
-        cout << "\nWhat is the customer's name?: ";
+        cout << "What is the customer's name?: ";
         cin.get(cust_name, 100, '\n');
         cin.ignore(100, '\n');
     }
@@ -110,7 +97,7 @@ void Apt::set_cust_phone()
     if(!cust_phone)
     {
         cust_phone = new char[100];
-        cout << "\nWhat is the customer's phone number?: ";
+        cout << "What is the customer's phone number?: ";
         cin.get(cust_phone, 100, '\n');
         cin.ignore(100, '\n');
     }
@@ -120,7 +107,7 @@ void Apt::set_cust_phone()
         delete [] cust_phone;
 
         cust_phone = new char[100];
-        cout << "\nWhat is the customer's phone number?: ";
+        cout << "What is the customer's phone number?: ";
         cin.get(location, 100, '\n');
         cin.ignore(100, '\n');
     }
@@ -133,7 +120,7 @@ void Apt::set_location()
     if(!location)
     {
         location = new char[100];
-        cout << "\nWhere is the pick-up location?: ";
+        cout << "Where is the pick-up location?: ";
         cin.get(location, 100, '\n');
         cin.ignore(100, '\n');
     }
@@ -143,7 +130,7 @@ void Apt::set_location()
         delete [] location;
 
         location = new char[100];
-        cout << "\nWhere is the pick-up location?: ";
+        cout << "Where is the pick-up location?: ";
         cin.get(location, 100, '\n');
         cin.ignore(100, '\n');
     }
@@ -153,7 +140,7 @@ void Apt::set_location()
 
 void Apt::set_miles()
 {
-    cout << "\nHow many miles is it to your destination?: ";
+    cout << "How many miles is it to your destination?: ";
     cin >> miles;
     cin.ignore(100, '\n');
 }
@@ -163,7 +150,7 @@ void Apt::set_drop_off()
     if(!drop_off)
     {
         drop_off = new char[100];
-        cout << "\nWhere is the destination?: ";
+        cout << "Where is the destination?: ";
         cin.get(drop_off, 100, '\n');
         cin.ignore(100, '\n');
     }
@@ -173,7 +160,7 @@ void Apt::set_drop_off()
         delete [] drop_off;
 
         drop_off = new char[100];
-        cout << "\nWhere is the destination?: ";
+        cout << "Where is the destination?: ";
         cin.get(drop_off, 100, '\n');
         cin.ignore(100, '\n');
     }
@@ -186,7 +173,7 @@ void Apt::set_date()
     if(!date)
     {
         date = new char[100];
-        cout << "\nWhen is the date of the appointment?: ";
+        cout << "When is the date of the appointment?: ";
         cin.get(date, 100, '\n');
         cin.ignore(100, '\n');
     }
@@ -196,7 +183,7 @@ void Apt::set_date()
         delete [] date;
 
         date = new char[100];
-        cout << "\nWhat is the date of the appointment?: ";
+        cout << "What is the date of the appointment?: ";
         cin.get(date, 100, '\n');
         cin.ignore(100, '\n');
     }
@@ -228,11 +215,6 @@ char * Apt::get_date()
 //******************************************************************************
 //*********************Class Exp Functions**************************************
 //******************************************************************************
-/*
-   int booking_fee;
-   int cancle_fee;
- */
-
 /*
    @desc:
  */
@@ -269,10 +251,6 @@ int Exp::calc_fare()
 //**********************Class Standard_exp Functions****************************
 //******************************************************************************
 /*
-   int standard_fare;
- */
-
-/*
    @desc:
  */
 Standard_exp::Standard_exp()
@@ -294,14 +272,14 @@ Standard_exp::~Standard_exp()
 void Standard_exp::display_apt()
 {
 
-    cout << '\n' << "Customer name: " <<  cust_name 
-        << '\n' << "Phone Number: " << cust_phone 
-        << '\n' << "Pick-Up: " << location 
-        << '\n' << "Drop-off: " << drop_off  
-        << '\n' << "Distance: " << miles 
-        << '\n' << "Selected Vehicle:";
+    cout << "Customer name: " <<  cust_name << endl
+         << "Phone Number: " << cust_phone << endl
+         << "Pick-Up: " << location << endl
+         << "Drop-off: " << drop_off << endl
+         << "Distance: " << miles << endl
+         << "Selected Vehicle:";
     vehicle->display();
-    cout << "\nTotal cost for trip is: $" << calc_fare() << endl;
+    cout << endl << "Total cost for trip is: $" << calc_fare() << endl;
     return;
 }
 
@@ -315,11 +293,6 @@ int Standard_exp::calc_fare()
 //******************************************************************************
 //***********************Class Premium_exp Functions****************************
 //******************************************************************************
-/*
-   int premium_fare;
-   int min_fare;
- */
-
 /*
    @desc:
  */
@@ -344,14 +317,14 @@ Premium_exp::~Premium_exp()
 void Premium_exp::display_apt()
 {
 
-    cout << '\n' << "Customer name: " <<  cust_name 
-        << '\n' << "Phone Number: " << cust_phone 
-        << '\n' << "Pick-Up: " << location 
-        << '\n' << "Drop-off: " << drop_off  
-        << '\n' << "Distance: " << miles 
-        << '\n' << "Selected Vehicle:";
+    cout << "Customer name: " << cust_name << endl 
+         << "Phone Number: " << cust_phone << endl
+         << "Pick-Up: " << location << endl
+         << "Drop-off: " << drop_off << endl
+         << "Distance: " << miles << endl
+         << "Selected Vehicle:";
     vehicle->display();
-    cout << "\nTotal cost for trip is: $" << calc_fare() << endl;
+    cout << endl << "Total cost for trip is: $" << calc_fare() << endl;
     return;   
 }
 
@@ -370,14 +343,8 @@ int Premium_exp::calc_fare()
 //***********************Class Group_exp Functions******************************
 //******************************************************************************
 /*
-   int max_riders;
-   int num_riders;
-   int g_fare;
- */
-
-/*
    @desc:
- */
+*/
 Group_exp::Group_exp()
 {
 
@@ -411,15 +378,15 @@ Group_exp::~Group_exp()
 void Group_exp::display_apt()
 {
 
-    cout << '\n' << "Customer name: " <<  cust_name 
-        << '\n' << "Phone Number: " << cust_phone 
-        << '\n' << "Pick-Up: " << location 
-        << '\n' << "Drop-off: " << drop_off  
-        << '\n' << "Distance: " << miles 
-        << '\n' << "Passengers: " << num_riders
-        << '\n' << "Selected Vehicle:";
+    cout << "Customer name: " <<  cust_name << endl
+         << "Phone Number: " << cust_phone << endl
+         << "Pick-Up: " << location << endl
+         << "Drop-off: " << drop_off << endl
+         << "Distance: " << miles << endl
+         << "Passengers: " << num_riders << endl
+         << "Selected Vehicle:";
     vehicle->display();
-    cout << "\nTotal cost for trip is: $" << calc_fare() << endl;
+    cout << endl << "Total cost for trip is: $" << calc_fare() << endl;
     return;   
 }
 
@@ -431,11 +398,6 @@ int Group_exp::calc_fare()
 //******************************************************************************
 //***********************Class A_node Functions*********************************
 //******************************************************************************
-//A_node * left;
-//A_node * right;
-//Apt * apt
-//bool left_is_full
-//bool right_is full
 
 A_node::A_node()
 {
@@ -565,8 +527,6 @@ Apt_manager::Apt_manager()
 {
     root = NULL;
     num_nodes = 0;
-    //new_apt();
-    
 }
 
 Apt_manager::~Apt_manager()
@@ -580,7 +540,7 @@ void Apt_manager::new_apt()
     bool running = true;
     Vehicle * temp = NULL;
     cout << "\nWould you like to view standard, premium or group vehicles?" 
-         << "For standard type (s), premium (p), group (g): ";
+         << "\nFor standard type (s), premium (p), group (g): ";
     
     cin >> choice;
     cin.ignore(100, '\n');
@@ -628,57 +588,6 @@ void Apt_manager::new_apt()
 
     }while(running);
 
-  //TODO testing only
- /*   cout << "making a new apt" << endl;
-    char * make = new char[50];
-    char * model = new char[50];
-    char * license = new char[50];
-    strcpy(make, "passat");
-    strcpy(model, "volks");
-    strcpy(license, "777");
-    V_node * node = new V_node;
-    node->set_make(make);
-    node->set_model(model);
-    node->set_license(license);
-
-    node->display();
-    Group_exp * myExp = new Group_exp(*node);
-    ++num_nodes;
-    insert_apt(root, myExp);
-
-    char * m = new char[50];
-    char * mo = new char[50];
-    char * li = new char[50];
-    strcpy(m, "honda");
-    strcpy(mo, "accord");
-    strcpy(li, "888");
-    V_node * nod = new V_node;
-    nod->set_make(m);
-    nod->set_model(mo);
-    nod->set_license(li);
-
-    nod->display();
-    Premium_exp * my = new Premium_exp(*nod);
-    ++num_nodes;
-    insert_apt(root, my);
-
-    char * a = new char[50];
-    char * b = new char[50];
-    char * c = new char[50];
-    strcpy(a, "vw");
-    strcpy(b, "rave");
-    strcpy(c, "999");
-    V_node * no = new V_node;
-    no->set_make(a);
-    no->set_model(b);
-    no->set_license(c);
-
-    no->display();
-    Premium_exp * y = new Premium_exp(*no);
-    ++num_nodes;
-    insert_apt(root, y);
-*/
-    //TODO
 }
 
 Vehicle * Apt_manager::fetch_vehicle(int i)
@@ -703,18 +612,14 @@ Vehicle * Apt_manager::fetch_vehicle(int i)
     delete [] v_model;
 
     return temp;
-
 }
 
-//TODO
 bool Apt_manager::insert_apt(A_node * &root, Apt * myApt)
 {
-    //TODO
     if(!root)
     {
         root = new A_node(*myApt);
         ++num_nodes;
-        cout << endl << "node added" << endl;
         return true;
     }
 
@@ -726,8 +631,6 @@ bool Apt_manager::insert_apt(A_node * &root, Apt * myApt)
 
     if(!root->is_left_full())
     {   
-        //TODO
-        cout << "going left!" << endl;
         root->set_left_full(insert_apt(root->go_left(), myApt));
         if(root->compare_dates(root->go_left()))
         {
@@ -739,8 +642,6 @@ bool Apt_manager::insert_apt(A_node * &root, Apt * myApt)
 
     if(!root->is_right_full())
     {
-        //TODO
-        cout << "going right!" << endl;
         root->set_right_full(insert_apt(root->go_right(), myApt));
         if(root->compare_dates(root->go_right()))
         {
@@ -753,8 +654,6 @@ bool Apt_manager::insert_apt(A_node * &root, Apt * myApt)
 
 bool Apt_manager::display_all()
 {
-    //TODO
-    cout << "display all" << endl;
     if(!root) return false;
     display_all_helper(root);
     return true;
@@ -763,12 +662,10 @@ bool Apt_manager::display_all()
 void Apt_manager::display_all_helper(A_node * root)
 {
     if(!root) return;
-    cout << "displaying the apt" << endl;
     root->display_node();
     display_all_helper(root->go_left());
     display_all_helper(root->go_right());
     return;
-
 }
 
 
@@ -795,7 +692,6 @@ bool Apt_manager::pop_apt()
     //all cases where there is more than 1 node
     else if(num_nodes > 1)
     {
-//TODO
 //CASE 3: If both children are not full, then the node to remove will be in
 //the left subtree. Do the required swap with the root's successor, send the
 //popped root's data to the node to be deleted, delete node, and then rebalance
@@ -825,8 +721,6 @@ bool Apt_manager::pop_apt()
 //to the farthest right node, delete that node and then rebalance. 
         if(root->is_left_full() && root->is_right_full())
         {
-            //TODO
-            cout << "case 4" << endl;
             pop_full_helper(root);
             return true;
         }
@@ -914,8 +808,6 @@ void Apt_manager::pop_full_helper(A_node * &root)
 
     if(!root->go_left()->compare_dates(root->go_right()))
     {
-        //TODO
-        cout << "swaping with left" << endl;
         root->swap_apts(root->go_left());
         far_right_swap(root, root->go_left());
         rebalance(root->go_left());
@@ -923,8 +815,6 @@ void Apt_manager::pop_full_helper(A_node * &root)
 
     else
     {
-        //TODO
-        cout << "swapping with right" << endl;
         root->swap_apts(root->go_right());
         far_right_swap(root, root->go_right());
         rebalance(root->go_right());
@@ -934,7 +824,6 @@ void Apt_manager::pop_full_helper(A_node * &root)
     return;
 }
 
-//TODO
 bool Apt_manager::find_left_node(A_node * &root, A_node * &swapper)
 {
     if(!root) return true;
@@ -965,7 +854,6 @@ bool Apt_manager::find_left_node(A_node * &root, A_node * &swapper)
     }
 
 }
-
 
 bool Apt_manager::far_right_swap(A_node * &root, A_node * &swapper)
 {

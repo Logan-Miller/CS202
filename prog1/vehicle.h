@@ -4,7 +4,6 @@
 #include <cstring>
 using namespace std;
 
-//TODO
 /*
     @desc: A vehicle is an object comprised of a make, a model and a license.
     @func: constructor initially sets the vehicles data members to their 0
@@ -63,7 +62,6 @@ protected:
     V_node * next;
 };
 
-//TODO
 /*
     @desc: is a class managing a array of three circular linked lists. It will
         read in data from an external data file, create new vehicle nodes with 
