@@ -136,9 +136,10 @@ public:
     void new_apt();
     bool insert_apt(A_node * &root, Apt * myApt);
     Vehicle * fetch_vehicle(int i);
-    void display_all();
+    bool display_all();
     void display_all_helper(A_node * root);
-    void pop_apt();
+    bool display_next_apt();
+    bool pop_apt();
     void pop_full_helper(A_node * &root);
     bool far_right_swap(A_node * &root, A_node * &swapper);
     bool find_left_node(A_node * &root, A_node * &swapper);

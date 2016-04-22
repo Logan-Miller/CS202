@@ -713,6 +713,8 @@ bool Apt_manager::insert_apt(A_node * &root, Apt * myApt)
     if(!root)
     {
         root = new A_node(*myApt);
+        ++num_nodes;
+        cout << endl << "node added" << endl;
         return true;
     }
 
@@ -749,12 +751,13 @@ bool Apt_manager::insert_apt(A_node * &root, Apt * myApt)
     }
 }
 
-void Apt_manager::display_all()
+bool Apt_manager::display_all()
 {
     //TODO
     cout << "display all" << endl;
+    if(!root) return false;
     display_all_helper(root);
-    return;
+    return true;
 }
 
 void Apt_manager::display_all_helper(A_node * root)
@@ -768,17 +771,25 @@ void Apt_manager::display_all_helper(A_node * root)
 
 }
 
-void Apt_manager::pop_apt()
+
+bool Apt_manager::display_next_apt()
+{
+    if(!root) return false;
+    root->display_node();
+    return true;
+}
+
+bool Apt_manager::pop_apt()
 {
 //CASE 1: there are no nodes within the heap, immediatly return.
-    if(num_nodes == 0) return;
+    if(num_nodes == 0) return false;
 //CASE 2: there is only one node, delete it and set the root to NULL.
     if(num_nodes == 1)
     {
         delete root;
         root = NULL;
         --num_nodes;
-        return;
+        return true;
     }
     
     //all cases where there is more than 1 node
@@ -805,7 +816,7 @@ void Apt_manager::pop_apt()
                 rebalance(root->go_right());
             }
             --num_nodes;
-            return;
+            return true;
         }
 
 //CASE 4: If both children are full, the node that must be removed to keep the
@@ -817,7 +828,7 @@ void Apt_manager::pop_apt()
             //TODO
             cout << "case 4" << endl;
             pop_full_helper(root);
-            return;
+            return true;
         }
 
 //CASE 5: case 5 has multiple sub cases. If the left is full and the right is
@@ -834,7 +845,7 @@ void Apt_manager::pop_apt()
                 root->set_left(NULL);
                 root->set_left_full(true);
                 --num_nodes;
-                return;
+                return true;
             }
             
             //the height of each sub tree will be used to find where the node
@@ -888,7 +899,7 @@ void Apt_manager::pop_apt()
             }
 
             --num_nodes;
-            return;
+            return true;
         }
     }
 }
