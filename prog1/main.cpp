@@ -13,7 +13,8 @@ int main()
     Apt_manager appointments;
     bool running = true;
     char choice;
-
+    
+    cout << endl << endl;
     cout << "Welcome to the appointment manager. This program allows you to\n"
          << "create appointments to catch a ride in a variety of vehicles.\n"
          << "Three types of a vehicles are offered. Our standard vehicles\n"
@@ -30,6 +31,7 @@ int main()
 
     while(running)
     {
+        cout << endl;
         choice = '\n';
         cout << "To create an appointment type      (1)" << endl
              << "To view all appointments type      (2)" << endl
@@ -43,11 +45,13 @@ int main()
 
         if(choice == '1')
         {
+            cout << endl;
             appointments.new_apt();
         }
 
         else if(choice == '2')
         {
+            cout << endl;
             if(!appointments.display_all())
             {
                 cout << "No current appointments." << endl;
@@ -56,6 +60,7 @@ int main()
 
         else if(choice == '3')
         {
+            cout << endl;
             if(!appointments.display_next_apt())
             {
                 cout << "No current appointments." << endl;
@@ -64,6 +69,7 @@ int main()
 
         else if(choice == '4')
         {
+            cout << endl;
             if(!appointments.pop_apt())
             {
                 cout << "No current appointments." << endl;
@@ -72,11 +78,13 @@ int main()
 
         else if(choice == 'q')
         {
+            cout << endl;
             running = false;
         }
 
         else
         {
+            cout << endl;
             cout << "Your response could not be verified, please enter a"
                  << " response from the available choices." << endl;
         }

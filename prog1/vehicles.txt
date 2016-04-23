@@ -1,3 +1,6 @@
 1:volkswagon:passat:666
 2:suburu:wrx:667
 3:volkswagon:vanagin:668
+1:honda:civic:789
+2:bmw:limo:5557
+3:toyota:van:4545

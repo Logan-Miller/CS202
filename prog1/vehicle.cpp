@@ -389,7 +389,7 @@ void V_manager::display_premium()
 {
     if(!table[1]) return;
 
-    V_node * head = table[1];
+    V_node * head = table[1]->go_next();
     V_node * current = head;
 
     table[1]->set_next(NULL);
@@ -413,8 +413,7 @@ void V_manager::display_premium()
 void V_manager::display_group()
 {
     if(!table[2]) return;
-    cout << "displaying 3" << endl;
-    V_node * head = table[2];
+    V_node * head = table[2]->go_next();
     V_node * current = table[2];
 
     table[2]->set_next(NULL);

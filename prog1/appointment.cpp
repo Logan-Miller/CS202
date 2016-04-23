@@ -5,7 +5,7 @@
 //******************************************************************************
 
 /*
-    @desc: 
+    @desc: appointments should never be made by itself
 */
 
 Apt::Apt()
@@ -14,7 +14,10 @@ Apt::Apt()
 }
 
 /*
-    @desc: 
+    @desc: Appointments should be initialized with a vehicle. and appointmnet 
+           doesn't make much sense without one. This will initially set all 
+           data members to null, construct a vehicle with the source vehicle 
+           it was passed, and then get all the appointment information.
 */
 Apt::Apt(Vehicle &source)
 {   
@@ -44,7 +47,7 @@ Apt::Apt(const Apt &apt)
 
 //virtual
 /*
-    @desc:
+    @desc: deallocates all dynamic memory
 */
 Apt::~Apt()
 {
@@ -89,7 +92,8 @@ Apt::~Apt()
 
 
 /*
-    @desc:
+   @desc: if there is not already a customers name, it sets the data, otherwise
+          it deletes the data and make a new one
 */
 void Apt::set_cust_name()
 {
@@ -115,7 +119,8 @@ void Apt::set_cust_name()
 }
 
 /*
-    @desc:
+   @desc: if there is not already data  it sets the data, otherwise
+          it deletes the data and make a new one
 */
 void Apt::set_cust_phone()
 {
@@ -142,7 +147,8 @@ void Apt::set_cust_phone()
 }
 
 /*
-    @desc:
+   @desc: if there is not already data  it sets the data, otherwise
+          it deletes the data and make a new one
 */
 void Apt::set_location()
 {
@@ -168,7 +174,7 @@ void Apt::set_location()
 }
 
 /*
-    @desc:
+    @desc: Sets the miles to be driven
 */
 void Apt::set_miles()
 {
@@ -178,7 +184,8 @@ void Apt::set_miles()
 }
 
 /*
-    @desc:
+   @desc: if there is not already data  it sets the data, otherwise
+          it deletes the data and make a new one
 */
 void Apt::set_drop_off()
 {
@@ -204,7 +211,8 @@ void Apt::set_drop_off()
 }
 
 /*
-    @desc:
+   @desc: if there is not already data  it sets the data, otherwise
+          it deletes the data and make a new one
 */
 void Apt::set_date()
 {
@@ -231,6 +239,8 @@ void Apt::set_date()
     return;
 }
 
+//THESE TWO FUNCTIONS WILL NOT EVER BE CALLED ON AN APPOINTMENT. They are both
+//virtual, only the derived classes will really use these functions.
 
 /*
     @desc:
@@ -254,7 +264,7 @@ void Apt::display_apt()
 }
 
 /*
-    @desc:
+    @desc: get functions to get the object's data.
 */
 char * Apt::get_date()
 {
@@ -273,7 +283,8 @@ Exp::Exp()
 }
 
 /*
-    @desc:
+    @desc: Only thing an experience should really do is set a booking fee and a
+           cancellation fee.
 */
 Exp::Exp(Vehicle &source) : Apt(source)
 {
@@ -320,7 +331,9 @@ Standard_exp::Standard_exp()
 }
 
 /*
-    @desc:
+    @desc: A standard experience should take a vehicle, use an initialization
+           list to kick start the base class constructors. set the standard
+           fare.
 */
 Standard_exp::Standard_exp(Vehicle &source) : Exp(source)
 {
@@ -328,7 +341,7 @@ Standard_exp::Standard_exp(Vehicle &source) : Exp(source)
 }
 
 /*
-    @desc:
+    @desc: Destructor should only set the standard fare to 0. 
 */
 //virtual
 Standard_exp::~Standard_exp()
@@ -337,7 +350,7 @@ Standard_exp::~Standard_exp()
 }
 
 /*
-    @desc:
+    @desc: Displays all the appointments data
 */
 void Standard_exp::display_apt()
 {
@@ -354,7 +367,7 @@ void Standard_exp::display_apt()
 }
 
 /*
-    @desc:
+    @desc: calculates the appointment's fare
 */
 int Standard_exp::calc_fare()
 {
@@ -394,7 +407,7 @@ Premium_exp::~Premium_exp()
 }
 
 /*
-    @desc:
+    @desc: Displays all the appointments data
 */
 void Premium_exp::display_apt()
 {
@@ -411,7 +424,7 @@ void Premium_exp::display_apt()
 }
 
 /*
-    @desc:
+    @desc: calculates the appointment's fare
 */
 int Premium_exp::calc_fare()
 {
@@ -436,7 +449,8 @@ Group_exp::Group_exp()
 }
 
 /*
-    @desc:
+    @desc: If a group appointment is made, the number of passengers needs to be
+           set. 
 */
 Group_exp::Group_exp(Vehicle &source) : Exp(source)
 {
@@ -467,7 +481,7 @@ Group_exp::~Group_exp()
 }
 
 /*
-    @desc:
+    @desc: Displays all the appointments data
 */
 void Group_exp::display_apt()
 {
@@ -485,7 +499,7 @@ void Group_exp::display_apt()
 }
 
 /*
-    @desc:
+    @desc: calculates the appointment's fare.
 */
 int Group_exp::calc_fare()
 {
@@ -513,7 +527,8 @@ A_node::A_node(const A_node &a_node)
 }
 
 /*
-    @desc:
+    @desc: an appointment node should only be made with passing it an 
+           appointment. 
 */
 A_node::A_node(Apt &source)
 {
@@ -525,7 +540,7 @@ A_node::A_node(Apt &source)
 }
 
 /*
-    @desc:
+    @desc: deletes all the data.
 */
 A_node::~A_node()
 {
@@ -537,7 +552,7 @@ A_node::~A_node()
 }
 
 /*
-    @desc:
+    @desc: sets the left pointer
 */
 void A_node::set_left(A_node * source)
 {
@@ -549,7 +564,7 @@ void A_node::set_left(A_node * source)
 }
 
 /*
-    @desc:
+    @desc: sets the right pointer
 */
 void A_node::set_right(A_node * source)
 {
@@ -561,7 +576,7 @@ void A_node::set_right(A_node * source)
 }
 
 /*
-    @desc:
+    @desc: returns the left pointer by reference
 */
 A_node *& A_node::go_left()
 {
@@ -569,7 +584,7 @@ A_node *& A_node::go_left()
 }
 
 /*
-    @desc:
+    @desc: returns the right pointer by reference
 */
 A_node *& A_node::go_right()
 {
@@ -577,7 +592,7 @@ A_node *& A_node::go_right()
 }
 
 /*
-    @desc:
+    @desc: checks if there is a left
 */
 bool A_node::if_left() const
 {
@@ -586,7 +601,7 @@ bool A_node::if_left() const
 }
 
 /*
-    @desc:
+    @desc: checks if there is a right
 */
 bool A_node::if_right() const
 {
@@ -595,7 +610,7 @@ bool A_node::if_right() const
 }
 
 /*
-    @desc:
+    @desc: checks if the left full flag is set to true
 */
 bool A_node::is_left_full()
 {
@@ -604,7 +619,7 @@ bool A_node::is_left_full()
 }
 
 /*
-    @desc:
+    @desc: checks if the right full flag is set to true
 */
 bool A_node::is_right_full()
 {
@@ -613,7 +628,7 @@ bool A_node::is_right_full()
 }
 
 /*
-    @desc:
+    @desc: setst the left full flag.
 */
 void A_node::set_left_full(bool is_full)
 {
@@ -622,7 +637,7 @@ void A_node::set_left_full(bool is_full)
 }
 
 /*
-    @desc:
+    @desc: sets the right full flag
 */
 void A_node::set_right_full(bool is_full)
 {
@@ -631,7 +646,7 @@ void A_node::set_right_full(bool is_full)
 }
 
 /*
-    @desc:
+    @desc: displays the node by calling the data's display funcftion
 */
 void A_node::display_node()
 {
@@ -641,7 +656,8 @@ void A_node::display_node()
 
 
 /*
-    @desc:
+    @desc: compares the date's using strcmp. If the current data is less than
+           the source's data, no swap is needed and return less than one.
 */
 bool A_node::compare_dates(const A_node * source)
 {
@@ -655,7 +671,7 @@ bool A_node::compare_dates(const A_node * source)
 }
 
 /*
-    @desc:
+    @desc: Swap the appointment pointer with the source's appointment pointer. 
 */
 void A_node::swap_apts(A_node * &source)
 {
@@ -672,7 +688,7 @@ void A_node::swap_apts(A_node * &source)
 //
 
 /*
-    @desc:
+    @desc: sets the root to null and the number of nodes to 0.
 */
 Apt_manager::Apt_manager()
 {
@@ -681,7 +697,7 @@ Apt_manager::Apt_manager()
 }
 
 /*
-    @desc:
+    @desc: deallocates all dynamic memory
 */
 Apt_manager::~Apt_manager()
 {
@@ -691,7 +707,11 @@ Apt_manager::~Apt_manager()
 }
 
 /*
-    @desc:
+    @desc: when creating a new appointment the user needs a choice of what type
+           of vehicle they wnat. when they choose their type, all of those 
+           vehicles will be displayed, they can then choose what vehicle they
+           want. If they're choice didn't match one of the choices they will be 
+           prompted again.
 */
 void Apt_manager::new_apt()
 {
@@ -750,7 +770,10 @@ void Apt_manager::new_apt()
 }
 
 /*
-    @desc:
+    @desc: fetch vehicle has the user input the make and model of the vehicle
+           they want, given the array index it calls a function to search for
+           that vehicle and sets a pointer to its return value. it then deletes
+           the temporary search pointers
 */
 Vehicle * Apt_manager::fetch_vehicle(int i)
 {
@@ -777,7 +800,13 @@ Vehicle * Apt_manager::fetch_vehicle(int i)
 }
 
 /*
-    @desc:
+    @desc: given the root and an appointment the function insert function
+           finds where to insert the appointment, then creates an A_node
+           with the appointment and inserts it there. 
+
+           The insertion function works by checking the left and right flags.
+           there are 4 different cases. The base case is that root is null so 
+           we know we need to insert here. 
 */
 bool Apt_manager::insert_apt(A_node * &root, Apt * myApt)
 {
@@ -787,13 +816,18 @@ bool Apt_manager::insert_apt(A_node * &root, Apt * myApt)
         ++num_nodes;
         return true;
     }
-
+    
+    //IF left and right is full (both true) set both to false and continue.
     if(root->is_left_full() && root->is_right_full())
     {
         root->set_left_full(false);
         root->set_right_full(false);
     }
 
+    //if left is not full we know we need to insert to the left, because we
+    //always fill from left to right. upon the return from inserting we need 
+    //to check if we need to swap the data with the left node, because the 
+    //"smallest" data should always be above the "larger" data
     if(!root->is_left_full())
     {   
         root->set_left_full(insert_apt(root->go_left(), myApt));
@@ -804,7 +838,8 @@ bool Apt_manager::insert_apt(A_node * &root, Apt * myApt)
 
         return root->is_left_full() && root->is_right_full();
     }
-
+    
+    //the right side works the same as the left
     if(!root->is_right_full())
     {
         root->set_right_full(insert_apt(root->go_right(), myApt));
@@ -818,7 +853,7 @@ bool Apt_manager::insert_apt(A_node * &root, Apt * myApt)
 }
 
 /*
-    @desc:
+    @desc: wrapper function for a display all function
 */
 bool Apt_manager::display_all()
 {
@@ -828,7 +863,7 @@ bool Apt_manager::display_all()
 }
 
 /*
-    @desc:
+    @desc: recursive function to display everything in a tree
 */
 void Apt_manager::display_all_helper(A_node * root)
 {
@@ -841,7 +876,7 @@ void Apt_manager::display_all_helper(A_node * root)
 
 
 /*
-    @desc:
+    @desc: displays the root of the heap's appointment
 */
 bool Apt_manager::display_next_apt()
 {
@@ -851,7 +886,16 @@ bool Apt_manager::display_next_apt()
 }
 
 /*
-    @desc:
+    @desc: there are a variety of possibilities when popping from the heap. 
+           the top of the heap is the only thing that should be removed. 
+           How that is accomplished is by swapping the data with the next 
+           successor (either the left or right node) and then finding the 
+           last node that was added (the leaf on the lowest level and farthest
+           to the right). these two nodes will be swapped. the leaf at the 
+           bottom, (now containing the data that needed to be popped) will be 
+           deleted. once we have done that wee need to rebalance because the 
+           data that is now below root may not be the successor and needs to be
+           bubbled down lower into the heap.
 */
 bool Apt_manager::pop_apt()
 {
@@ -1002,7 +1046,10 @@ void Apt_manager::pop_full_helper(A_node * &root)
 }
 
 /*
-    @desc:
+    @desc: Horribly named function. This is used to essentially attempt
+           to go as far to the right as possible. it will go to the right,
+           and if it cant then it will go to the left and then try to to go 
+           to the right again. 
 */
 bool Apt_manager::find_left_node(A_node * &root, A_node * &swapper)
 {
@@ -1036,7 +1083,9 @@ bool Apt_manager::find_left_node(A_node * &root, A_node * &swapper)
 }
 
 /*
-    @desc:
+    @desc: this goes as far to the right as possible. that being said I now
+           wonder if this function is even needed. It was made to as quickly
+           as possible go to the farthest right node
 */
 bool Apt_manager::far_right_swap(A_node * &root, A_node * &swapper)
 {
@@ -1055,7 +1104,9 @@ bool Apt_manager::far_right_swap(A_node * &root, A_node * &swapper)
 }
 
 /*
-    @desc:
+    @desc: rebalance works by bubbling the node down if its greater than 
+           either its left or right node. it continues until the node is at
+           the bottom. 
 */
 void Apt_manager::rebalance(A_node * &root)
 {
@@ -1092,7 +1143,8 @@ void Apt_manager::rebalance(A_node * &root)
 }
 
 /*
-    @desc:
+    @desc: finds the height of a heap. since the heap builds left to right, we 
+           only need to find the height by going as far to the left as possible
 */
 int Apt_manager::find_height(A_node * root)
 {
@@ -1101,7 +1153,8 @@ int Apt_manager::find_height(A_node * root)
 }
 
 /*
-    @desc:
+    @desc: detroy heap works in the same way as destroying a tree. it goes all
+    the way to the left, then to the right and then starts to delete. 
 */
 void Apt_manager::destroy_heap(A_node * &root)
 {
