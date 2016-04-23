@@ -3,11 +3,19 @@
 //******************************************************************************
 //********************Class Apt Functions***************************************
 //******************************************************************************
+
+/*
+    @desc: 
+*/
+
 Apt::Apt()
 {
 
 }
 
+/*
+    @desc: 
+*/
 Apt::Apt(Vehicle &source)
 {   
     cust_name = NULL;
@@ -26,12 +34,18 @@ Apt::Apt(Vehicle &source)
     set_miles();
 }
 
+/*
+    @desc:
+*/
 Apt::Apt(const Apt &apt)
 {
 
 }
 
 //virtual
+/*
+    @desc:
+*/
 Apt::~Apt()
 {
     if(vehicle)
@@ -64,10 +78,19 @@ Apt::~Apt()
         drop_off = NULL;
     }
 
+    if(date)
+    {
+        delete date;
+        date = NULL;
+    }
+
     miles = 0;
 }
 
 
+/*
+    @desc:
+*/
 void Apt::set_cust_name()
 {
     if(!cust_name)
@@ -91,6 +114,9 @@ void Apt::set_cust_name()
     return;
 }
 
+/*
+    @desc:
+*/
 void Apt::set_cust_phone()
 {
 
@@ -115,6 +141,9 @@ void Apt::set_cust_phone()
     return;
 }
 
+/*
+    @desc:
+*/
 void Apt::set_location()
 {
     if(!location)
@@ -138,13 +167,19 @@ void Apt::set_location()
     return;
 }
 
+/*
+    @desc:
+*/
 void Apt::set_miles()
 {
-    cout << "How many miles is it to your destination?: ";
+    cout << "How many miles is it to your destination? (a number): ";
     cin >> miles;
     cin.ignore(100, '\n');
 }
 
+/*
+    @desc:
+*/
 void Apt::set_drop_off()
 {
     if(!drop_off)
@@ -168,12 +203,16 @@ void Apt::set_drop_off()
     return;
 }
 
+/*
+    @desc:
+*/
 void Apt::set_date()
 {
     if(!date)
     {
         date = new char[100];
-        cout << "When is the date of the appointment?: ";
+        cout << "When is the date of the appointment?: " << endl;
+        cout << "(enter as year/month/day I.e 2016/01/01): ";
         cin.get(date, 100, '\n');
         cin.ignore(100, '\n');
     }
@@ -183,7 +222,8 @@ void Apt::set_date()
         delete [] date;
 
         date = new char[100];
-        cout << "What is the date of the appointment?: ";
+        cout << "What is the date of the appointment?: " << endl;
+        cout << "(enter as year/month/day I.e 2016/01/01): ";
         cin.get(date, 100, '\n');
         cin.ignore(100, '\n');
     }
@@ -192,12 +232,18 @@ void Apt::set_date()
 }
 
 
+/*
+    @desc:
+*/
 //virtual
 int Apt::calc_fare()
 {
 
 }
 
+/*
+    @desc:
+*/
 //virtual
 void Apt::display_apt()
 {
@@ -207,6 +253,9 @@ void Apt::display_apt()
     return;
 }
 
+/*
+    @desc:
+*/
 char * Apt::get_date()
 {
     return date;
@@ -223,17 +272,26 @@ Exp::Exp()
 
 }
 
+/*
+    @desc:
+*/
 Exp::Exp(Vehicle &source) : Apt(source)
 {
     booking_fee = 5;
     cancle_fee = 10;
 }
 
+/*
+    @desc:
+*/
 Exp::Exp(const Exp &exp)
 {
 
 }
 
+/*
+    @desc:
+*/
 //virtual
 Exp::~Exp()
 {
@@ -241,6 +299,9 @@ Exp::~Exp()
     cancle_fee = 0;
 }
 
+/*
+    @desc:
+*/
 int Exp::calc_fare()
 {
 
@@ -258,17 +319,26 @@ Standard_exp::Standard_exp()
 
 }
 
+/*
+    @desc:
+*/
 Standard_exp::Standard_exp(Vehicle &source) : Exp(source)
 {
     standard_fare = 1;
 }
 
+/*
+    @desc:
+*/
 //virtual
 Standard_exp::~Standard_exp()
 {
     standard_fare = 0;
 }
 
+/*
+    @desc:
+*/
 void Standard_exp::display_apt()
 {
 
@@ -283,6 +353,9 @@ void Standard_exp::display_apt()
     return;
 }
 
+/*
+    @desc:
+*/
 int Standard_exp::calc_fare()
 {
     int fare = standard_fare * miles;
@@ -301,12 +374,18 @@ Premium_exp::Premium_exp()
 
 }
 
+/*
+    @desc:
+*/
 Premium_exp::Premium_exp(Vehicle &source) : Standard_exp(source)
 {
     premium_fare = 2;
     min_fare = 20;
 }
 
+/*
+    @desc:
+*/
 //virtual
 Premium_exp::~Premium_exp()
 {
@@ -314,6 +393,9 @@ Premium_exp::~Premium_exp()
     min_fare = 20;
 }
 
+/*
+    @desc:
+*/
 void Premium_exp::display_apt()
 {
 
@@ -328,6 +410,9 @@ void Premium_exp::display_apt()
     return;   
 }
 
+/*
+    @desc:
+*/
 int Premium_exp::calc_fare()
 {
     int fare = premium_fare * miles;
@@ -350,6 +435,9 @@ Group_exp::Group_exp()
 
 }
 
+/*
+    @desc:
+*/
 Group_exp::Group_exp(Vehicle &source) : Exp(source)
 {
     max_riders = 8;
@@ -367,6 +455,9 @@ Group_exp::Group_exp(Vehicle &source) : Exp(source)
     }
 }
 
+/*
+    @desc:
+*/
 //virtual
 Group_exp::~Group_exp()
 {
@@ -375,6 +466,9 @@ Group_exp::~Group_exp()
     g_fare = 0;
 }
 
+/*
+    @desc:
+*/
 void Group_exp::display_apt()
 {
 
@@ -390,6 +484,9 @@ void Group_exp::display_apt()
     return;   
 }
 
+/*
+    @desc:
+*/
 int Group_exp::calc_fare()
 {
     return num_riders * g_fare + booking_fee;
@@ -399,16 +496,25 @@ int Group_exp::calc_fare()
 //***********************Class A_node Functions*********************************
 //******************************************************************************
 
+/*
+    @desc:
+*/
 A_node::A_node()
 {
 
 }
 
+/*
+    @desc:
+*/
 A_node::A_node(const A_node &a_node)
 {
 
 }
 
+/*
+    @desc:
+*/
 A_node::A_node(Apt &source)
 {
     apt = &source;
@@ -418,6 +524,9 @@ A_node::A_node(Apt &source)
     right_is_full = true;
 }
 
+/*
+    @desc:
+*/
 A_node::~A_node()
 {
     delete apt;
@@ -427,6 +536,9 @@ A_node::~A_node()
     right_is_full = true;
 }
 
+/*
+    @desc:
+*/
 void A_node::set_left(A_node * source)
 {
     if(source) left = source;
@@ -436,6 +548,9 @@ void A_node::set_left(A_node * source)
     return;
 }
 
+/*
+    @desc:
+*/
 void A_node::set_right(A_node * source)
 {
     if(source) right = source;
@@ -445,52 +560,79 @@ void A_node::set_right(A_node * source)
     return;
 }
 
+/*
+    @desc:
+*/
 A_node *& A_node::go_left()
 {
     return left;
 }
 
+/*
+    @desc:
+*/
 A_node *& A_node::go_right()
 {
     return right;
 }
 
+/*
+    @desc:
+*/
 bool A_node::if_left() const
 {
     if(left) return true;
     return false;
 }
 
+/*
+    @desc:
+*/
 bool A_node::if_right() const
 {
     if(right) return true;
     return false;
 }
 
+/*
+    @desc:
+*/
 bool A_node::is_left_full()
 {
     if(left_is_full == true) return true;
     return false;
 }
 
+/*
+    @desc:
+*/
 bool A_node::is_right_full()
 {
     if(right_is_full == true) return true;
     return false;
 }
 
+/*
+    @desc:
+*/
 void A_node::set_left_full(bool is_full)
 {
     left_is_full = is_full;
     return;
 }
 
+/*
+    @desc:
+*/
 void A_node::set_right_full(bool is_full)
 {
     right_is_full = is_full;
     return;
 }
 
+/*
+    @desc:
+*/
 void A_node::display_node()
 {
     apt->display_apt();
@@ -498,6 +640,9 @@ void A_node::display_node()
 }
 
 
+/*
+    @desc:
+*/
 bool A_node::compare_dates(const A_node * source)
 {
     if(strcmp(apt->get_date(), source->apt->get_date()) < 0)
@@ -509,6 +654,9 @@ bool A_node::compare_dates(const A_node * source)
     return true;
 }
 
+/*
+    @desc:
+*/
 void A_node::swap_apts(A_node * &source)
 {
     Apt * temp = apt;
@@ -523,17 +671,28 @@ void A_node::swap_apts(A_node * &source)
 
 //
 
+/*
+    @desc:
+*/
 Apt_manager::Apt_manager()
 {
     root = NULL;
     num_nodes = 0;
 }
 
+/*
+    @desc:
+*/
 Apt_manager::~Apt_manager()
 {
-
+    destroy_heap(root);
+    root = NULL;
+    num_nodes = 0;
 }
 
+/*
+    @desc:
+*/
 void Apt_manager::new_apt()
 {
     char choice = '\n';
@@ -590,6 +749,9 @@ void Apt_manager::new_apt()
 
 }
 
+/*
+    @desc:
+*/
 Vehicle * Apt_manager::fetch_vehicle(int i)
 {
     char * v_make = new char[100];
@@ -614,6 +776,9 @@ Vehicle * Apt_manager::fetch_vehicle(int i)
     return temp;
 }
 
+/*
+    @desc:
+*/
 bool Apt_manager::insert_apt(A_node * &root, Apt * myApt)
 {
     if(!root)
@@ -652,6 +817,9 @@ bool Apt_manager::insert_apt(A_node * &root, Apt * myApt)
     }
 }
 
+/*
+    @desc:
+*/
 bool Apt_manager::display_all()
 {
     if(!root) return false;
@@ -659,6 +827,9 @@ bool Apt_manager::display_all()
     return true;
 }
 
+/*
+    @desc:
+*/
 void Apt_manager::display_all_helper(A_node * root)
 {
     if(!root) return;
@@ -669,6 +840,9 @@ void Apt_manager::display_all_helper(A_node * root)
 }
 
 
+/*
+    @desc:
+*/
 bool Apt_manager::display_next_apt()
 {
     if(!root) return false;
@@ -676,6 +850,9 @@ bool Apt_manager::display_next_apt()
     return true;
 }
 
+/*
+    @desc:
+*/
 bool Apt_manager::pop_apt()
 {
 //CASE 1: there are no nodes within the heap, immediatly return.
@@ -824,6 +1001,9 @@ void Apt_manager::pop_full_helper(A_node * &root)
     return;
 }
 
+/*
+    @desc:
+*/
 bool Apt_manager::find_left_node(A_node * &root, A_node * &swapper)
 {
     if(!root) return true;
@@ -855,6 +1035,9 @@ bool Apt_manager::find_left_node(A_node * &root, A_node * &swapper)
 
 }
 
+/*
+    @desc:
+*/
 bool Apt_manager::far_right_swap(A_node * &root, A_node * &swapper)
 {
     if(!root) return true;
@@ -871,6 +1054,9 @@ bool Apt_manager::far_right_swap(A_node * &root, A_node * &swapper)
     return false;
 }
 
+/*
+    @desc:
+*/
 void Apt_manager::rebalance(A_node * &root)
 {
     if(!root) return;
@@ -905,13 +1091,27 @@ void Apt_manager::rebalance(A_node * &root)
     return;
 }
 
+/*
+    @desc:
+*/
 int Apt_manager::find_height(A_node * root)
 {
     if(!root) return 0;
     return 1 + find_height(root->go_left());
 }
 
-
+/*
+    @desc:
+*/
+void Apt_manager::destroy_heap(A_node * &root)
+{
+    if(!root) return;
+    destroy_heap(root->go_left());
+    destroy_heap(root->go_right());
+    delete root;
+    root = NULL;
+    return;
+}
 
 
 

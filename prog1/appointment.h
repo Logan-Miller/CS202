@@ -1,7 +1,9 @@
 #include "vehicle.h"
 
 /*
-    @desc:
+    @desc: an apt has all of a customer's information such as their name and 
+           phone number. It also has a vehicle. An apt by itself should never 
+           be created by itself. 
 */
 class Apt
 {
@@ -32,7 +34,9 @@ protected:
 };
 
 /*
-    @desc:
+    @desc: An Exp is an Apt plus a booking fee and a cancelation fee
+           and the ability to calculate its fare. A base Exp should never be 
+           called.
 */
 class Exp : public Apt
 {
@@ -49,7 +53,8 @@ protected:
 };
 
 /*
-    @desc:
+    @desc: A Standard_exp is an Exp, plus a standard_fare. Standard_exp's
+           are appointments with standard vehicles. 
 */
 class Standard_exp : public Exp
 {
@@ -66,7 +71,8 @@ protected:
 };
 
 /*
-    @desc:
+    @desc: A premium_exp is a standard_exp plus a different fare and a min fare
+           premium_exp are an appointment with premium vehicles
 */
 class Premium_exp : public Standard_exp
 {
@@ -83,7 +89,8 @@ protected:
 };
 
 /*
-    @desc:
+    @desc: a group_exp is an exp that has information such as a number of
+           riders. 
 */
 class Group_exp : public Exp
 {
@@ -100,6 +107,10 @@ protected:
     int g_fare;
 };
 
+/*
+    @desc: A_node are nodes that contain an appointmen, used for building tree 
+           like data structures.
+*/
 class A_node
 {
 public:
@@ -128,6 +139,10 @@ protected:
     bool right_is_full;
 };
 
+/*
+    @desc: an Apt_manager manages a heap data structure of A_nodes and 
+           V_manager (an array of 3 CLL of V_nodes).
+*/
 class Apt_manager
 {
 public:
@@ -145,8 +160,9 @@ public:
     bool find_left_node(A_node * &root, A_node * &swapper);
     void rebalance(A_node * &root);
     int find_height(A_node * root);
+    void destroy_heap(A_node * &root);
 protected:
-    A_node * root;
+    A_node * root;   
     V_manager vehicles;
     int num_nodes;
 };

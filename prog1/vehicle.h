@@ -6,18 +6,6 @@ using namespace std;
 
 /*
     @desc: A vehicle is an object comprised of a make, a model and a license.
-    @func: constructor initially sets the vehicles data members to their 0
-        equivalent.
-    @func: destructor deallocates the memory for its data members
-    @func: set_make(char * make) expects a char *, it then sets the vehicle's
-        make to this string.
-    @func: set_model(char * model) exepects a char *, it then sets the vehcle's
-        model to this string.
-    @func: set_license(char * license) expects a char *, it then sets the
-        vehicle's license to this value.
-    @member: make is a char *
-    @member: model is a char *
-    @member: license is a char *
 */
 class Vehicle
 {
@@ -40,11 +28,6 @@ protected:
     @desc: A vehicle node IS A vehicle plus the ability to link to other
         vehicles, allowing for the developement of different list-type data 
         structures.
-    @func:
-    @func:
-    @func:
-    @func:
-    @func:
 */
 class V_node: public Vehicle
 {
@@ -66,7 +49,6 @@ protected:
     @desc: is a class managing a array of three circular linked lists. It will
         read in data from an external data file, create new vehicle nodes with 
         this data, 
-
 */
 class V_manager
 {

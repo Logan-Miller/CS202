@@ -4,6 +4,10 @@
 //*****************************************************************************
 //*********************** Vehicle class ***************************************
 //*****************************************************************************
+/*
+The vehicle class has a make model and license. It has functions to handle its
+corresponding memory.
+*/
 
 /*
    @desc: initially sets a vehicle's make, model and license to NULL
@@ -112,6 +116,9 @@ void Vehicle::display()
 //*****************************************************************************
 //********************** V_node class *****************************************
 //*****************************************************************************
+/*
+A V_node IS A vehicle, plus the ability to link to other V_nodes
+*/
 
 /*
    @desc: base constructor for the V_node class. Sets the node's pointer to NULL
@@ -122,7 +129,8 @@ V_node::V_node()
 }
 
 /*
-    @desc: Copy constructor, copies a supplied V_node
+    @desc: Copy constructor, copies a supplied V_node. Uses an initialization
+           list to copy the base class data. 
 */
 V_node::V_node(const V_node &v_node) : Vehicle(v_node)
 {
@@ -132,7 +140,7 @@ V_node::V_node(const V_node &v_node) : Vehicle(v_node)
 
 /*
    @desc: base destructor for the V_node class. Deletes dynamic memory.
- */
+*/
 V_node::~V_node()
 {
     next = NULL;
@@ -141,7 +149,7 @@ V_node::~V_node()
 /*
    @desc: set_next sets the current V_node's next pointer to the pointer 
    passed into the function.
- */
+*/
 void V_node::set_next(V_node * source)
 {
     if(source) next = source;
@@ -154,7 +162,7 @@ void V_node::set_next(V_node * source)
 /*
    @desc: go_next returns the V_nodes next pointer, allowing for traversal to
    the "next" node.
- */
+*/
 V_node *& V_node::go_next()
 {
     return next;
@@ -171,7 +179,7 @@ bool V_node::if_next() const
 }
 
 /*
-   @desc:
+   @desc: returns true if the source is the same as the node's make.
 */
 bool V_node::compare_make(char * source)
 {
@@ -186,7 +194,7 @@ bool V_node::compare_make(char * source)
 }
 
 /*
-   @desc: 
+   @desc: returns truee if the source is the same as the node's model
 */
 bool V_node::compare_model(char * source)
 {
@@ -203,10 +211,16 @@ bool V_node::compare_model(char * source)
 //*****************************************************************************
 //******************************* V_manager class *****************************
 //*****************************************************************************
+/*
+A V_manager manages a table of vehicle nodes. It reads in all vehicles from an
+external data file.
+*/
+
 
 /*
-   @desc: 
- */
+   @desc: set the array size, set each index to NULL. Calls the file_read
+          function to fill the array.
+*/
 V_manager::V_manager()
 {
     MAX = 3;
@@ -220,15 +234,21 @@ V_manager::V_manager()
 }
 
 /*
-   @desc:
- */
+   @desc: calls the remove_all function to delete all nodes in the array of CLL
+          it then deletes the table and sets the pointer to NULL;
+*/
 V_manager::~V_manager()
 {
     remove_all();
+
+    delete [] table;
+    table = NULL;
 }
 
 /*
-   @desc:
+   @desc: Reads in from an external data file, line by line. each line is a 
+          colon seperated list. parses the data into a new V_node and an index,
+          and then passes this to an insert_function.
 
 */
 void V_manager::file_read()
@@ -269,7 +289,10 @@ void V_manager::file_read()
 }
 
 /*
-   @desc:
+   @desc: Given an index of which CLL to insert to and the node to insert, 
+          the insert function compares the index to find which array index
+          it should insert at. it then checks if a list already exists at the
+          index, if so it adds using the tail (table[i]) or creates tail
 */
 void V_manager::insert_vehicle(char * index, V_node * &source)
 {
@@ -323,7 +346,7 @@ void V_manager::insert_vehicle(char * index, V_node * &source)
 }
 
 /*
-   @desc:
+   @desc: Calls each display function
 */
 void V_manager::display_all()
 {   
@@ -334,13 +357,13 @@ void V_manager::display_all()
 }
 
 /*
-   @desc:
+   @desc: If there is no tail, it returns. Breaks the chain, then displays all
+          v_nodes. it then reconnects tail to head
 */
 void V_manager::display_standard()
 {
     if(!table[0]) return;
 
-    cout << "displaying 1" << endl;
     V_node * head = table[0]->go_next();
     V_node * current = head;
 
@@ -358,13 +381,14 @@ void V_manager::display_standard()
 }
 
 /*
-   @desc:
+   @desc: If there is no tail, it returns. Breaks the chain, then displays all
+          v_nodes. it then reconnects tail to head
+
 */
 void V_manager::display_premium()
 {
     if(!table[1]) return;
 
-    cout << "displaying 2" << endl;
     V_node * head = table[1];
     V_node * current = head;
 
@@ -382,8 +406,10 @@ void V_manager::display_premium()
 }
 
 /*
-   @desc:
- */
+   @desc: If there is no tail, it returns. Breaks the chain, then displays all
+          v_nodes. it then reconnects tail to head
+
+*/
 void V_manager::display_group()
 {
     if(!table[2]) return;
@@ -405,7 +431,10 @@ void V_manager::display_group()
 }
 
 /*
-   @desc:
+   @desc: Given two search parameters, a make and a model, it breaks each CLL
+          calls a recursive helper function to do the actual search and 
+          deletion, and then reconnects the chain. If a match to delete is 
+          found, it will not search through the other CLL's
 */
 void V_manager::remove_vehicle(char * v_make, char * v_model)
 {
@@ -451,7 +480,8 @@ void V_manager::remove_vehicle(char * v_make, char * v_model)
 }
 
 /*
-   @desc:
+   @desc: recursive function, given a head, a current and two search parameters
+          it searches for a node to delete.
 */
 int V_manager::remove_helper(V_node * &head, V_node * &current, char * v_make, 
                              char * v_model)
@@ -477,7 +507,7 @@ int V_manager::remove_helper(V_node * &head, V_node * &current, char * v_make,
 
 
 /*
-   @desc:
+   @desc: removes all nodes from the table
 */
 void V_manager::remove_all()
 {
@@ -494,7 +524,8 @@ void V_manager::remove_all()
 }
 
 /*
-   @desc:
+   @desc: helper function for the remove all function, given a head pointer 
+          it recursively deletes all of a CLL
 */
 void V_manager::remove_all_helper(V_node * &head)
 {
@@ -509,6 +540,11 @@ void V_manager::remove_all_helper(V_node * &head)
     return;
 }
 
+/*
+    @desc: wrapper function to call the actual function to search for a vehicle
+           returns a pointer to a vehicle. Is given the index of the CLL to
+           search through.
+*/
 Vehicle * V_manager::get_vehicle(int i, char * v_make, char * v_model)
 {
     if(table[i])
@@ -524,6 +560,10 @@ Vehicle * V_manager::get_vehicle(int i, char * v_make, char * v_model)
     }
 }
 
+/*
+    @desc: recursive function to search for a vehicle, when found it returns
+           a pointer to the matched vehicle.
+*/
 Vehicle * V_manager::get_vehicle_helper(V_node * head, char * v_make,
                                         char * v_model)
 {

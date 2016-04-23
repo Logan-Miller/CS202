@@ -1,5 +1,13 @@
 #include "appointment.h"
 
+/*
+This program allows the user to make appointments to be picked up by a vehicle
+of their choice. Different vehicles calculate fares in different ways. Two 
+data structures are used, an array of CLL's to keep track of all available 
+vehicles, and a self balancing heap to keep track of the next appointment and
+all following appointments. 
+*/
+
 int main()
 {
     Apt_manager appointments;
