@@ -27,5 +27,9 @@ int main()
     Deck aDeck;
     aDeck.display_deck();
     
+    aDeck.shuffle();
+    cout << endl;
+    aDeck.display_deck();
+
     return 0;
 }

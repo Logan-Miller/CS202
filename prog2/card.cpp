@@ -120,38 +120,6 @@ void Card::display_card()
         cout << "XX" << endl;
     }
     
-    /*
-    if(value == 1)
-    {
-        cout << "_" << "A";
-    }
-
-    else if(value > 10)
-    {
-        if(value == 11)
-        {
-            cout << "_" << "J" << endl;
-            return;
-        }
-
-        else if(value == 12)
-        {
-            cout << "_" << "Q" << endl;
-        }
-
-        else if(value == 13)
-        {
-            cout << "_" << "K" << endl;
-        }
-    }
-
-    else if(value != 1 && value < 10)
-    {
-        cout << "_" value << endl;
-    }
-
-    else cout << value << endl;
-*/
     return;
 }
 //******************************************************************************

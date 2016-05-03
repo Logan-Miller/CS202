@@ -80,7 +80,22 @@ Deck::~Deck()
 
 void Deck::shuffle()
 {
+    srand(time(NULL));
+    
+    int index_to_swap = 0;
+    
+    for(int j = 0; j < 3; ++j)
+    {
+        for(int i = 0; i < 52; ++i)
+        {
+            index_to_swap = rand() % 52;
+            Card * temp = the_deck[i];
+            the_deck[i] = the_deck[index_to_swap];
+            the_deck[index_to_swap] = temp;
+        }
+    }
 
+    return;
 }   
 /*
     @desc:
@@ -90,7 +105,10 @@ void Deck::display_deck()
 {
     for(int i = 0; i < 52; ++i)
     {
+        //TODO
         the_deck[i]->set_hidden(false);
+        cout << i << "_";
+        //TODO
         the_deck[i]->display_card();
     }
 
