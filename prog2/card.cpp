@@ -10,25 +10,19 @@
 */
 Card::Card()
 {
-    suit = NULL;
-    value = NULL;
+    suit = 0;
+    value = 0;
     hidden = true;
 }
 
 /*
     @desc:
 */
-Card::Card(char * s, char * v)
+Card::Card(int s, int v)
 {
-    suit = NULL;
-    value = NULL;
+    suit = s;
+    value = v;
     hidden = true;
-
-    suit = new char[strlen(s) + 1];
-    value = new char[strlen(v) + 1];
-    
-    strcpy(suit, s);
-    strcpy(value, v);
 }
 
 /*
@@ -36,52 +30,25 @@ Card::Card(char * s, char * v)
 */
 Card::~Card()
 {
-    if(suit)
-    {
-        delete [] suit;
-    }
-
-    if(value)
-    {
-        delete [] value;
-    }
-
-    suit = NULL;
-    value = NULL;
+    suit = 0;
+    value = 0;
+    hidden = true;
 }
 
 /*
     @desc:
 */
-void Card::set_suit(char * source)
+void Card::set_suit(int source)
 {
-    if(!suit)
-    {
-        suit = new char[strlen(source) + 1];
-        strcpy(suit, source);
-        return;
-    }
-
-    delete [] suit;
-    suit = new char[strlen(source) + 1];
-    strcpy(suit, source);
+    suit = source;
     return;
 }
 /*
     @desc:
 */
-void Card::set_value(char * source)
+void Card::set_value(int source)
 {
-    if(!value)
-    {
-        value = new char[strlen(source) + 1];
-        strcpy(value, source);
-        return;
-    }
-
-    delete [] value;
-    value = new char[strlen(source) + 1];
-    strcpy(value, source);
+    value = source;
     return;
 }
 /*
@@ -101,15 +68,90 @@ void Card::display_card()
 {
     if(hidden)
     {
-        cout << "******" << endl;
+        cout << "****" << endl;
         return;
     }
-
-    if(suit && value)
+    
+    switch(suit)
     {
-        cout << suit << " " << value << endl;
+    case 1:
+        cout << "H";
+        break;
+    case 2:
+        cout << "D";
+        break;
+    case 3:
+        cout << "C";
+        break;
+    case 4:
+        cout << "S";
+        break;
+    default:
+        cout << "X";
+        break;
     }
 
+    switch(value)
+    {
+    case 1:
+        cout << "_" << "A" << endl;
+        break;
+    case 10: 
+        cout << value << endl;
+        break;
+    case 11:
+        cout << "_" << "J" << endl;
+        break;
+    case 12:
+        cout << "_" << "Q" << endl;
+        break;
+    case 13:
+        cout << "_" << "K" << endl;
+        break;
+    }
+
+    if(value > 1 && value < 10)
+    {
+        cout << "_" << value << endl;
+    }
+
+    else if(value < 1 || value > 13)
+    {
+        cout << "XX" << endl;
+    }
+    
+    /*
+    if(value == 1)
+    {
+        cout << "_" << "A";
+    }
+
+    else if(value > 10)
+    {
+        if(value == 11)
+        {
+            cout << "_" << "J" << endl;
+            return;
+        }
+
+        else if(value == 12)
+        {
+            cout << "_" << "Q" << endl;
+        }
+
+        else if(value == 13)
+        {
+            cout << "_" << "K" << endl;
+        }
+    }
+
+    else if(value != 1 && value < 10)
+    {
+        cout << "_" value << endl;
+    }
+
+    else cout << value << endl;
+*/
     return;
 }
 //******************************************************************************

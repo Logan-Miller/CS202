@@ -10,16 +10,16 @@ class Card
 {
 public:
     Card();
-    Card(char * s, char * v);
+    Card(int s, int v);
     ~Card();
-    void set_suit(char * source);
-    void set_value(char * source);
+    void set_suit(int source);
+    void set_value(int source);
     void set_hidden(bool source);
     void display_card();
 
 protected:
-    char * suit;
-    char * value;
+    int suit;
+    int value;
     bool hidden;
 };
 

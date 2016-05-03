@@ -13,6 +13,6 @@ public:
     void display_board();
 
 protected:
-    Card *** the_deck;
+    Card ** the_deck;
     Card *** the_board;
 };
