@@ -23,13 +23,3 @@ protected:
     bool hidden;
 };
 
-/*
-    @desc:
-*/
-class Deck : public Card
-{
-public:
-
-protected:
-
-}

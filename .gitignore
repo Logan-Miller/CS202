@@ -1,2 +1,6 @@
 #ignoring tar files
 *.tar
+
+#ignoring swp files
+*.swp
+*.swo
