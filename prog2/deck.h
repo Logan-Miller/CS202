@@ -28,7 +28,8 @@ protected:
 class S_node
 {
 public:
-    S_node();
+    S_node();   
+    S_node(const Card &aCard);
     ~S_node();
     S_node * get_next();
     S_node * get_prev();
@@ -38,7 +39,9 @@ public:
     bool if_prev() const;
     void set_next(S_node * source);
     void set_prev(S_node * source);
+    void set_status(bool status);
     void display_node();
+
 protected:
     S_node * next;
     S_node * prev;

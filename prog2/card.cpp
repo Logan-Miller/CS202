@@ -28,6 +28,16 @@ Card::Card(int s, int v)
 /*
     @desc:
 */
+Card::Card(const Card &card)
+{
+    suit = card.suit;
+    value = card.value;
+    hidden = card.hidden;
+}
+
+/*
+    @desc:
+*/
 Card::~Card()
 {
     suit = 0;

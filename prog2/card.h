@@ -11,6 +11,7 @@ class Card
 public:
     Card();
     Card(int s, int v);
+    Card(const Card &card);
     ~Card();
     void set_suit(int source);
     void set_value(int source);
