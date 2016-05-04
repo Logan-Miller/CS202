@@ -72,7 +72,12 @@ Deck::Deck()
 
 Deck::~Deck()
 {
+    for(int i = 0; i < 53; ++i)
+    {
+        delete the_deck[i];
+    }
 
+    delete [] the_deck;
 }       
 /*
     @desc:
@@ -148,47 +153,46 @@ S_node::S_node(const Card &aCard)
 
 S_node::~S_node()
 {
-
-}
-
-S_node * S_node::get_next()
-{
-
-}
-
-S_node * S_node::get_prev()
-{
-
+    next = NULL;
+    prev = NULL;
+    if(card) delete card;
+    card = NULL;
 }
 
 S_node *& S_node::go_next()
 {
-
+    return next;
 }
 
 S_node *& S_node::go_prev()
 {
-
+    return prev;
 }
 
 bool S_node::if_next() const
 {
-
+    if(next) return true;
+    return false;
 }
 
 bool S_node::if_prev() const
 {
-
+    if(prev) return true;
+    return false;
 }
 
 void S_node::set_next(S_node * source)
 {
-
+    if(source) next = source;
+    else next = NULL;
+    return;
 }
 
 void S_node::set_prev(S_node * source)
 {
-
+    if(source) prev = source;
+    else prev = NULL;
+    return;
 }
 
 void S_node::display_node()

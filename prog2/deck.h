@@ -31,8 +31,6 @@ public:
     S_node();   
     S_node(const Card &aCard);
     ~S_node();
-    S_node * get_next();
-    S_node * get_prev();
     S_node *& go_next();
     S_node *& go_prev();
     bool if_next() const;
@@ -58,7 +56,10 @@ public:
     virtual ~Solitaire();
 
 protected:
-
+   S_node ** tableau;
+   S_node ** foundation;
+   S_node * stock;
+   S_node * talon;
 };
 
 /*

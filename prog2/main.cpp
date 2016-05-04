@@ -41,6 +41,9 @@ int main()
     node->display_node();
     node->set_status(false);
     node->display_node();
+    aCard = NULL;
+    node->display_node();
+    
     //**********************************************************
     
     
