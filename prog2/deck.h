@@ -15,7 +15,6 @@ public:
     void shuffle();
     void display_deck();
     void display_board();
-
 protected:
     Card ** the_deck;
 //    Card *** the_board;
@@ -39,7 +38,6 @@ public:
     void set_prev(S_node * source);
     void set_status(bool status);
     void display_node();
-
 protected:
     S_node * next;
     S_node * prev;
@@ -54,12 +52,18 @@ class Solitaire : public Deck
 public:
     Solitaire();
     virtual ~Solitaire();
-
+    void initialize_board();
+    void deal_cards();
+    //TODO
+    void insert_card();
 protected:
-   S_node ** tableau;
-   S_node ** foundation;
-   S_node * stock;
-   S_node * talon;
+    S_node ** board;
+    /*
+    S_node ** tableau;
+    S_node ** foundation;
+    S_node * stock;
+    S_node * talon;
+    */
 };
 
 /*

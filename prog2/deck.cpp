@@ -212,8 +212,62 @@ void S_node::set_status(bool status)
 //******************************************************************************
 
 
+//*************************Solitaire class functions****************************
+//S_node ** tableau
+//S_node ** foundation
+//S_node * stock
+//S_node * talon
+//S_node ** board
+Solitaire::Solitaire()
+{
+    /*
+    tableau = new S_node * [7];
+    foundation = new S_node * [4];
+    stock = NULL;
+    talon = NULL;
+    
+    for(int i = 0; i < 7; ++i)
+    {
+        tableau[i] = NULL;
+    }
+
+    for(int i = 0; i < 4; ++i)
+    {
+        foundation[i] = NULL;
+    }
+    */
+    board = new S_node * [13];
+    for(int i = 0; i < 13; ++i)
+    {
+        board[i] = NULL;
+    }
+
+    deal_cards();
+}
+
+Solitaire::~Solitaire()
+{
+
+}
+
+void Solitaire::initialize_board()
+{
+    
+}
+
+void Solitaire::deal_cards()
+{
+    for(int i = 0; i < 7; ++i)
+    {
+        for(int j = 0; j < i + 1; ++j)
+        {
+            //TODO insert function
+        }
+    }
+}
+
 //******************************************************************************
-//******************************************************************************
+
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
