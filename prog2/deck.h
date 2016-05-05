@@ -17,7 +17,6 @@ public:
     void display_board();
 protected:
     Card ** the_deck;
-//    Card *** the_board;
 };
 
 /*
@@ -58,8 +57,10 @@ public:
     //TODO
     void display_garbage(S_node * head);
     void display_garbage_wrapper();
+    void clear_display_board();
 protected:
     S_node ** board;
+    S_node *** display_board;
 };
 
 /*

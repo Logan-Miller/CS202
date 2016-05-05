@@ -213,36 +213,29 @@ void S_node::set_status(bool status)
 
 
 //*************************Solitaire class functions****************************
-//S_node ** tableau
-//S_node ** foundation
-//S_node * stock
-//S_node * talon
 //S_node ** board
+//S_node *** display_board
 Solitaire::Solitaire()
 {
-    /*
-    tableau = new S_node * [7];
-    foundation = new S_node * [4];
-    stock = NULL;
-    talon = NULL;
-    
-    for(int i = 0; i < 7; ++i)
-    {
-        tableau[i] = NULL;
-    }
-
-    for(int i = 0; i < 4; ++i)
-    {
-        foundation[i] = NULL;
-    }
-    */
+    //Two different boards are used, one for the data structure keeping track
+    //of the cards in a specified order, and another for displaying. First we
+    //initialize the board data structure
     board = new S_node * [13];
     for(int i = 0; i < 13; ++i)
     {
         board[i] = NULL;
     }
-
     deal_cards();
+    
+    //Then we initialize the display board and null out all pointers.
+    display_board = new S_node ** [12];
+    
+    for(int i = 0; i < 12; ++i)
+    {
+        display_board[i] = new S_node * [20];
+    }
+    
+    clear_display_board();
 }
 
 Solitaire::~Solitaire()
@@ -287,6 +280,12 @@ void Solitaire::deal_cards()
         }
     }
 
+    for(index; index < 52; ++index)
+    {
+        S_node * temp = new S_node(*the_deck[index]);
+        insert_card(11, temp);
+    }
+
     return;
 }
 //TODO purely for testing
@@ -299,6 +298,8 @@ void Solitaire::display_garbage_wrapper()
         cout << endl << endl;
     }
 
+    display_garbage(board[11]);
+
     return;
 }
 
@@ -310,9 +311,23 @@ void Solitaire::display_garbage(S_node * head)
     return;
 }
 
+void Solitaire::clear_display_board()
+{
+    for(int i = 0; i < 12; ++i)
+    {
+        for(int j = 0; j < 20; ++j)
+        {
+            display_board[i][j] = NULL;
+        }
+    }
 
+    return;
+}
 
-
+void Solitaire::display_board()
+{
+    //TODO need to figure out how to return pointers
+}
 
 //******************************************************************************
 
