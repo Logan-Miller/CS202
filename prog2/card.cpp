@@ -134,5 +134,28 @@ void Card::display_card()
     
     return;
 }
+
+bool Card::compare_cards(Card source)
+{
+    //if the current card's value is greater than the source's value then
+    //return true.   
+    if(value > source.value) return true;
+    return false;
+}
+
+bool Card::are_the_same(Card source)
+{
+    if(suit == source.suit && value == source.value) return true;
+    return false;
+}
+
+bool Card:: matched(int s, int v)
+{
+    if(suit == s && value == v) return true;
+    return false;
+}
 //******************************************************************************
+
+
+
 

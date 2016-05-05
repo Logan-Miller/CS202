@@ -37,6 +37,8 @@ public:
     void set_prev(S_node * source);
     void set_status(bool status);
     void display_node();
+    bool compare_nodes(S_node * source);
+    bool our_cards_the_same(S_node * source);
 protected:
     S_node * next;
     S_node * prev;
@@ -51,6 +53,7 @@ class Solitaire : public Deck
 public:
     Solitaire();
     virtual ~Solitaire();
+    void play_game();
     void initialize_board();
     void deal_cards();
     void insert_card(int i, S_node * &source);
@@ -61,6 +64,7 @@ public:
     void send_to_d_board(int i, int j, S_node * head);
     void send_to_d_board_wrapper();
     void d_board();
+    S_node * find_node_wrapper(int index, int s, int v);
 protected:
     S_node ** board;
     S_node *** display_board;

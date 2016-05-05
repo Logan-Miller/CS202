@@ -54,8 +54,10 @@ int main()
     Solitaire game;
     //game.display_garbage_wrapper();
     cout << "its made " << endl;
-    game.send_to_d_board_wrapper();
-    game.d_board();
+   // game.send_to_d_board_wrapper();
+    //game.d_board();
+    game.play_game();
+
     cout << "end" << endl; 
     //**********************************************************
     
