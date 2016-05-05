@@ -79,7 +79,7 @@ void Card::display_card()
 {
     if(hidden)
     {
-        cout << "****" << endl;
+        cout << "***";
         return;
     }
     
@@ -105,25 +105,26 @@ void Card::display_card()
     switch(value)
     {
     case 1:
-        cout << "_" << "A" << endl;
+        cout << "_" << "A";
         break;
     case 10: 
-        cout << value << endl;
+        cout << value;
         break;
     case 11:
-        cout << "_" << "J" << endl;
+        cout << "_" << "J";
         break;
     case 12:
-        cout << "_" << "Q" << endl;
+        cout << "_" << "Q";
         break;
     case 13:
-        cout << "_" << "K" << endl;
+        cout << "_" << "K";
         break;
     }
 
     if(value > 1 && value < 10)
     {
-        cout << "_" << value << endl;
+    //TODO took away new line
+        cout << "_" << value;
     }
 
     else if(value < 1 || value > 13)

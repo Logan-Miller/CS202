@@ -58,6 +58,9 @@ public:
     void display_garbage(S_node * head);
     void display_garbage_wrapper();
     void clear_display_board();
+    void send_to_d_board(int i, int j, S_node * head);
+    void send_to_d_board_wrapper();
+    void d_board();
 protected:
     S_node ** board;
     S_node *** display_board;

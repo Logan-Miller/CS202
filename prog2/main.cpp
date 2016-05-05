@@ -50,10 +50,13 @@ int main()
     
     
     //***********Testing solitaire functions********************
+    cout << "start" << endl;
     Solitaire game;
-    game.display_garbage_wrapper();
-    
-    
+    //game.display_garbage_wrapper();
+    cout << "its made " << endl;
+    game.send_to_d_board_wrapper();
+    game.d_board();
+    cout << "end" << endl; 
     //**********************************************************
     
     

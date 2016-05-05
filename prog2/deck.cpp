@@ -228,9 +228,9 @@ Solitaire::Solitaire()
     deal_cards();
     
     //Then we initialize the display board and null out all pointers.
-    display_board = new S_node ** [12];
+    display_board = new S_node ** [13];
     
-    for(int i = 0; i < 12; ++i)
+    for(int i = 0; i < 13; ++i)
     {
         display_board[i] = new S_node * [20];
     }
@@ -272,9 +272,6 @@ void Solitaire::deal_cards()
         for(int j = 0; j < i + 1; ++j)
         {
             S_node * temp = new S_node(*the_deck[index]);
-            //TODO
-            cout << index << "    ";
-            temp->display_node();
             insert_card(i, temp);
             ++index;
         }
@@ -313,7 +310,7 @@ void Solitaire::display_garbage(S_node * head)
 
 void Solitaire::clear_display_board()
 {
-    for(int i = 0; i < 12; ++i)
+    for(int i = 0; i < 13; ++i)
     {
         for(int j = 0; j < 20; ++j)
         {
@@ -324,9 +321,69 @@ void Solitaire::clear_display_board()
     return;
 }
 
-void Solitaire::display_board()
+//TODO
+void Solitaire::send_to_d_board_wrapper()
 {
-    //TODO need to figure out how to return pointers
+    for(int i = 0; i < 7; ++i)
+    {
+        send_to_d_board(i, 0, board[i]); 
+    }
+
+    for(int i = 7; i < 13; ++i)
+    {
+        //display_board[i][0] = board[i];
+    }
+
+    return;
+}
+
+void Solitaire::send_to_d_board(int i, int j, S_node * head)
+{
+    if(!head)
+    {
+        return;
+    }
+
+    display_board[i][j] = head;
+    //TODO possible erro
+    ++j;
+    send_to_d_board(i, j, head->go_next());
+    return;
+}
+
+void Solitaire::d_board()
+{
+    int index = 0;
+    for(int j = 0; j < 20; ++j)
+    {
+        //TODO
+        for(int i = 0; i < 13; ++i)
+        {
+            //TODO 
+            if(!display_board[i][j])
+            {
+                cout << "   ";
+            }
+            if(display_board[i][j])
+            {
+                display_board[i][j]->display_node();
+            }
+
+            cout << "   ";
+        }
+        cout << endl;
+    }
+    
+    /*
+    if(display_board[7][0])
+    {
+        cout << "here" << endl;
+        display_board[12][0]->display_node();
+        cout << "here" << endl;
+        cout << endl;
+    }
+    */
+    return;
 }
 
 //******************************************************************************
