@@ -255,16 +255,64 @@ void Solitaire::initialize_board()
     
 }
 
+//TODO
+void Solitaire::insert_card(int i, S_node * &source)
+{
+    if(!board[i]) 
+    {   
+        board[i] = source; 
+        return;
+    }
+
+    source->set_next(board[i]);
+    board[i]->set_prev(source);
+    board[i] = source;
+    return;
+}
+//TODO
 void Solitaire::deal_cards()
 {
+    int index = 0;
+    
     for(int i = 0; i < 7; ++i)
     {
         for(int j = 0; j < i + 1; ++j)
         {
-            //TODO insert function
+            S_node * temp = new S_node(*the_deck[index]);
+            //TODO
+            cout << index << "    ";
+            temp->display_node();
+            insert_card(i, temp);
+            ++index;
         }
     }
+
+    return;
 }
+//TODO purely for testing
+
+void Solitaire::display_garbage_wrapper()
+{
+    for(int i = 0; i < 7; ++i)
+    {
+        display_garbage(board[i]);
+        cout << endl << endl;
+    }
+
+    return;
+}
+
+void Solitaire::display_garbage(S_node * head)
+{
+    if(!head) return;
+    head->display_node();
+    display_garbage(head->go_next());
+    return;
+}
+
+
+
+
 
 //******************************************************************************
 

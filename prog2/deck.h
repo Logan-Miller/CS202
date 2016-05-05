@@ -54,16 +54,12 @@ public:
     virtual ~Solitaire();
     void initialize_board();
     void deal_cards();
+    void insert_card(int i, S_node * &source);
     //TODO
-    void insert_card();
+    void display_garbage(S_node * head);
+    void display_garbage_wrapper();
 protected:
     S_node ** board;
-    /*
-    S_node ** tableau;
-    S_node ** foundation;
-    S_node * stock;
-    S_node * talon;
-    */
 };
 
 /*

@@ -22,7 +22,8 @@ Card::Card(int s, int v)
 {
     suit = s;
     value = v;
-    hidden = true;
+    //TODO change to true before
+    hidden = false;
 }
 
 /*
