@@ -55,8 +55,8 @@ class Solitaire : public Deck
 public:
     Solitaire();
     virtual ~Solitaire();
+    void delete_list(S_node * &head);
     void play_game();
-    void initialize_board();
     void deal_cards();
     void insert_card(int i, S_node * &source);
     void display_garbage(S_node * head);
@@ -109,15 +109,16 @@ class War : public Deck
 {
 public:
     War();
-    virtual ~War();
+    virtual ~War();   
+    void delete_players(W_node * &head);
     void play_game();
     void play_turn();
-    int round_winner();
+    void round_winner();
     int increment_score();
     bool game_over();
-    int determine_winner();
     void build_players();
     void insert_w_node(W_node * &head, W_node * &source);
+    void prepare_next_round();
 protected:
     W_node * player1;
     W_node * player2;

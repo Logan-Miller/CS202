@@ -71,13 +71,13 @@ Deck::Deck()
 */
 
 Deck::~Deck()
-{
-    for(int i = 0; i < 53; ++i)
-    {
-        delete the_deck[i];
+{   
+    for(int i = 0; i < 52; ++i)
+    {   
+        if(the_deck[i]) delete the_deck[i];
     }
-
-    delete [] the_deck;
+    
+    if(the_deck) delete [] the_deck;
 }       
 /*
     @desc:
@@ -230,6 +230,7 @@ bool S_node::card_is_the_same(Card source)
 //S_node *** display_board
 Solitaire::Solitaire()
 {
+    shuffle();
     //Two different boards are used, one for the data structure keeping track
     //of the cards in a specified order, and another for displaying. First we
     //initialize the board data structure
@@ -253,12 +254,31 @@ Solitaire::Solitaire()
 
 Solitaire::~Solitaire()
 {
+    clear_display_board();
 
+    for(int i = 0; i < 13; ++i)
+    {
+        if(display_board[i]) delete [] display_board[i];
+    }
+    
+    if(display_board) delete [] display_board;
+
+    for(int i = 0; i < 13; ++i)
+    {
+        if(board[i]) delete_list(board[i]);
+        board[i] = NULL;
+    }
+
+    if(board) delete [] board;
 }
 
-void Solitaire::initialize_board()
+void Solitaire::delete_list(S_node * &head)
 {
-    
+    if(!head) return;
+    delete_list(head->go_next());
+    delete head; 
+    head = NULL;
+    return;
 }
 
 void Solitaire::insert_card(int i, S_node * &source)
@@ -359,7 +379,6 @@ void Solitaire::send_to_d_board(int i, int j, S_node * head)
     }
 
     display_board[i][j] = head;
-    //TODO possible erro
     ++j;
     send_to_d_board(i, j, head->go_next());
     return;
@@ -531,7 +550,7 @@ void Solitaire::move_down_hand()
 {
     if(!board[11])
     {
-        cout << "No cards in the hand pile." << endl;
+        cout << endl << "No cards in the hand pile." << endl;
         return;
     }
 
@@ -572,7 +591,8 @@ void Solitaire::shift_talon_to_hand()
 {
     if(board[11])
     {
-        cout << "The hand isn't empty, you can't reshuffle yet." << endl;
+        cout << endl << "The hand isn't empty, you can't reshuffle yet." 
+             << endl;
         return;
     }
     
@@ -1034,7 +1054,8 @@ W_node::W_node(const Card &aCard)
 
 W_node::~W_node()
 {
-    
+    delete cards[0];
+    delete [] cards;
 }
 
 W_node *& W_node::go_next()
@@ -1062,7 +1083,7 @@ void W_node::display_node()
 
 int W_node::compare_for_winner(W_node * source)
 {
-
+    return cards[0]->which_is_bigger(*source->cards[0]);
 }
 
 //******************************************************************************
@@ -1075,6 +1096,7 @@ int W_node::compare_for_winner(W_node * source)
 //int p2_score;
 War::War()
 {
+    shuffle();
     player1 = NULL;
     player2 = NULL;
     p1_score = 0;
@@ -1084,8 +1106,27 @@ War::War()
 }
 
 War::~War()
-{
+{   
+    if(player1)
+    {
+        delete_players(player1);
+    }
+    
+    if(player2)
+    {
+        delete_players(player2);
+    }
+    player1 = NULL;
+    player2 = NULL;
+}
 
+void War::delete_players(W_node * &head)
+{
+    if(!head) return;
+    delete_players(head->go_next());
+    if(head) delete head;
+    head = NULL;
+    return;
 }
 
 void War::play_game()
@@ -1098,8 +1139,27 @@ void War::play_game()
     cout << "Game starting..." << endl;
     while(running)
     {
-        
+        play_turn();
+        if(game_over()) running = false;
     }
+
+    if(p1_score > p2_score)
+    {
+        cout << "Player 1 won!" << endl;
+    }
+
+    else if(p1_score < p2_score)
+    {
+        cout << "Player 2 won!" << endl;
+    }
+
+    else
+    {
+        cout << "Game was a draw!" << endl;
+    }
+
+    cout << "The game will now quit." << endl;
+    return;
 }
 
 void War::play_turn()
@@ -1109,27 +1169,59 @@ void War::play_turn()
     cout << endl;
     cout << "Player 2's card: ";
     player2->display_node();
-    //TODO start here!
+    cout << endl;
+    round_winner();
+    prepare_next_round();
 }
 
-int War::round_winner()
+void War::round_winner()
 {
+    if(!player1 || !player2)
+    {
+        cout << "There's no cards!" << endl;
+        return;
+    }
 
+    int winner = player1->compare_for_winner(player2);
+    if(winner == 1)
+    {
+        cout << "Its a draw!" << endl;
+    }
+
+    else if(winner == 2)
+    {
+        cout << "Player 1 wins!" << endl;
+        ++p1_score;
+    }
+
+    else
+    {
+        cout << "Player 2 wins!" << endl;
+        ++p2_score;
+    }
+    
+    return;
 }
 
-int War::increment_score()
+void War::prepare_next_round()
 {
+    if(player1)
+    {
+        W_node * temp1 = player1;
+        W_node * temp2 = player2;
+        player1 = player1->go_next();
+        player2 = player2->go_next();
+        delete temp1;
+        delete temp2;
+    }
 
+    return;
 }
 
 bool War::game_over()
 {
-
-}
-
-int War::determine_winner()
-{
-
+    if(!player1) return true;
+    return false;
 }
 
 void War::build_players()

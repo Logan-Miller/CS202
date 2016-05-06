@@ -155,10 +155,20 @@ bool Card::are_the_same(Card source)
     return false;
 }
 
-bool Card:: matched(int s, int v)
+bool Card::matched(int s, int v)
 {
     if(suit == s && value == v) return true;
     return false;
+}
+
+int Card::which_is_bigger(Card source)
+{
+    //return 1 if both cards are the same
+    if(value == source.value) return 1;
+    //return 2 if this card is bigger than source
+    else if(value > source.value) return 2;
+    //else this card is less than source return 3
+    else return 3;
 }
 //******************************************************************************
 
