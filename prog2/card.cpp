@@ -137,9 +137,9 @@ void Card::display_card()
 
 bool Card::compare_cards(Card source)
 {
-    //if the current card's value is greater than the source's value then
+    //if the current card's value is 1 greater than the source's value then
     //return true.   
-    if(value > source.value) return true;
+    if(value == (source.value + 1)) return true;
     return false;
 }
 

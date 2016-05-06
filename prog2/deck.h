@@ -38,7 +38,7 @@ public:
     void set_status(bool status);
     void display_node();
     bool compare_nodes(S_node * source);
-    bool our_cards_the_same(S_node * source);
+    bool card_is_the_same(Card source);
 protected:
     S_node * next;
     S_node * prev;
@@ -64,7 +64,15 @@ public:
     void send_to_d_board(int i, int j, S_node * head);
     void send_to_d_board_wrapper();
     void d_board();
-    S_node * find_node_wrapper(int index, int s, int v);
+    S_node * find_node_wrapper(int index, int s, int v);   
+    S_node * find_node(S_node * &head, Card source);
+    S_node * get_tail(S_node * &head);
+    void move_a_node(S_node * dest, S_node * source);
+    void make_move();
+    void move_tab_to_tab();
+    void move_tab_to_aces();
+    void move_hand_to_tab();
+    void move_hand_aces();
 protected:
     S_node ** board;
     S_node *** display_board;

@@ -213,9 +213,9 @@ bool S_node::compare_nodes(S_node * source)
     return card->compare_cards(*source->card);
 }
 
-bool S_node::our_cards_the_same(S_node * source)
+bool S_node::card_is_the_same(Card source)
 {
-    return card->are_the_same(*source->card);
+    return card->are_the_same(source);
 }
 //******************************************************************************
 
@@ -415,22 +415,22 @@ bool Solitaire::compare_cards(S_node * dest, S_node * source)
 
 void::Solitaire::play_game()
 {
+    
     cout << endl << endl;
     cout << "Welcome screen." << endl;
     cout << "Rules: for suits 1 is hearts, 2 is diamonds, 3 is clubs, 4 is"
          << " spades. Aces are 1, 2 through 10 and simply 2 through 10,"
          << endl << "Jacks are 11, queens are 12, Kings are 13.";
     cout << endl << endl;
+    
     send_to_d_board_wrapper();
     d_board();
     
-    cout << "to make a move input the table index, the suite, and the card's"
-         << " value.";
-    cout << "make move: " << endl;
-    cout << "move to: " << endl;
-    int index = 0;
-    int s = 0;
-    int v = 0;
+    move_tab_to_tab();
+    
+    clear_display_board();
+    send_to_d_board_wrapper();
+    d_board();
 }
 
 S_node * Solitaire::find_node_wrapper(int index, int s, int v)
@@ -439,12 +439,123 @@ S_node * Solitaire::find_node_wrapper(int index, int s, int v)
     return find_node(board[index], aCard);
 }
 
-S_node * find_node(S_node * head, Card source)
+S_node * Solitaire::find_node(S_node * &head, Card source)
 {
     if(!head) return NULL;
+    
+    if(head->card_is_the_same(source))
+    {
+        return head;
+    }
 
+    return find_node(head->go_next(), source);
+}
+
+S_node * Solitaire::get_tail(S_node * &head)
+{
+    if(!head) return NULL;
+    if(!head->if_next()) return head;
+    return get_tail(head->go_next());
+}
+
+void Solitaire::move_a_node(S_node * dest, S_node * source)
+{
+    dest->set_next(source);
+    source->set_prev(dest);
+    return;
+}
+
+void Solitaire::make_move()
+{   
     //TODO
-    //CONTINUE HERE!!!!!!!!
+    //TODO
+    //TODO FINISH THIS FUNCTION
+    cout << "What would you like to do..." << endl
+         << "1:Moves a card on tableau to another position on the tableau";
+}
+
+void Solitaire::move_tab_to_tab()
+{
+    //data for what is to be moved
+    int index = 0;
+    int s = 0;
+    int v = 0;
+    //the array index the data is attempting to move to
+    int dest_index = 0;
+    cout << "to make a move input the table index, the suite, and the card's"
+         << " value.";
+    cout << "make move: " << endl;
+    
+    //TODO
+    //Get the data to be moved
+    cout << "Enter index: ";
+    cin >> index;
+    cin.ignore(100, '\n');
+    
+    cout << "Enter suit: ";
+    cin >> s;
+    cin.ignore(100, '\n');
+    
+    cout << "Enter value: ";
+    cin >> v;
+    cin.ignore(100, '\n');
+    
+    cout << "move to: " << endl;
+    cin >> dest_index;
+    cin.ignore(100, '\n');
+    
+    //If where the user is wanting to move is not NULL and what the user wants
+    //to move is not NULL, then check if the move is legal. If it is swap.
+    S_node * moving = find_node_wrapper(index, s, v);
+    S_node * dest = NULL;
+    if(moving)
+    {
+        //if there is a node to move and a place to move it to, see if the move
+        //can be made
+        if(moving && board[dest_index])
+        {
+            //get last node in that list.
+            dest = get_tail(board[dest_index]);
+            
+            
+            //check if the destination is 
+            if(dest->compare_nodes(moving))
+            {
+                if(!moving->if_prev())
+                {
+                    board[index] = NULL;
+                }
+                
+                //make the move
+                move_a_node(dest, moving);
+            }
+
+            else
+            {
+                cout << "Invalid move." << endl;
+            }
+        }
+
+        else
+        {
+            cout << "No such move found." << endl;
+        }
+    }
+}
+
+void Solitaire::move_tab_to_aces()
+{
+    
+}
+
+void Solitaire::move_hand_to_tab()
+{
+    
+}
+
+void Solitaire::move_hand_aces()
+{
+
 }
 
 //******************************************************************************
