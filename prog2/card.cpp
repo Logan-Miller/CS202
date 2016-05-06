@@ -143,6 +143,12 @@ bool Card::compare_cards(Card source)
     return false;
 }
 
+bool Card::is_smaller_match_suit(Card source)
+{
+    if(value == (source.value - 1) && suit == source.suit) return true;
+    return false;
+}
+
 bool Card::are_the_same(Card source)
 {
     if(suit == source.suit && value == source.value) return true;

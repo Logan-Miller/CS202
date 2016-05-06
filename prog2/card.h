@@ -18,6 +18,7 @@ public:
     void set_hidden(bool source);
     void display_card();
     bool compare_cards(Card source);
+    bool is_smaller_match_suit(Card source);
     bool are_the_same(Card source);
     bool matched(int s, int v);
 protected:

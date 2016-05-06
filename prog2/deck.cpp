@@ -213,6 +213,11 @@ bool S_node::compare_nodes(S_node * source)
     return card->compare_cards(*source->card);
 }
 
+bool S_node::smaller_compare(S_node * source)
+{
+    return card->is_smaller_match_suit(*source->card);
+}
+
 bool S_node::card_is_the_same(Card source)
 {
     return card->are_the_same(source);
@@ -426,8 +431,17 @@ void::Solitaire::play_game()
     send_to_d_board_wrapper();
     d_board();
     
-    move_tab_to_tab();
-    
+    make_move();
+    clear_display_board();
+    send_to_d_board_wrapper();
+    d_board();
+
+    make_move();
+    clear_display_board();
+    send_to_d_board_wrapper();
+    d_board();
+
+    make_move();
     clear_display_board();
     send_to_d_board_wrapper();
     d_board();
@@ -467,15 +481,6 @@ void Solitaire::move_a_node(S_node * dest, S_node * source)
 
 void Solitaire::make_move()
 {   
-    //TODO
-    //TODO
-    //TODO FINISH THIS FUNCTION
-    cout << "What would you like to do..." << endl
-         << "1:Moves a card on tableau to another position on the tableau";
-}
-
-void Solitaire::move_tab_to_tab()
-{
     //data for what is to be moved
     int index = 0;
     int s = 0;
@@ -504,6 +509,75 @@ void Solitaire::move_tab_to_tab()
     cin >> dest_index;
     cin.ignore(100, '\n');
     
+    //There are four different moves in solitaire that can be made. Moving 
+    //card from the tableau to a different place in the tableau, with a sub
+    //case of moving a to an open slot, moving a tableau card to an ace pile
+    //moving a talon card to a
+
+    //Case 1, tab to tab
+    if(index < 7 && dest_index < 7)
+    {
+        //Case 1.1 moving a king to an open slot
+        if(v == 13)
+        {
+            //try to append to NULL spot
+            move_king_open(index, dest_index, s, v);
+        }
+        else
+        {
+            move_tab_to_tab(index, dest_index, s, v);
+        }
+    }
+
+    else if(index < 7 && dest_index > 6)
+    {
+        move_tab_to_aces(index, dest_index, s, v);
+    }
+    
+    return;
+}
+
+void Solitaire::move_king_open(int index, int dest_index, int s, int v)
+{
+    cout << "moving a king" << endl;
+    //if the space isn't open, a move can't be made.
+    if(board[dest_index])
+    {
+        cout << "That space isn't open." << endl;
+        return;
+    }
+    
+    //otherwise, find the node;
+    S_node * moving = find_node_wrapper(index, s, v);
+    
+    //if the searched for card wasn't found, quit.
+    if(!moving)
+    {
+        cout << "Card not found." << endl;
+        return;
+    }
+    
+    //else let's make the move
+    else
+    {
+        if(!moving->if_prev())
+        {
+            board[index] = NULL;
+        }
+        
+        //break the old bounds, set the new one
+        else
+        {
+            moving->go_prev()->set_next(NULL);
+            moving->set_prev(NULL);
+            board[dest_index] = moving;
+        }
+    }
+    return;
+}
+
+void Solitaire::move_tab_to_tab(int index, int dest_index, int s, int v)
+{
     //If where the user is wanting to move is not NULL and what the user wants
     //to move is not NULL, then check if the move is legal. If it is swap.
     S_node * moving = find_node_wrapper(index, s, v);
@@ -518,7 +592,7 @@ void Solitaire::move_tab_to_tab()
             dest = get_tail(board[dest_index]);
             
             
-            //check if the destination is 
+            //check if the destination is bigger 
             if(dest->compare_nodes(moving))
             {
                 if(!moving->if_prev())
@@ -527,7 +601,12 @@ void Solitaire::move_tab_to_tab()
                 }
                 
                 //make the move
-                move_a_node(dest, moving);
+                else
+                {
+                    moving->go_prev()->set_next(NULL);
+                    dest->set_next(moving);
+                    moving->set_prev(dest);
+                }
             }
 
             else
@@ -543,9 +622,100 @@ void Solitaire::move_tab_to_tab()
     }
 }
 
-void Solitaire::move_tab_to_aces()
+void Solitaire::move_tab_to_aces(int index, int dest_index, int s, int v)
 {
+   
+    //If where the user is wanting to move is not NULL and what the user wants
+    //to move is not NULL, then check if the move is legal. If it is swap.
+    S_node * moving = find_node_wrapper(index, s, v);
+    S_node * dest = NULL;
     
+    //If a node was found based on the search terms, try to move it to the
+    //desired place.
+    if(moving->if_next())
+    {
+        cout << "Can't add a card to an ace pile that is not at the bottom of"
+             << " the tableau." << endl;
+        return;
+    }
+
+    if(moving)
+    {
+        //If there isn't anything at the destination, the only thing that can
+        //be added is an ace with a matching suit.
+        if(!board[dest_index])
+        {      
+            //check if are trying to add an ace with matching suit
+            if(v == 1 && s == (dest_index - 6))
+            {
+                //if so, the destination is going to point to the node
+                board[dest_index] = moving;
+                
+                //have to make sure nothing is still connected to the ace
+                if(moving->if_prev())
+                {
+                    moving->go_prev()->set_next(NULL);
+                    moving->set_prev(NULL);;
+                    moving->set_next(NULL);
+                }
+                
+                //If it was connected to something, break that connection and
+                //NULL out that space
+                else
+                {
+                    moving->set_prev(NULL);
+                    moving->set_next(NULL);
+                    board[index] = NULL;
+                }
+            }
+        }
+        
+        //if there is aleady a node at the index, we have to go to the end. 
+        else
+        {
+            dest = get_tail(board[dest_index]);
+            //check if the card is the same suit and bigger
+            if(dest->smaller_compare(moving))
+            {
+                //if it is, before we connect it to its new home we need to 
+                //break any old connections it may have had.
+                if(moving->if_prev())
+                {
+                    moving->go_prev()->set_next(NULL);
+                    
+                    moving->set_prev(dest);
+                    dest->set_next(moving);
+                    moving->set_next(NULL);
+                    board[dest_index] = moving;
+                }
+                
+                //if there wasn't anything before, set that previous space to 
+                //NULL
+                else
+                {
+                    moving->set_prev(dest);
+                    dest->set_next(moving);
+                    moving->set_next(NULL);
+                    board[dest_index] = moving;
+                    board[index] = NULL;
+                }
+            }
+
+            //else it wasn't so don't add
+            else
+            {
+                cout << "Couldn't add a that card there." << endl;
+            }
+        }
+    }
+
+    //else tell them the card wasn't found.
+    else
+    {
+        cout << "Card not found." << endl;
+    }
+
+    return;
 }
 
 void Solitaire::move_hand_to_tab()

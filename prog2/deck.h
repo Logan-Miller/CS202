@@ -38,6 +38,7 @@ public:
     void set_status(bool status);
     void display_node();
     bool compare_nodes(S_node * source);
+    bool smaller_compare(S_node * source);
     bool card_is_the_same(Card source);
 protected:
     S_node * next;
@@ -69,8 +70,9 @@ public:
     S_node * get_tail(S_node * &head);
     void move_a_node(S_node * dest, S_node * source);
     void make_move();
-    void move_tab_to_tab();
-    void move_tab_to_aces();
+    void move_tab_to_tab(int index, int dest_index, int s, int v);
+    void move_king_open(int index, int dest_index, int s, int v);
+    void move_tab_to_aces(int index, int dest_index, int s, int v);
     void move_hand_to_tab();
     void move_hand_aces();
 protected:
