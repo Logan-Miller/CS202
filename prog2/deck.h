@@ -58,7 +58,6 @@ public:
     void initialize_board();
     void deal_cards();
     void insert_card(int i, S_node * &source);
-    //TODO
     void display_garbage(S_node * head);
     void display_garbage_wrapper();
     void clear_display_board();
@@ -73,8 +72,11 @@ public:
     void move_tab_to_tab(int index, int dest_index, int s, int v);
     void move_king_open(int index, int dest_index, int s, int v);
     void move_tab_to_aces(int index, int dest_index, int s, int v);
-    void move_hand_to_tab();
-    void move_hand_aces();
+    void move_hand_to_tab(int index, int dest_index, int s, int v);
+    void move_hand_aces(int index, int dest_index, int s, int v);
+    void move_down_hand();
+    void shift_talon_to_hand();
+    bool win_condition();
 protected:
     S_node ** board;
     S_node *** display_board;
