@@ -15,6 +15,7 @@ public:
     void shuffle();
     void display_deck();
     void display_board();
+    virtual void play_game() = 0;
 protected:
     Card ** the_deck;
 };
@@ -88,18 +89,38 @@ protected:
 class W_node
 {
 public:
-
+    W_node();   
+    W_node(const Card &aCard);
+    ~W_node();
+    W_node *& go_next();
+    bool if_next() const;
+    void set_next(W_node * source);
+    void display_node();
+    int compare_for_winner(W_node * source);
 protected:
-
+    W_node * next;
+    Card ** cards;
 };
 
 /*
     @desc:
 */
-class War
+class War : public Deck
 {
 public:
-
+    War();
+    virtual ~War();
+    void play_game();
+    void play_turn();
+    int round_winner();
+    int increment_score();
+    bool game_over();
+    int determine_winner();
+    void build_players();
+    void insert_w_node(W_node * &head, W_node * &source);
 protected:
-
+    W_node * player1;
+    W_node * player2;
+    int p1_score;
+    int p2_score;
 };

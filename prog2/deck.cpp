@@ -1015,9 +1015,152 @@ void Solitaire::move_hand_aces(int index, int dest_index, int s, int v)
 
 //******************************************************************************
 
+//*******************W_node Class functions*************************************
+//W_node * next
+//Card ** cards
+W_node::W_node()
+{
+    next = NULL;
+    cards = new Card * [1];
+    cards[0] = NULL;
+}
+
+W_node::W_node(const Card &aCard)
+{
+    next = NULL;
+    cards = new Card * [1];
+    cards[0] = new Card(aCard);
+}
+
+W_node::~W_node()
+{
+    
+}
+
+W_node *& W_node::go_next()
+{
+   return next;
+}
+
+bool W_node::if_next() const
+{
+    if(next) return true;
+    return false;
+}
+
+void W_node::set_next(W_node * source)
+{
+    next = source;
+    return;
+}
+
+void W_node::display_node()
+{
+    cards[0]->display_card();
+    return;
+}
+
+int W_node::compare_for_winner(W_node * source)
+{
+
+}
+
 //******************************************************************************
-//******************************************************************************
-//******************************************************************************
-//******************************************************************************
-//******************************************************************************
+
+
+//********************War calss funtions****************************************
+//W_node * player1;
+//W_node * player2;
+//int p1_score;
+//int p2_score;
+War::War()
+{
+    player1 = NULL;
+    player2 = NULL;
+    p1_score = 0;
+    p2_score = 0;
+
+    build_players();
+}
+
+War::~War()
+{
+
+}
+
+void War::play_game()
+{
+    bool running = true;
+
+    cout << "Welcome..." << endl;
+    cout << "Rules...." << endl;
+    
+    cout << "Game starting..." << endl;
+    while(running)
+    {
+        
+    }
+}
+
+void War::play_turn()
+{
+    cout << "Player 1's card: ";
+    player1->display_node();
+    cout << endl;
+    cout << "Player 2's card: ";
+    player2->display_node();
+    //TODO start here!
+}
+
+int War::round_winner()
+{
+
+}
+
+int War::increment_score()
+{
+
+}
+
+bool War::game_over()
+{
+
+}
+
+int War::determine_winner()
+{
+
+}
+
+void War::build_players()
+{
+int index = 1;
+    for(int i = 0; i < 26; ++i)
+    {
+        W_node * temp1 = new W_node(*the_deck[i]);   
+        insert_w_node(player1, temp1);
+    }
+
+
+    for(int i = 26; i < 52; ++i)
+    {
+        W_node * temp2 = new W_node(*the_deck[i]);
+        insert_w_node(player2, temp2);
+    }
+
+    return;
+}
+
+void War::insert_w_node(W_node * &head, W_node * &source)
+{
+    if(!head)
+    {
+        head = source;
+        return;
+    }
+
+    insert_w_node(head->go_next(), source);
+    return;
+}
+
 //******************************************************************************
