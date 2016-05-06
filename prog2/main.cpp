@@ -1,5 +1,11 @@
 #include "deck.h"
-
+/*
+    @desc: The purpose of the main function is to give the user a choice 
+           between two different games to play. The main function will give
+           the user the choice of the game, initialize and run the desired 
+           game, and then continue to to run games until they wish for the 
+           program to close. 
+*/
 int main()
 {
     char response = '\0';
@@ -46,81 +52,6 @@ int main()
     }
 
     cout << "Thanks for playing, the program will now close." << endl;
-
-    //TESTING CARD CLASS FUNCTIONS
-    /*
-    Card aCard(3, 4);
-    cout << endl;
-    aCard.display_card();
     
-    aCard.set_hidden(false);
-    cout << endl;
-    aCard.display_card();
-    
-    aCard.set_value(10);
-    aCard.display_card();
-    
-    aCard.set_value(13);
-    aCard.display_card();
-
-    aCard.set_suit(1);
-    aCard.set_value(8);
-    aCard.display_card();
-    */
-    //*********************************************************
-    
-    //TESTING DECK FUNCTIONS
-    /*
-    Deck aDeck;
-    aDeck.display_deck();
-    
-    aDeck.shuffle();
-    cout << endl;
-    aDeck.display_deck();
-    */
-    //**********************************************************
-
-    //****TESTING S_NODE FUNCTIONS******************************
-    /*
-    Card * aCard = new Card(3, 13);
-    S_node * node = new S_node(*aCard);
-    node->display_node();
-    node->set_status(false);
-    node->display_node();
-    aCard = NULL;
-    node->display_node();
-    */
-    //**********************************************************
-    
-    
-    
-    //***********Testing solitaire functions********************
-    /* 
-    cout << "start" << endl;
-    Solitaire game;
-    //game.display_garbage_wrapper();
-    cout << "its made " << endl;
-    game.send_to_d_board_wrapper();
-    game.d_board();
-    game.play_game();
-
-    cout << "end" << endl; 
-    */
-    //**********************************************************
-    
-    
-    
-    
-    //**********************************************************
-    //War game;
-    //game.play_game();
-    
-    //**********************************************************
-    
-    
-    //**********************************************************
-    //**********************************************************
-    //**********************************************************
-    //**********************************************************
     return 0;
 }

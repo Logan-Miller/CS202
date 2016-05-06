@@ -2,11 +2,9 @@
 
 
 //*********************CLASS CARD FUNCTIONS*************************************
-//char * suite
-//char * value
 
 /*
-    @desc:
+    @desc: a card is an object that has a suit, value and a hidden status
 */
 Card::Card()
 {
@@ -16,18 +14,18 @@ Card::Card()
 }
 
 /*
-    @desc:
+    @desc: given two integers, initializes the card with a suit and value
+           of the given values. 
 */
 Card::Card(int s, int v)
 {
     suit = s;
     value = v;
-    //TODO change to true before
     hidden = false;
 }
 
 /*
-    @desc:
+    @desc: copy constructor for cards
 */
 Card::Card(const Card &card)
 {
@@ -37,7 +35,7 @@ Card::Card(const Card &card)
 }
 
 /*
-    @desc:
+    @desc: destructor just sets the values to null equivalent
 */
 Card::~Card()
 {
@@ -47,23 +45,25 @@ Card::~Card()
 }
 
 /*
-    @desc:
+    @desc: sets the suit to a given value
 */
 void Card::set_suit(int source)
 {
     suit = source;
     return;
 }
+
 /*
-    @desc:
+    @desc: sets the value to a given value
 */
 void Card::set_value(int source)
 {
     value = source;
     return;
 }
+
 /*
-    @desc:
+    @desc: sets the hidden status
 */
 void Card::set_hidden(bool source)
 {
@@ -71,9 +71,10 @@ void Card::set_hidden(bool source)
     return;
 }
 
-
 /*
-    @desc:
+    @desc: displays a card, checks the values and displays given characters
+           dependent on what the suit and value is. If the card's status is set
+           to hidden, it just displays ***
 */
 void Card::display_card()
 {
@@ -123,7 +124,6 @@ void Card::display_card()
 
     if(value > 1 && value < 10)
     {
-    //TODO took away new line
         cout << "_" << value;
     }
 
@@ -135,6 +135,9 @@ void Card::display_card()
     return;
 }
 
+/*
+    @desc: checks if the given card is less than the current card
+*/
 bool Card::compare_cards(Card source)
 {
     //if the current card's value is 1 greater than the source's value then
@@ -143,24 +146,36 @@ bool Card::compare_cards(Card source)
     return false;
 }
 
+/*
+    @desc: checks if a given card has a smaller value than the current card
+*/
 bool Card::is_smaller_match_suit(Card source)
 {
     if(value == (source.value - 1) && suit == source.suit) return true;
     return false;
 }
 
+/*
+    @desc: checks ifboth cards are the same
+*/
 bool Card::are_the_same(Card source)
 {
     if(suit == source.suit && value == source.value) return true;
     return false;
 }
 
+/*
+    @desc: checks if a given suit and value are the same as the current carde
+*/
 bool Card::matched(int s, int v)
 {
     if(suit == s && value == v) return true;
     return false;
 }
 
+/*
+    @desc: checks which card, the current or the source, has a greater value
+*/
 int Card::which_is_bigger(Card source)
 {
     //return 1 if both cards are the same

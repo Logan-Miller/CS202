@@ -4,7 +4,8 @@
 using namespace std;
 
 /*
-    @desc:
+    @desc: a card has a suit, a value and a hidden status as well as functions
+           to check, compare and set those values. 
 */
 class Card
 {

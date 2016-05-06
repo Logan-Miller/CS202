@@ -14,7 +14,6 @@ public:
     virtual ~Deck();
     void shuffle();
     void display_deck();
-    void display_board();
     virtual void play_game() = 0;
 protected:
     Card ** the_deck;
@@ -48,7 +47,8 @@ protected:
 };
 
 /*
-    @desc:
+    @desc: derived from a deck, the solitaire class is used for playing games
+           of solitaire using the base class's deck
 */
 class Solitaire : public Deck
 {
@@ -84,7 +84,7 @@ protected:
 };
 
 /*
-    @desc:
+    @desc: W_nodes are used for building linear linked lists of arrays.
 */
 class W_node
 {
@@ -103,7 +103,8 @@ protected:
 };
 
 /*
-    @desc:
+    @desc: the war class is derived from the deck class. It uses the base 
+           classes deck to play games of war with two players. 
 */
 class War : public Deck
 {
