@@ -2,7 +2,7 @@
 
 int main()
 {
-
+/*
     P_node problem;
     problem.set_importance(5);
     problem.set_confidence(true);
@@ -13,6 +13,25 @@ int main()
     problem.set_question(temp);
     delete [] temp;
     problem.display_problem();
+*/
 
+/*
+    int i = 5;
+    bool c = true;
+    char * q = new char[500];
+    strcpy(q, "blah blah blah");
+
+    P_node problem(i, c, q);
+    problem.display_problem();
+*/
+
+    //TODO TRY THIS SHIT
+
+    Book abook;
+    abook.create_problem();
+    abook.create_problem();
+    abook.create_problem();
+    cout << "here" << endl;
+    abook.display_all();
     return 0;
 }

@@ -22,6 +22,20 @@ Problem::Problem()
 /*
     @desc:
 */
+Problem::Problem(int i, bool c, char * q)
+{
+    importance = i;
+    confidence = c;
+    if(q)
+    {
+        question = new char[strlen(q) + 1];
+        strcpy(question, q);
+    }
+}
+
+/*
+    @desc:
+*/
 Problem::~Problem()
 {
     importance = 0;
@@ -87,7 +101,7 @@ int Problem::display_problem()
     return 1;
 }
 
-int Problem::compare_importance(Problem source)
+int Problem::compare_importance(Problem &source)
 {
     if(importance < source.importance) return 0;
     return 1;
@@ -103,6 +117,12 @@ int Problem::compare_importance(Problem source)
     @desc:
 */
 P_node::P_node()
+{
+    left = NULL;
+    right = NULL;
+}
+
+P_node::P_node(int i, bool c, char * q) : Problem(i, c, q)
 {
     left = NULL;
     right = NULL;
@@ -156,7 +176,7 @@ void P_node::set_right(P_node * source)
 /*
     @desc:
 */
-P_node *& P_node::get_left()
+P_node *& P_node::go_left()
 {
     return left;
 }
@@ -164,7 +184,7 @@ P_node *& P_node::get_left()
 /*
     @desc:
 */
-P_node *& P_node::get_right()
+P_node *& P_node::go_right()
 {
     return right;
 }
