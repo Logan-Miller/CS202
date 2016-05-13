@@ -3,7 +3,7 @@
 int main()
 {
 
-    Problem problem;
+    P_node problem;
     problem.set_importance(5);
     problem.set_confidence(true);
     

@@ -87,8 +87,85 @@ int Problem::display_problem()
     return 1;
 }
 
+int Problem::compare_importance(Problem source)
+{
+    if(importance < source.importance) return 0;
+    return 1;
+}
+
 //*******************************************************************************
 //***********************P_node Class Functions**********************************
 //*******************************************************************************
+//P_node * left
+//P_node * right
 
+/*
+    @desc:
+*/
+P_node::P_node()
+{
+    left = NULL;
+    right = NULL;
+}
+
+/*
+    @desc:
+*/
+P_node::~P_node()
+{
+    left = NULL;
+    right = NULL;
+}
+
+/*
+    @desc:
+*/
+bool P_node::if_left()
+{
+    if(left) return true;
+    return false;
+}
+
+/*
+    @desc:
+*/
+bool P_node::if_right()
+{
+    if(right) return true;
+    return false;
+}
+
+/*
+    @desc:
+*/
+void P_node::set_left(P_node * source)
+{
+    left = source;
+    return;
+}
+
+/*
+    @desc:
+*/
+void P_node::set_right(P_node * source)
+{
+    right = source;
+    return;
+}
+
+/*
+    @desc:
+*/
+P_node *& P_node::get_left()
+{
+    return left;
+}
+
+/*
+    @desc:
+*/
+P_node *& P_node::get_right()
+{
+    return right;
+}
 
