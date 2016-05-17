@@ -6,6 +6,7 @@ public:
     Book();
     virtual ~Book();
     int create_problem();
+    int set_topic(char * source);
     void remove_all();
     void display_all();
 protected:
@@ -25,7 +26,7 @@ public:
     virtual ~B_node();
     bool if_next();
     void set_next(B_node * source);
-    B_node *& get_next();
+    B_node *& go_next();
 protected:
     B_node * next;
 };

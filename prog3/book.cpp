@@ -55,6 +55,19 @@ int Book::create_problem()
     P_node * temp = new P_node(i, c, p);
     insert_problem(problems, temp);
     delete [] p;
+    ++num_problems;
+    return 1;
+}
+
+/*
+    @desc:
+*/
+int Book::set_topic(char * source)
+{   
+    if(!source) return 0;
+    if(topic) delete [] topic;
+    topic = new char[strlen(source) + 1];
+    strcpy(topic, source);
     return 1;
 }
 
@@ -166,7 +179,7 @@ void B_node::set_next(B_node * source)
 /*
     @desc:
 */
-B_node *& B_node::get_next()
+B_node *& B_node::go_next()
 {
     return next;
 }
