@@ -2,7 +2,7 @@
 
 int main()
 {
-/*
+
     P_node problem;
     problem.set_importance(5);
     problem.set_confidence(true);
@@ -13,7 +13,31 @@ int main()
     problem.set_question(temp);
     delete [] temp;
     problem.display_problem();
-*/
+    cout << endl << endl;
+    cout << problem;
+    
+    P_node p2;
+    p2.set_importance(5);
+    p2.set_confidence(true);
+    
+    char * t2 = new char[20];
+    strcpy(t2, "hey hey david");
+
+    p2.set_question(t2);
+    delete [] t2;
+    
+    if(problem == problem) cout << "They're the same!" << endl;
+    else cout << "They're not the same!" << endl;
+    
+    problem = p2;
+    cout << problem;
+    
+    /*
+    cout << endl << endl << endl;
+    P_node a;
+    cin >> a;
+    cout << a;
+    */
 
 /*
     int i = 5;
@@ -35,7 +59,7 @@ int main()
     abook.display_all();
   
   */
-    
+ /*   
     Library dude;
     dude.auto_populate();
     dude.display_all();
@@ -46,7 +70,7 @@ int main()
 
     Library tom(dude);
     tom.display_all();
-
+*/
 
     return 0;
 }

@@ -67,6 +67,22 @@ Problem::~Problem()
 /*
     @desc:
 */
+ostream & operator << (ostream & out, const Problem &problem)
+{   
+    if(!problem.question)
+    {
+        return out << "There's no problem here!" << endl;
+    }    
+    
+    out << "Problem: " << problem.question << endl;
+    if(problem.confidence) out << "Confident?: Yes" << endl;
+    else out << "Confident?: No" << endl;
+    return out << "Importance level: " << problem.importance << endl;
+}
+
+/*
+    @desc:
+*/
 int Problem::set_importance(int source)
 {
     importance = source;
@@ -160,6 +176,77 @@ P_node::~P_node()
 {
     left = NULL;
     right = NULL;
+}
+
+/*
+    @desc:
+*/
+ostream & operator << (ostream & out, const P_node &p_node)
+{
+    if(!p_node.question)
+    {
+        return out << "There's no problem here!" << endl;
+    }    
+    
+    out << "Problem: " << p_node.question << endl;
+    if(p_node.confidence) out << "Confident?: Yes" << endl;
+    else out << "Confident?: No" << endl;
+    return out << "Importance level: " << p_node.importance << endl;
+}
+
+/*
+    @desc:
+*/
+istream & operator >> (istream & in, P_node &p_node)
+{
+    char * q = new char[500];
+    int i;
+    char c;
+
+    cout << "Enter a problem: ";
+    cin.get(q, 500, '\n');
+    cin.ignore(500, '\n');
+
+    if(p_node.question)
+    {
+        delete [] p_node.question;
+    }
+
+    p_node.question = new char[strlen(q) + 1];
+    strcpy(p_node.question, q);
+    
+    cout << "Enter importance: ";
+    cin >> i;
+    cin.ignore(100, '\n');
+    p_node.importance = i;
+    
+    cout << "Confident?(y/n): ";
+    cin >> c;
+    cin.ignore(100, '\n');
+    if(c == 'y') p_node.confidence = true;
+    else p_node.confidence = false;
+    return in;
+}
+
+/*
+    @desc:
+*/
+P_node & P_node::operator = (const P_node &p_node)
+{
+    set_question(p_node.question);
+    set_confidence(p_node.confidence);
+    set_importance(p_node.importance);
+    return *this;
+}
+
+/*
+    @desc:
+*/
+bool P_node::operator == (const P_node &p_node) const
+{
+    if(confidence == p_node.confidence && importance == p_node.importance && 
+       strcmp(question, p_node.question) == 0) return true;
+    return false;
 }
 
 /*

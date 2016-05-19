@@ -9,6 +9,7 @@ public:
     Problem(const Problem &problem);
     Problem(int i, bool c, char * q);
     virtual ~Problem();
+    friend ostream & operator << (ostream & out, const Problem &problem);
     int set_importance(int source);
     int set_confidence(bool source);
     int set_question(char * source);
@@ -27,6 +28,10 @@ public:
     P_node(const P_node &p_node);
     P_node(int i, bool c, char * q);
     virtual ~P_node();
+    friend ostream & operator << (ostream & out, const P_node &p_node);
+    friend istream & operator >> (istream & in, P_node &p_node);
+    P_node & operator = (const P_node &p_node);
+    bool operator == (const P_node &p_node) const;
     bool if_left();
     bool if_right();
     void set_left(P_node * source);
