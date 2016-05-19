@@ -60,6 +60,18 @@ int Book::create_problem()
 }
 
 /*
+    @desc: TODO automated function for filling a book with given values. 
+*/
+
+int Book::auto_populate(char * problem, int importance, bool confidence)
+{
+    P_node * temp = new P_node(importance, confidence, problem);
+    insert_problem(problems, temp);
+    ++num_problems;
+    return 1;
+}
+
+/*
     @desc:
 */
 int Book::set_topic(char * source)
@@ -121,8 +133,11 @@ void Book::remove_all(P_node *& root)
     @desc:
 */
 void Book::display_all()
-{
+{   
+    cout << "Problem set: " << topic << endl 
+         << "Number of problems: " << num_problems << endl << endl;
     display_all(problems);
+    cout << endl << endl;
     return;
 }
 
@@ -137,6 +152,43 @@ void Book::display_all(P_node * root)
     display_all(root->go_left());
     return;
 }
+
+/*
+    @desc:
+*/
+void Book::step_through_problems()
+{
+    cout << "Problem set: " << topic << endl 
+         << "Number of problems: " << num_problems << endl << endl << endl;
+    check_problems(problems);
+    cout << endl << endl;
+    return;
+}
+
+/*
+    @desc:
+*/
+void Book::check_problems(P_node *& root)
+{
+    if(!root) return;
+    char response = '\0';
+    
+    check_problems(root->go_right());
+    root->display_problem();
+    
+    cout << "Do you feel confident with this?(y/n): ";
+    cin >> response;
+    cin.ignore(100, '\n');
+    
+    if(response == 'y') root->set_confidence(true);
+    else root->set_confidence(false);
+
+    cout << endl;
+    
+    check_problems(root->go_left());
+    return;
+}
+
 //*******************************************************************************
 //***********************B_node Class Functions**********************************
 //*******************************************************************************

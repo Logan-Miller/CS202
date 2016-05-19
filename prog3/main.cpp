@@ -26,12 +26,24 @@ int main()
 */
 
     //TODO TRY THIS SHIT
-
+/*
     Book abook;
     abook.create_problem();
     abook.create_problem();
     abook.create_problem();
     cout << "here" << endl;
     abook.display_all();
+  
+  */
+    
+    Library dude;
+    dude.auto_populate();
+    dude.display_all();
+    cout << endl << endl << endl;
+    dude.step_through();
+    cout << endl << endl << endl;
+    dude.display_all();
+
+
     return 0;
 }
