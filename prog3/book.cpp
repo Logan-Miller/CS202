@@ -32,6 +32,38 @@ Book::~Book()
 /*
     @desc:
 */
+Book::Book(const Book &book)
+{
+    if(book.topic)
+    {
+        topic = NULL;
+        topic = new char[strlen(book.topic) + 1];
+        strcpy(topic, book.topic);
+    } 
+    else topic = NULL;
+    num_problems = book.num_problems;
+    copy_tree(problems, book.problems);
+}
+
+/*
+    @desc:
+*/
+int Book::copy_tree(P_node *& dest, P_node * source)
+{
+    if(!source)
+    {
+        dest = NULL;
+        return 0;
+    }
+    dest = new P_node(*source);
+    copy_tree(dest->go_left(), source->go_left());
+    copy_tree(dest->go_right(), source->go_right());
+    return 1;
+}
+
+/*
+    @desc:
+*/
 int Book::create_problem()
 {
     int i = 0;
@@ -198,6 +230,14 @@ void Book::check_problems(P_node *& root)
     @desc:
 */
 B_node::B_node()
+{
+    next = NULL;
+}
+
+/*
+    @desc:
+*/
+B_node::B_node(const B_node &b_node) : Book(b_node)
 {
     next = NULL;
 }

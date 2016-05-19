@@ -6,6 +6,7 @@ class Problem
 {
 public:
     Problem();
+    Problem(const Problem &problem);
     Problem(int i, bool c, char * q);
     virtual ~Problem();
     int set_importance(int source);
@@ -23,6 +24,7 @@ class P_node : public Problem
 {
 public:
     P_node();
+    P_node(const P_node &p_node);
     P_node(int i, bool c, char * q);
     virtual ~P_node();
     bool if_left();

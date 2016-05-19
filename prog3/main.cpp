@@ -40,9 +40,12 @@ int main()
     dude.auto_populate();
     dude.display_all();
     cout << endl << endl << endl;
-    dude.step_through();
+  //  dude.step_through();
     cout << endl << endl << endl;
-    dude.display_all();
+   // dude.display_all();
+
+    Library tom(dude);
+    tom.display_all();
 
 
     return 0;

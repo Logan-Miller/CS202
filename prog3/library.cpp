@@ -18,6 +18,15 @@ Library::Library()
 /*
     @desc:
 */
+Library::Library(const Library &library)
+{
+    num_books = library.num_books;
+    copy_list(head, library.head);
+}
+
+/*
+    @desc:
+*/
 Library::~Library()
 {
     remove_all();
@@ -203,5 +212,16 @@ void Library::remove_all(B_node *& head)
     return;
 }
 
-
+int Library::copy_list(B_node *& dest, B_node * source)
+{
+    if(!source)
+    {
+        dest = NULL;
+        return 0;
+    }
+    
+    dest = new B_node(*source);
+    copy_list(dest->go_next(), source->go_next());
+    return 1;
+}
 

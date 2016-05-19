@@ -22,6 +22,22 @@ Problem::Problem()
 /*
     @desc:
 */
+Problem::Problem(const Problem &problem)
+{
+    importance = problem.importance;
+    confidence = problem.confidence;
+    if(problem.question)
+    {
+        question = new char[strlen(problem.question) + 1];
+        strcpy(question, problem.question);
+    }
+
+    else question = NULL;
+}
+
+/*
+    @desc:
+*/
 Problem::Problem(int i, bool c, char * q)
 {
     importance = i;
@@ -117,6 +133,15 @@ int Problem::compare_importance(Problem &source)
     @desc:
 */
 P_node::P_node()
+{
+    left = NULL;
+    right = NULL;
+}
+
+/*
+    @desc:
+*/
+P_node::P_node(const P_node &p_node) : Problem(p_node)
 {
     left = NULL;
     right = NULL;
