@@ -6,6 +6,7 @@ public:
     Library();
     Library(const Library &library);
     ~Library();
+    friend ostream & operator << (ostream & out, Library &library);   
     int create_book();
     void remove_all();
     void display_all();   

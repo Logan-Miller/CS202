@@ -7,7 +7,7 @@
 //int num_books
 
 /*
-    @desc:
+    @desc: basic constructor
 */
 Library::Library()
 {
@@ -16,7 +16,7 @@ Library::Library()
 }
 
 /*
-    @desc:
+    @desc: copy constructor 
 */
 Library::Library(const Library &library)
 {
@@ -25,7 +25,7 @@ Library::Library(const Library &library)
 }
 
 /*
-    @desc:
+    @desc: destructor
 */
 Library::~Library()
 {
@@ -33,7 +33,19 @@ Library::~Library()
 }
 
 /*
-    @desc:
+    @desc: overloaded << operator, allowing for an entire library's content to 
+           be displayed
+*/
+ostream & operator << (ostream & out, Library &library)
+{
+   library.display_all();
+   return out;
+}
+
+/*
+    @desc: a book is essentially a manager for a BST. this functions allows the
+           the user to create a bst, continually adding problems to the book as
+           long as the wish.
 */
 int Library::create_book()
 {
@@ -69,7 +81,9 @@ int Library::create_book()
 }
 
 /*
-    @desc: TODO function to autopopulate list of trees.
+    @desc: TODO function to autopopulate list of trees. this function is only
+           so for testing and grading purposes, Populates the library with 3
+           books, each with a tree of 3 problems.
 */
 int Library::auto_populate()
 {
@@ -139,7 +153,8 @@ int Library::auto_populate()
 }
 
 /*
-    @desc:
+    @desc: inserts a b_node (a book) into the linear linked list that the 
+           library class manages
 */
 int Library::insert_book(B_node *& head, B_node *& source)
 {
@@ -153,7 +168,7 @@ int Library::insert_book(B_node *& head, B_node *& source)
 }
 
 /*
-    @desc:
+    @desc: wrapper function to display all the data within the library
 */
 void Library::display_all()
 {
@@ -162,12 +177,13 @@ void Library::display_all()
 }
 
 /*
-    @desc:
+    @desc: displays all the data within the library
 */
 void Library::display_all(B_node * head)
 {
     if(!head) return;
-    head->display_all();
+    //head->display_all();
+    cout << *head;
     display_all(head->go_next());
     return;
 }
@@ -191,7 +207,7 @@ int Library::step_through(B_node *& head)
 }
 
 /*
-    @desc:
+    @desc: wrapper function to remove all data in the library
 */
 void Library::remove_all()
 {
@@ -200,7 +216,7 @@ void Library::remove_all()
 }
 
 /*
-    @desc:
+    @desc: removes all the data within a linear linked list
 */
 void Library::remove_all(B_node *& head)
 {
@@ -212,6 +228,9 @@ void Library::remove_all(B_node *& head)
     return;
 }
 
+/*
+    @desc: Copy function used to copy the library's linear linked list
+*/
 int Library::copy_list(B_node *& dest, B_node * source)
 {
     if(!source)

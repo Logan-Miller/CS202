@@ -8,7 +8,7 @@
 //int num_problems
 
 /*
-    @desc:
+    @desc: base constructor
 */
 Book::Book()
 {
@@ -18,7 +18,7 @@ Book::Book()
 }
 
 /*
-    @desc:
+    @desc: destructor
 */
 Book::~Book()
 {
@@ -30,7 +30,7 @@ Book::~Book()
 }
 
 /*
-    @desc:
+    @desc: copy constructor
 */
 Book::Book(const Book &book)
 {
@@ -46,7 +46,7 @@ Book::Book(const Book &book)
 }
 
 /*
-    @desc:
+    @desc: overloaded += operator, allowing for adding a P_node to a book
 */
 Book & Book::operator += (P_node *& p_node)
 {
@@ -57,7 +57,7 @@ Book & Book::operator += (P_node *& p_node)
 }
 
 /*
-    @desc:
+    @desc: overloaded + operator allowing for a node to be added toa book
 */
 Book operator + (const Book &book, P_node *& p_node)
 {
@@ -69,7 +69,17 @@ Book operator + (const Book &book, P_node *& p_node)
 }
 
 /*
-    @desc:
+    @desc: overloaded << operator allowing for a book to be output, displaying
+           the book's entire tree
+*/
+ostream & operator << (ostream & out, Book &book)
+{
+    book.display_all();
+    return out;
+}
+
+/*
+    @desc: function to copy a binary search tree
 */
 int Book::copy_tree(P_node *& dest, P_node * source)
 {
@@ -85,7 +95,7 @@ int Book::copy_tree(P_node *& dest, P_node * source)
 }
 
 /*
-    @desc:
+    @desc: creates a problem and then inserts it to the tree
 */
 int Book::create_problem()
 {
@@ -129,7 +139,7 @@ int Book::auto_populate(char * problem, int importance, bool confidence)
 }
 
 /*
-    @desc:
+    @desc: sets a book's topic given a char *
 */
 int Book::set_topic(char * source)
 {   
@@ -141,7 +151,7 @@ int Book::set_topic(char * source)
 }
 
 /*
-    @desc:
+    @desc: inserts a P_node into the tree
 */
 int Book::insert_problem(P_node *& root, P_node *& source)
 {
@@ -165,7 +175,7 @@ int Book::insert_problem(P_node *& root, P_node *& source)
 }
 
 /*
-    @desc:
+    @desc: wrapper function to remove all nodes from the tree
 */
 void Book::remove_all()
 {
@@ -174,7 +184,7 @@ void Book::remove_all()
 }
 
 /*
-    @desc:
+    @desc: removes all nodes from a tree
 */
 void Book::remove_all(P_node *& root)
 {   
@@ -187,7 +197,7 @@ void Book::remove_all(P_node *& root)
 }
 
 /*
-    @desc:
+    @desc: wrapper function to display all nodes within a tree
 */
 void Book::display_all()
 {   
@@ -199,19 +209,22 @@ void Book::display_all()
 }
 
 /*
-    @desc:
+    @desc: displays all nodes within a tree
 */
 void Book::display_all(P_node * root)
 {
     if(!root) return;
     display_all(root->go_right());
-    root->display_problem();
+    //root->display_problem();
+    cout << *root;
     display_all(root->go_left());
     return;
 }
 
 /*
-    @desc:
+    @desc: wrapper function allowing each node in a tree to be checked, allows
+           a user to change whether or not they feel comfortable with a given 
+           problem
 */
 void Book::step_through_problems()
 {
@@ -223,7 +236,8 @@ void Book::step_through_problems()
 }
 
 /*
-    @desc:
+    @desc: given the root of a tree, goes to each node in a tree, displays the
+           node, and then checks if the user is confident with the given output
 */
 void Book::check_problems(P_node *& root)
 {
@@ -252,7 +266,7 @@ void Book::check_problems(P_node *& root)
 //B_node * next
 
 /*
-    @desc:
+    @desc: constructor
 */
 B_node::B_node()
 {
@@ -260,7 +274,7 @@ B_node::B_node()
 }
 
 /*
-    @desc:
+    @desc: copy constructor
 */
 B_node::B_node(const B_node &b_node) : Book(b_node)
 {
@@ -268,7 +282,7 @@ B_node::B_node(const B_node &b_node) : Book(b_node)
 }
 
 /*
-    @desc:
+    @desc: destructor
 */
 B_node::~B_node()
 {
@@ -276,7 +290,7 @@ B_node::~B_node()
 }
 
 /*
-    @desc:
+    @desc: checks if there is a next
 */
 bool B_node::if_next()
 {
@@ -285,7 +299,7 @@ bool B_node::if_next()
 }
 
 /*
-    @desc:
+    @desc: sets the next pointer
 */
 void B_node::set_next(B_node * source)
 {
@@ -294,7 +308,7 @@ void B_node::set_next(B_node * source)
 }
 
 /*
-    @desc:
+    @desc: returns the next pointer
 */
 B_node *& B_node::go_next()
 {

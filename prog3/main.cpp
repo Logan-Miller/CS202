@@ -68,7 +68,7 @@ int main()
   
     Library dude;
     dude.auto_populate();
-    dude.display_all();
+    cout << dude;
     cout << endl << endl << endl;
   //  dude.step_through();
     cout << endl << endl << endl;

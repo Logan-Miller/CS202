@@ -10,7 +10,7 @@
 */  
 
 /*
-    @desc:
+    @desc: Base constructor for the problem class
 */
 Problem::Problem()
 {
@@ -20,7 +20,7 @@ Problem::Problem()
 }
 
 /*
-    @desc:
+    @desc: Copy constructor for the problem class
 */
 Problem::Problem(const Problem &problem)
 {
@@ -36,7 +36,7 @@ Problem::Problem(const Problem &problem)
 }
 
 /*
-    @desc:
+    @desc: Constructor with passed in arguments for the problem class
 */
 Problem::Problem(int i, bool c, char * q)
 {
@@ -50,7 +50,7 @@ Problem::Problem(int i, bool c, char * q)
 }
 
 /*
-    @desc:
+    @desc: Destructor
 */
 Problem::~Problem()
 {
@@ -65,7 +65,7 @@ Problem::~Problem()
 }
 
 /*
-    @desc:
+    @desc: Overloaded << operator allowing for output of the problem class
 */
 ostream & operator << (ostream & out, const Problem &problem)
 {   
@@ -81,7 +81,8 @@ ostream & operator << (ostream & out, const Problem &problem)
 }
 
 /*
-    @desc:
+    @desc: Overloaded < operator for the problem class, compares one problem to
+           another, comparing the problems's importance
 */
 bool Problem::operator < (const Problem &problem) const
 {
@@ -90,7 +91,8 @@ bool Problem::operator < (const Problem &problem) const
 }
 
 /*
-    @desc:
+    @desc: Overloaded > operator for the problem class, compares one problem to
+           another, comparing the problems's importance
 */
 bool Problem::operator > (const Problem &problem) const
 {
@@ -99,7 +101,8 @@ bool Problem::operator > (const Problem &problem) const
 }
 
 /*
-    @desc:
+    @desc: Overloaded <= operator for the problem class, compares one problem to
+           another, comparing the problems's importance
 */
 bool Problem::operator <= (const Problem &problem) const
 {
@@ -108,7 +111,8 @@ bool Problem::operator <= (const Problem &problem) const
 }
 
 /*
-    @desc:
+    @desc: Overloaded >= operator for the problem class, compares one problem to
+           another, comparing the problems's importance
 */
 bool Problem::operator >= (const Problem &problem) const
 {
@@ -117,7 +121,7 @@ bool Problem::operator >= (const Problem &problem) const
 }
 
 /*
-    @desc:
+    @desc: setter to set a problems importance
 */
 int Problem::set_importance(int source)
 {
@@ -126,7 +130,7 @@ int Problem::set_importance(int source)
 }
 
 /*
-    @desc:
+    @desc: setter to set a problems confidence
 */
 int Problem::set_confidence(bool source)
 {
@@ -135,7 +139,7 @@ int Problem::set_confidence(bool source)
 }
 
 /*
-    @desc:
+    @desc: setter to set a problems question
 */
 int Problem::set_question(char * source)
 {
@@ -152,7 +156,7 @@ int Problem::set_question(char * source)
 }
 
 /*
-    @desc:
+    @desc: Display function to display all of a problems data
 */
 int Problem::display_problem()
 {
@@ -169,6 +173,9 @@ int Problem::display_problem()
     return 1;
 }
 
+/*
+    @desc: comparison function to compare two problems importance
+*/
 int Problem::compare_importance(Problem &source)
 {
     if(importance < source.importance) return 0;
@@ -182,7 +189,7 @@ int Problem::compare_importance(Problem &source)
 //P_node * right
 
 /*
-    @desc:
+    @desc: base constructor for P_node
 */
 P_node::P_node()
 {
@@ -191,7 +198,7 @@ P_node::P_node()
 }
 
 /*
-    @desc:
+    @desc: Copy constructor for P_node
 */
 P_node::P_node(const P_node &p_node) : Problem(p_node)
 {
@@ -199,6 +206,9 @@ P_node::P_node(const P_node &p_node) : Problem(p_node)
     right = NULL;
 }
 
+/*
+    @desc: Constructor for P_node given values
+*/
 P_node::P_node(int i, bool c, char * q) : Problem(i, c, q)
 {
     left = NULL;
@@ -206,7 +216,7 @@ P_node::P_node(int i, bool c, char * q) : Problem(i, c, q)
 }
 
 /*
-    @desc:
+    @desc: destructor
 */
 P_node::~P_node()
 {
@@ -215,7 +225,7 @@ P_node::~P_node()
 }
 
 /*
-    @desc:
+    @desc: Overloaded << operator allowing for output of a P_node.
 */
 ostream & operator << (ostream & out, const P_node &p_node)
 {
@@ -231,7 +241,7 @@ ostream & operator << (ostream & out, const P_node &p_node)
 }
 
 /*
-    @desc:
+    @desc: Overloaded >> operator allowing for input to a P_node
 */
 istream & operator >> (istream & in, P_node &p_node)
 {
@@ -265,7 +275,7 @@ istream & operator >> (istream & in, P_node &p_node)
 }
 
 /*
-    @desc:
+    @desc: overloaded assignment operator, allowing for copying
 */
 P_node & P_node::operator = (const P_node &p_node)
 {
@@ -277,7 +287,8 @@ P_node & P_node::operator = (const P_node &p_node)
 }
 
 /*
-    @desc:
+    @desc: overloaded comparison operator, comparing two P_nodes to see if 
+           they're the same
 */
 bool P_node::operator == (const P_node &p_node) const
 {
@@ -287,7 +298,8 @@ bool P_node::operator == (const P_node &p_node) const
 }
 
 /*
-    @desc:
+    @desc: Overloaded != operator allowing for checking if two nodes are not
+           equivalent
 */
 bool P_node::operator != (const P_node &p_node) const
 {
@@ -296,7 +308,7 @@ bool P_node::operator != (const P_node &p_node) const
 }
 
 /*
-    @desc:
+    @desc: checks if there is a left node
 */
 bool P_node::if_left()
 {
@@ -305,7 +317,7 @@ bool P_node::if_left()
 }
 
 /*
-    @desc:
+    @desc: checks if ther is a right node
 */
 bool P_node::if_right()
 {
@@ -314,7 +326,7 @@ bool P_node::if_right()
 }
 
 /*
-    @desc:
+    @desc: sets the left node
 */
 void P_node::set_left(P_node * source)
 {
@@ -323,7 +335,7 @@ void P_node::set_left(P_node * source)
 }
 
 /*
-    @desc:
+    @desc: sets the right node
 */
 void P_node::set_right(P_node * source)
 {
@@ -332,7 +344,7 @@ void P_node::set_right(P_node * source)
 }
 
 /*
-    @desc:
+    @desc: returns the left node
 */
 P_node *& P_node::go_left()
 {
@@ -340,7 +352,7 @@ P_node *& P_node::go_left()
 }
 
 /*
-    @desc:
+    @desc: returns the right node
 */
 P_node *& P_node::go_right()
 {
