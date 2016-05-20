@@ -48,6 +48,29 @@ Book::Book(const Book &book)
 /*
     @desc:
 */
+Book & Book::operator += (P_node *& p_node)
+{
+    if(!p_node) return *this;
+    insert_problem(problems, p_node);
+    ++num_problems;
+    return *this;
+}
+
+/*
+    @desc:
+*/
+Book operator + (const Book &book, P_node *& p_node)
+{
+    if(!p_node) return book;
+    Book temp1(book);
+    P_node * temp2 = new P_node(*p_node);
+    temp1.insert_problem(temp1.problems, temp2);
+    return temp1;
+}
+
+/*
+    @desc:
+*/
 int Book::copy_tree(P_node *& dest, P_node * source)
 {
     if(!source)
@@ -85,7 +108,9 @@ int Book::create_problem()
     if(response == 'y') c = true;
 
     P_node * temp = new P_node(i, c, p);
-    insert_problem(problems, temp);
+    //TODO
+    //insert_problem(problems, temp);
+    *this += temp;
     delete [] p;
     ++num_problems;
     return 1;

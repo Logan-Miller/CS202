@@ -6,6 +6,8 @@ public:
     Book();
     Book(const Book &book);
     virtual ~Book();
+    Book & operator += (P_node *& p_node);
+    friend Book operator + (const Book &book, P_node *& p_node);
     int create_problem();
     int set_topic(char * source);
     void remove_all();

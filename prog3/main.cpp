@@ -2,9 +2,9 @@
 
 int main()
 {
-
+/*
     P_node problem;
-    problem.set_importance(5);
+    problem.set_importance(7);
     problem.set_confidence(true);
     
     char * temp = new char[20];
@@ -17,7 +17,7 @@ int main()
     cout << problem;
     
     P_node p2;
-    p2.set_importance(5);
+    p2.set_importance(8);
     p2.set_confidence(true);
     
     char * t2 = new char[20];
@@ -25,13 +25,18 @@ int main()
 
     p2.set_question(t2);
     delete [] t2;
-    
+    cout << p2;
+
+    if(problem >= p2) cout << "word" << endl;
+    else cout << "nope" << endl;
+  */ 
+   /* 
     if(problem == problem) cout << "They're the same!" << endl;
     else cout << "They're not the same!" << endl;
     
-    problem = p2;
+    problem = problem;
     cout << problem;
-    
+  */  
     /*
     cout << endl << endl << endl;
     P_node a;
@@ -59,7 +64,8 @@ int main()
     abook.display_all();
   
   */
- /*   
+ //TODO Testing the library class
+  
     Library dude;
     dude.auto_populate();
     dude.display_all();
@@ -68,9 +74,9 @@ int main()
     cout << endl << endl << endl;
    // dude.display_all();
 
-    Library tom(dude);
-    tom.display_all();
-*/
+    //Library tom(dude);
+    //tom.display_all();
+
 
     return 0;
 }

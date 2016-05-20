@@ -83,6 +83,42 @@ ostream & operator << (ostream & out, const Problem &problem)
 /*
     @desc:
 */
+bool Problem::operator < (const Problem &problem) const
+{
+    if(importance < problem.importance) return true;
+    return false;
+}
+
+/*
+    @desc:
+*/
+bool Problem::operator > (const Problem &problem) const
+{
+    if(importance > problem.importance) return true;
+    return false;
+}
+
+/*
+    @desc:
+*/
+bool Problem::operator <= (const Problem &problem) const
+{
+    if(importance <= problem.importance) return true;
+    return false;
+}
+
+/*
+    @desc:
+*/
+bool Problem::operator >= (const Problem &problem) const
+{
+    if(importance >= problem.importance) return true;
+    return false;
+}
+
+/*
+    @desc:
+*/
 int Problem::set_importance(int source)
 {
     importance = source;
@@ -233,6 +269,7 @@ istream & operator >> (istream & in, P_node &p_node)
 */
 P_node & P_node::operator = (const P_node &p_node)
 {
+    if(this == &p_node) return *this;
     set_question(p_node.question);
     set_confidence(p_node.confidence);
     set_importance(p_node.importance);
@@ -247,6 +284,15 @@ bool P_node::operator == (const P_node &p_node) const
     if(confidence == p_node.confidence && importance == p_node.importance && 
        strcmp(question, p_node.question) == 0) return true;
     return false;
+}
+
+/*
+    @desc:
+*/
+bool P_node::operator != (const P_node &p_node) const
+{
+    if(*this == p_node) return false;
+    return true;
 }
 
 /*
