@@ -1,91 +1,83 @@
+// Logan Miller
+// CS 202
+// Prog 3
+
 #include "library.h"
 
+//Client program to allow a user to study different materials. They can input
+//new materials to be studied, display all the materials given, or be given a 
+//topic to study.
 int main()
-{
-/*
-    P_node problem;
-    problem.set_importance(7);
-    problem.set_confidence(true);
+{   
+    srand(time(NULL));
+    bool running = true;
+    char response = '\0';
+    Library study;
     
-    char * temp = new char[20];
-    strcpy(temp, "Yo its a problem");
+    //This function is not required, it is simply for testing the program. This
+    //function populates the object with 3 different books (trees) each with 3
+    //problems.
+    study.auto_populate();
 
-    problem.set_question(temp);
-    delete [] temp;
-    problem.display_problem();
-    cout << endl << endl;
-    cout << problem;
+    cout << "Welcome. This program allows you to create different sets of"
+         << " problems and" << endl << "then add however many problems to them." 
+         << endl << endl << endl;
+
+    while(running)
+    {
+        cout << "Enter 1 to study a topic program." << endl;
+        cout << "Enter 2 to create a new set of problems." << endl;
+        cout << "Enter 3 to display all study materials." << endl;
+        cout << "Enter q to quit." << endl;
+        cout << "Enter your choice now: ";
+        cin >> response;
+        cin.ignore(100, '\n');
+        
+        //Case 1: The user wants to get a random topic to study
+        if(response == '1')
+        {   
+            cout << endl << endl;
+
+            if(study.all_confident())
+            {
+                cout << endl << endl;
+                cout << "You're now confident on all study materials offered!"
+                     << endl << endl << endl;
+            }
+            else
+            {
+                study.random_topics();
+            }
+        }
+        
+        //Case 2: The user wants to create a new set of problems (A new BST of 
+        //problems)
+        else if(response == '2')
+        {
+            cout << endl << endl;
+            study.create_book();
+            cout << endl << endl;
+        }
+        
+        //Case 3: The user wants to view all available study material
+        else if(response == '3')
+        {   
+            cout << endl << endl;
+            cout << "All study materials: " << endl << endl;
+            cout << study;
+        }
+        
+        //Case 4: The user wishes to quit the program
+        else if(response == 'q') running = false;
+        
+        //Case 5: Invalid input from the user. 
+        else
+        {
+            cout << "Input not recognized." << endl;
+        }
+    }
     
-    P_node p2;
-    p2.set_importance(8);
-    p2.set_confidence(true);
-    
-    char * t2 = new char[20];
-    strcpy(t2, "hey hey david");
-
-    p2.set_question(t2);
-    delete [] t2;
-    cout << p2;
-
-    if(problem >= p2) cout << "word" << endl;
-    else cout << "nope" << endl;
-  */ 
-   /* 
-    if(problem == problem) cout << "They're the same!" << endl;
-    else cout << "They're not the same!" << endl;
-    
-    problem = problem;
-    cout << problem;
-  */  
-    /*
-    cout << endl << endl << endl;
-    P_node a;
-    cin >> a;
-    cout << a;
-    */
-
-/*
-    int i = 5;
-    bool c = true;
-    char * q = new char[500];
-    strcpy(q, "blah blah blah");
-
-    P_node problem(i, c, q);
-    problem.display_problem();
-*/
-
-    //TODO TRY THIS SHIT
-/*
-    Book abook;
-    abook.create_problem();
-    abook.create_problem();
-    abook.create_problem();
-    cout << "here" << endl;
-    abook.display_all();
-  
-  */
- //TODO Testing the library class
-  
-    Library dude;
-    dude.auto_populate();
-    cout << dude;
-    cout << endl << endl << endl;
-    if(dude.all_confident()) cout << "all confident" << endl;
-    else cout << "Not all confident" << endl;
-
-    dude.random_topics();
-
-    //dude.step_through();
-    
-    //if(dude.all_confident()) cout << "all confident" << endl;
-    //else cout << "Not all confident" << endl;
-    
-    //cout << endl << endl << endl;
-   // dude.display_all();
-
-    //Library tom(dude);
-    //tom.display_all();
-
+    cout << endl << endl << "The program will now close." << endl;
 
     return 0;
 }

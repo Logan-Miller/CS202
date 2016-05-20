@@ -1,3 +1,7 @@
+// Logan Miller
+// CS 202
+// Prog 3
+
 #include "library.h"
 
 //*******************************************************************************
@@ -103,6 +107,7 @@ int Library::auto_populate()
     t1->auto_populate(t1_p3, 6, false);
     ++num_books;
     insert_book(head, t1);
+    
 
     //The second BST to be inserted
     B_node * t2 = new B_node;
@@ -248,27 +253,37 @@ int Library::copy_list(B_node *& dest, B_node * source)
 }
 
 /*
-    @desc: 
+    @desc: Function creates a random number passes this number and head to a 
+           recursive function that will move that many nodes into a linear 
+           linked list.
 */
 void Library::random_topics()
 {
-    srand(time(NULL));
+    //srand(time(NULL));
     int index = rand() % num_books;
     if(index == 0) index = num_books;
-    random_topics(head, index);
-    cout << endl << endl << index << endl << endl;
+    if(!random_topics(head, index))
+    {
+        random_topics();
+    }
+
+    return;
 }
 
 /*
-    @desc: 
+    @desc: Given the head of a list and an index, the function iterates to the
+           desired node within the list. If the user is not confident on all of
+           the problems in the tree at the current node, it will allow the user
+           the ability to step through all the problems and change their 
+           confidence level.
 */
-void Library::random_topics(B_node *& head, int index)
+bool Library::random_topics(B_node *& head, int index)
 {
-    if(!head) return;
+    if(!head) return false;
     if(index != 1)
     {
         --index;
-        random_topics(head->go_next(), index);
+        return random_topics(head->go_next(), index);
     }
     
     else
@@ -276,14 +291,16 @@ void Library::random_topics(B_node *& head, int index)
         if(!head->all_confident())
         {
             head->step_through_problems();            
+            return true;
         }
     }
 
-    return;
+    return false;
 }
 
 /*
-    @desc: 
+    @desc: wrapper function to check if the user is confident with all the
+           problems in the list of BSTs.
 */
 bool Library::all_confident()
 {
@@ -291,7 +308,8 @@ bool Library::all_confident()
 }
 
 /*
-    @desc: 
+    @desc: recursive function to check if the user is confident with all the 
+           problems in a node that contains a BST. 
 */
 bool Library::all_confident(B_node * head)
 {

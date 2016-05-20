@@ -1,7 +1,13 @@
+// Logan Miller
+// CS 202
+// Prog 3
+
 #include <iostream>
 #include <cstring>
 using namespace std;
 
+//A Problem object is a collection of data including a problem, a confidence
+//a level of importance. 
 class Problem
 {
 public:
@@ -26,6 +32,8 @@ protected:
     char * question;
 };
 
+//A P_node object inherets from a Problem and allows problems to be linked 
+//together. 
 class P_node : public Problem
 {
 public:

@@ -1,7 +1,14 @@
+// Logan Miller
+// CS 202
+// Prog 3
+
 #include "book.h"
 #include <time.h>
 #include <stdlib.h>
 
+//A library object is essentially a manager of a linear linked list. It allows
+//a client to manipulate a linear linked list of binary search trees. Where the
+//base data is a Problem object. 
 class Library
 {
 public:
@@ -22,8 +29,9 @@ protected:
     int step_through(B_node *& head);
     void remove_all(B_node *& head);
     int copy_list(B_node *& dest, B_node * source);
-    void random_topics(B_node *& head, int index);
+    bool random_topics(B_node *& head, int index);
     bool all_confident(B_node * head);
+    
     B_node * head;
     int num_books;
 };

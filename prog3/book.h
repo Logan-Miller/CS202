@@ -1,5 +1,11 @@
+// Logan Miller
+// CS 202
+// Prog 3
+
 #include "problem.h"
 
+//A book object is essentially a manager for a binary search tree of Problem
+//objects. 
 class Book
 {
 public:
@@ -23,12 +29,14 @@ protected:
     void check_problems(P_node *& root);  
     int copy_tree(P_node *& dest, P_node * source);
     bool all_confident(P_node * root);
-    //members
+    
     char * topic;
     int num_problems;
     P_node * problems;
 };
 
+//A B_node inherets from a Book object and allows Book objects to be linked up
+//together to be used in a data structure
 class B_node : public Book
 {
 public:

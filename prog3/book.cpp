@@ -1,3 +1,7 @@
+// Logan Miller
+// CS 202
+// Prog 3
+
 #include "book.h"
 
 //*******************************************************************************
@@ -118,11 +122,10 @@ int Book::create_problem()
     if(response == 'y') c = true;
 
     P_node * temp = new P_node(i, c, p);
-    //TODO
     //insert_problem(problems, temp);
     *this += temp;
     delete [] p;
-    ++num_problems;
+    //++num_problems;
     return 1;
 }
 
@@ -133,8 +136,9 @@ int Book::create_problem()
 int Book::auto_populate(char * problem, int importance, bool confidence)
 {
     P_node * temp = new P_node(importance, confidence, problem);
-    insert_problem(problems, temp);
-    ++num_problems;
+    //insert_problem(problems, temp);
+    *this+=temp;
+    //++num_problems;
     return 1;
 }
 
@@ -163,7 +167,8 @@ int Book::insert_problem(P_node *& root, P_node *& source)
     
     //if the source's importance is greater than or equal to the current
     //problems importance, insert to the right.
-    if(!root->compare_importance(*source))
+    //if(!root->compare_importance(*source))
+    if(*root <= *source)
     {
         return insert_problem(root->go_right(), source);
     }
@@ -245,8 +250,9 @@ void Book::check_problems(P_node *& root)
     char response = '\0';
     
     check_problems(root->go_right());
-    root->display_problem();
-    
+    //root->display_problem();
+    cout << *root;
+
     cout << "Do you feel confident with this?(y/n): ";
     cin >> response;
     cin.ignore(100, '\n');
@@ -262,7 +268,8 @@ void Book::check_problems(P_node *& root)
 
 
 /*
-    @desc:
+    @desc: wrapper function for to check if the user is confident with all
+           problems in a BST
 */
 bool Book::all_confident()
 {
@@ -270,7 +277,8 @@ bool Book::all_confident()
 }
 
 /*
-    @desc: 
+    @desc: recursive function to check if a user is confident with all problems
+           in a BST
 */
 bool Book::all_confident(P_node * root)
 {
