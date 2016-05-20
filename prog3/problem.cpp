@@ -182,6 +182,13 @@ int Problem::compare_importance(Problem &source)
     return 1;
 }
 
+/*
+    @desc: constructor
+*/
+bool Problem::check_confidence()
+{
+    return confidence;
+}
 //*******************************************************************************
 //***********************P_node Class Functions**********************************
 //*******************************************************************************

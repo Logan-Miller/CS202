@@ -260,6 +260,26 @@ void Book::check_problems(P_node *& root)
     return;
 }
 
+
+/*
+    @desc:
+*/
+bool Book::all_confident()
+{
+    return all_confident(problems);
+}
+
+/*
+    @desc: 
+*/
+bool Book::all_confident(P_node * root)
+{
+    if(!root) return true;
+    
+    if(!root->check_confidence()) return false;
+    return all_confident(root->go_left()) + all_confident(root->go_right());
+}
+
 //*******************************************************************************
 //***********************B_node Class Functions**********************************
 //*******************************************************************************

@@ -19,6 +19,7 @@ public:
     int set_question(char * source);
     int display_problem();
     int compare_importance(Problem &source);
+    bool check_confidence();
 protected:
     int importance;
     bool confidence;

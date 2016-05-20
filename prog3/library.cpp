@@ -101,6 +101,7 @@ int Library::auto_populate()
     t1->auto_populate(t1_p1, 5, false);
     t1->auto_populate(t1_p2, 4, false);
     t1->auto_populate(t1_p3, 6, false);
+    ++num_books;
     insert_book(head, t1);
 
     //The second BST to be inserted
@@ -117,6 +118,7 @@ int Library::auto_populate()
     t2->auto_populate(t2_p1, 5, false);
     t2->auto_populate(t2_p2, 4, false);
     t2->auto_populate(t2_p3, 6, false);
+    ++num_books;
     insert_book(head, t2);
 
     //The third BST to be inserted
@@ -133,6 +135,7 @@ int Library::auto_populate()
     t3->auto_populate(t3_p1, 5, false);
     t3->auto_populate(t3_p2, 4, false);
     t3->auto_populate(t3_p3, 6, false);
+    ++num_books;
     insert_book(head, t3);
 
     //Clean up data
@@ -243,4 +246,67 @@ int Library::copy_list(B_node *& dest, B_node * source)
     copy_list(dest->go_next(), source->go_next());
     return 1;
 }
+
+/*
+    @desc: 
+*/
+void Library::random_topics()
+{
+    srand(time(NULL));
+    int index = rand() % num_books;
+    if(index == 0) index = num_books;
+    random_topics(head, index);
+    cout << endl << endl << index << endl << endl;
+}
+
+/*
+    @desc: 
+*/
+void Library::random_topics(B_node *& head, int index)
+{
+    if(!head) return;
+    if(index != 1)
+    {
+        --index;
+        random_topics(head->go_next(), index);
+    }
+    
+    else
+    {
+        if(!head->all_confident())
+        {
+            head->step_through_problems();            
+        }
+    }
+
+    return;
+}
+
+/*
+    @desc: 
+*/
+bool Library::all_confident()
+{
+    return all_confident(head);
+}
+
+/*
+    @desc: 
+*/
+bool Library::all_confident(B_node * head)
+{
+    if(!head) return true;
+    if(!head->all_confident()) return false;
+    return all_confident(head->go_next());
+}
+
+
+
+
+
+
+
+
+
+
 

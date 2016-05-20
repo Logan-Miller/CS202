@@ -70,8 +70,17 @@ int main()
     dude.auto_populate();
     cout << dude;
     cout << endl << endl << endl;
-  //  dude.step_through();
-    cout << endl << endl << endl;
+    if(dude.all_confident()) cout << "all confident" << endl;
+    else cout << "Not all confident" << endl;
+
+    dude.random_topics();
+
+    //dude.step_through();
+    
+    //if(dude.all_confident()) cout << "all confident" << endl;
+    //else cout << "Not all confident" << endl;
+    
+    //cout << endl << endl << endl;
    // dude.display_all();
 
     //Library tom(dude);
