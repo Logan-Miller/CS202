@@ -32,5 +32,7 @@ public class Main {
             System.out.println(tokens[1]);
             System.out.println(i);
         }
+
+        System.out.println("I've been transfered!");
     }
 }
