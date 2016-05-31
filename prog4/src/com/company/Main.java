@@ -14,6 +14,7 @@ public class Main {
         L_manager l = new L_manager();
         l.load();
         l.display();
+        System.out.println("transfering to linux");
 
         /*
         F_node apple = new F_node("apple", 5);
