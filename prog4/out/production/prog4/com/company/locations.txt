@@ -1,1 +1,2 @@
-apple:5
+1Fred Myer:apple,5|orange,4
+0walmart:cake,-4|butts,22
