@@ -2,7 +2,7 @@ package com.company;
 
 import java.util.Scanner;
 
-public class Location {
+public abstract class Location {
 
     protected F_node root;
     protected String name;
@@ -89,5 +89,24 @@ public class Location {
 
     public int getHealthIndex() {
         return healthIndex;
+    }
+
+    public int removeAll() {
+        removeAll(root);
+        return 1;
+
+    }
+
+    protected F_node removeAll(F_node source) {
+        if(root == null) return null;
+        root = removeAll(root.getRight());
+        root = removeAll(root.getLeft());
+        root = null;
+        return root;
+    }
+
+    public boolean compareNames(String source) {
+        if(name.equals(source)) return true;
+        return false;
     }
 }

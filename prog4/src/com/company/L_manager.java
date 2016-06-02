@@ -91,4 +91,36 @@ public class L_manager {
 
         return 1;
     }
+
+    public int removeAll() {
+        root = removeAll(root);
+        return 1;
+    }
+
+    protected L_node removeAll(L_node root) {
+        if(root == null) return null;
+        root = removeAll(root.getRight());
+        root = removeAll(root.getLeft());
+        root = null;
+        return null;
+    }
+
+    public L_node retrieve(String source) {
+        return retrieve(source, root);
+    }
+
+    protected L_node retrieve(String source, L_node root) {
+        L_node temp = null;
+        if(root == null) return null;
+        if(root.location.compareNames(source)) {
+            return root;
+        }
+        if(root.ifLeft()) {
+            temp = retrieve(source, root.getLeft());
+        }
+        if(temp == null){
+            temp = retrieve(source, root.getRight());
+        }
+        return temp;
+    }
 }

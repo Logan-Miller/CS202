@@ -7,6 +7,12 @@ public class L_node {
     protected L_node right;
     protected Location location;
 
+    public L_node() {
+        location = null;
+        left = null;
+        right = null;
+    }
+
     public L_node(Location place) {
         location = place;
         left = null;
@@ -39,4 +45,9 @@ public class L_node {
         return right;
     }
 
+    public void display() {
+        if(location != null) {
+            location.displayLocation();
+        }
+    }
 }

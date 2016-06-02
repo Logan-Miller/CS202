@@ -16,6 +16,18 @@ public class Main {
         l.display();
         System.out.println("transfering to linux");
 
+        L_node temp = new L_node();
+        temp = l.retrieve("walmart");
+
+        if(temp == null) {
+            System.out.println("fuck");
+        }
+
+        if(temp != null){
+            System.out.println("YOOOOO");
+            temp.display();
+        }
+
         /*
         F_node apple = new F_node("apple", 5);
         F_node bag = new F_node("bag", 4);
