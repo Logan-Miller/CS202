@@ -50,4 +50,8 @@ public class L_node {
             location.displayLocation();
         }
     }
+
+    public boolean compareNames(String source) {
+        return location.compareNames(source);
+    }
 }

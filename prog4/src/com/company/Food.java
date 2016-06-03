@@ -56,8 +56,7 @@ public class Food {
           @desc:
     */
     public void displayFood(){
-        System.out.println(name);
-        System.out.println(weight);
+        System.out.println("Food Item: " + name);
     }
 
     /*

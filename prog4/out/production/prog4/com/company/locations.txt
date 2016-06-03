@@ -1,3 +1,3 @@
 1Fred Myer:apple,5|orange,4|banana,6
-0walmart:cake,4|candy,3|potato,5
+0Pizza Hut:cake,4|candy,3|potato,5
 1IGA:peas,6|carrot,5|broccoli,7

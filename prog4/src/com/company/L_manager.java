@@ -79,21 +79,12 @@ public class L_manager {
             }
         }
 
-       // System.out.println(line);
-
-        //String delims = "[:]+";
-        //String [] tokens = line.split(delims);
-        /*for(int i = 0; i < tokens.length; ++i){
-            System.out.println(tokens[1]);
-            System.out.println(i);
-        }
-        */
-
         return 1;
     }
 
     public int removeAll() {
         root = removeAll(root);
+        numLocations = 0;
         return 1;
     }
 
@@ -122,5 +113,44 @@ public class L_manager {
             temp = retrieve(source, root.getRight());
         }
         return temp;
+    }
+
+    public void removeLocation(String source) {
+        remove_Location(source, root);
+        return;
+    }
+
+    protected void remove_Location(String source, L_node root) {
+        if(root == null) return;
+        if(root.compareNames(source)) {
+
+            if(!root.ifLeft() && !root.ifRight()) {
+                root = null;
+            }
+
+            if(!root.ifLeft() || !root.ifLeft()) {
+                if(!root.ifLeft()) root = root.getRight();
+                else root = root.getLeft();
+            }
+
+            if(root.ifLeft() && root.ifRight()) {
+
+            }
+            return;
+        }
+        remove_Location(source, root.getLeft());
+        remove_Location(source, root.getRight());
+        return;
+    }
+
+    public void findHealthiest() {
+        findHealthiest(root);
+    }
+
+    protected void findHealthiest(L_node root) {
+        if(root == null) return;
+        if(!root.ifRight()) root.display();
+        findHealthiest(root.getRight());
+        return;
     }
 }
