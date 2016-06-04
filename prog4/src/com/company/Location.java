@@ -1,6 +1,16 @@
+/*
+    Logan Miller
+    CS202
+    Program: 4/5
+ */
+
 package com.company;
 
 import java.util.Scanner;
+
+/*
+    @desc: Location class is a manager of a BST of food F_nodes (food)
+*/
 
 public abstract class Location {
 
@@ -12,7 +22,7 @@ public abstract class Location {
 
 
     /*
-        @desc:
+        @desc: basic constructor
     */
     public Location() {
         root = null;
@@ -22,6 +32,10 @@ public abstract class Location {
         input = new Scanner(System.in);
     }
 
+    /*
+        @desc: constructor given a string and an array of strings. Set's the location's name, creates a tree out of the
+        array of given strings.
+     */
     public Location(String title, String [] data) {
         root = null;
         name = title;
@@ -36,17 +50,16 @@ public abstract class Location {
     }
 
     /*
-          @desc:
+          @desc: Given a name and a weight, creates an F_node, calls an insert function to insert it into the BST
     */
     public int insertFood(String name, int weight) {
-        //if(source == null) return 0;
         F_node source = new F_node(name, weight);
         root = insert(root, source);
         return 1;
     }
 
     /*
-       @desc:
+       @desc: Given a root node and a source node, inserts the source node into the root node's tree
    */
     protected F_node insert(F_node root, F_node source) {
         if(root == null) {
@@ -67,6 +80,9 @@ public abstract class Location {
         return root;
     }
 
+    /*
+        @desc: display function to display the basic info of a location
+     */
     public void displayLocation() {
         if(root == null) {
             System.out.println("The current location has no food");
@@ -80,6 +96,9 @@ public abstract class Location {
         }
     }
 
+    /*
+        @desc: recursive function to display all food objects inside the location
+     */
     protected void displayAll(F_node root){
         if(root == null) return;
         displayAll(root.getRight());
@@ -87,16 +106,25 @@ public abstract class Location {
         displayAll(root.getLeft());
     }
 
+    /*
+        @desc: get's the healths index of the location
+     */
     public int getHealthIndex() {
         return healthIndex;
     }
 
+    /*
+        @desc: wrapper function to remove all food objects from the location
+     */
     public int removeAll() {
         removeAll(root);
         return 1;
 
     }
 
+    /*
+        @desc: recursive function to remove all nodes from a location's tree
+     */
     protected F_node removeAll(F_node source) {
         if(root == null) return null;
         root = removeAll(root.getRight());
@@ -105,10 +133,11 @@ public abstract class Location {
         return root;
     }
 
+    /*
+        @desc: compares its name with a given string
+     */
     public boolean compareNames(String source) {
         if(name.equals(source)) return true;
         return false;
     }
-
-
 }

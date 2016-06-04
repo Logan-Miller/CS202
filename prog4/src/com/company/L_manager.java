@@ -1,19 +1,35 @@
+/*
+    Logan Miller
+    CS202
+    Program: 4/5
+ */
+
 package com.company;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+
+/*
+    Class manages a bst of locations
+ */
 public class L_manager {
     protected L_node root;
     protected int numLocations;
     protected static Scanner inFile;
 
+    /*
+        @desc: base constructor
+     */
     public L_manager() {
         root = null;
         numLocations = 0;
     }
 
+    /*
+        @desc: inserts a Location into the tree
+     */
     public int insertLocation(Location source) {
         if(source == null) return 0;
 
@@ -23,10 +39,11 @@ public class L_manager {
         return 1;
     }
 
+    /*
+        @desc: inserts an L_node into the tree
+     */
     protected L_node insert(L_node root, L_node source) {
         if(root == null) {
-            //root = new L_node();
-            //root = source;
             return source;
         }
 
@@ -41,6 +58,9 @@ public class L_manager {
         return root;
     }
 
+    /*
+        @desc: display's the root of the tree
+     */
     public void display() {
         display(root);
     }
@@ -53,6 +73,10 @@ public class L_manager {
         display(root.left);
     }
 
+    /*
+        @desc: using an external data file, line by line, loads data from a file. Uses another function to create
+        new Locations to be inserted into the tree.
+     */
     public int load() {
 
         try {
@@ -82,12 +106,18 @@ public class L_manager {
         return 1;
     }
 
+    /*
+        @desc: removes all locations from the tree using a recursive function
+     */
     public int removeAll() {
         root = removeAll(root);
         numLocations = 0;
         return 1;
     }
 
+    /*
+        @desc: removes all locations from the tree
+     */
     protected L_node removeAll(L_node root) {
         if(root == null) return null;
         root = removeAll(root.getRight());
@@ -96,10 +126,16 @@ public class L_manager {
         return null;
     }
 
+    /*
+         @desc: wrapper function to retrieve a location from the tree of locations
+     */
     public L_node retrieve(String source) {
         return retrieve(source, root);
     }
 
+    /*
+        @desc: recursive function to retrieve an L_node from the tree
+     */
     protected L_node retrieve(String source, L_node root) {
         L_node temp = null;
         if(root == null) return null;
@@ -115,11 +151,17 @@ public class L_manager {
         return temp;
     }
 
+    /*
+        @desc: wrapper function to remove a location from the tree given a string to search by
+     */
     public void removeLocation(String source) {
         remove_Location(source, root);
         return;
     }
 
+    /*
+        @desc: recursive function to remove an L_node from the tree
+     */
     protected void remove_Location(String source, L_node root) {
         if(root == null) return;
         if(root.compareNames(source)) {
@@ -143,10 +185,16 @@ public class L_manager {
         return;
     }
 
+    /*
+        @desc: wrapper function to find the healthiest location in the tree
+     */
     public void findHealthiest() {
         findHealthiest(root);
     }
 
+    /*
+        @desc: recursive function to find the healthiest location in the tree
+     */
     protected void findHealthiest(L_node root) {
         if(root == null) return;
         if(!root.ifRight()) root.display();

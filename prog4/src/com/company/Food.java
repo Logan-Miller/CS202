@@ -1,6 +1,17 @@
+/*
+    Logan Miller
+    CS202
+    Program: 4/5
+ */
+
 package com.company;
 
 import java.util.Scanner;
+
+/*
+          @desc: Class food is an object that handles a name and weight
+*/
+
 
 public class Food {
 
@@ -9,7 +20,7 @@ public class Food {
     protected static Scanner input=null;
 
     /*
-          @desc:
+          @desc: Constructor with no arguments
     */
     public Food(){
         name = new String();
@@ -18,7 +29,7 @@ public class Food {
     }
 
     /*
-          @desc:
+          @desc: Constructor given a string for the name and an int for the weight
     */
     public Food(String s1, int s2){
         name = new String(s1);
@@ -27,7 +38,7 @@ public class Food {
     }
 
     /*
-          @desc:
+          @desc: Copy constructor given another food object
     */
     public Food(Food source){
         name = new String(source.name);
@@ -36,7 +47,7 @@ public class Food {
     }
 
     /*
-          @desc:
+          @desc: function to set the name
     */
     public int setName(String source){
 
@@ -45,7 +56,7 @@ public class Food {
     }
 
     /*
-          @desc:
+          @desc: function to set the weight
     */
     public int setWeight(int source){
         weight = source;
@@ -53,21 +64,21 @@ public class Food {
     }
 
     /*
-          @desc:
+          @desc: display function to display the name
     */
     public void displayFood(){
         System.out.println("Food Item: " + name);
     }
 
     /*
-          @desc:
+          @desc: function to get the objects weight
     */
     public int getHealth() {
         return weight;
     }
 
     /*
-          @desc:
+          @desc: function to compare a given food object with this object by weight
     */
     public boolean compareHealth(Food source) {
         if(weight >= source.weight) return true;
